@@ -1,0 +1,70 @@
+heat_template_version: "2018-08-31"
+description: "version 2017-09-01 created by HOT Generator at Mon, 25 Nov 2019 18:49:45 GMT."
+
+parameters:
+  key_name:
+    type: string
+    label: Key Name
+    description: Name of key-pair to be used for compute instances
+    default: "Trevor Surface id_rsa"
+
+  network_name:
+    type: string
+    label: Network Name
+    description: Network Name
+    default: "nsg-devs_network"
+
+resources:
+
+  server_1:
+    type: "OS::Nova::Server"
+    properties:
+      networks: [{"port": { get_resource: port_1}, "floating_ip": { get_resource: floating_ip_1 } }]
+      flavor: "m1.medium"
+      block_device_mapping: [{"snapshot_id": "ec58d12c-be0c-406e-a3d1-a9b7d483cb85", "device_name": "vda"}]
+      name: "mpi-1"
+      key_name: { get_param: key_name }
+
+
+  server_2:
+    type: "OS::Nova::Server"
+    properties:
+      networks: [{"port": { get_resource: port_2}, "floating_ip": { get_resource: floating_ip_2 } }]
+      flavor: "m1.medium"
+      block_device_mapping: [{"snapshot_id": "ec58d12c-be0c-406e-a3d1-a9b7d483cb85", "device_name": "vda"}]
+      name: "mpi-2"
+      key_name: { get_param: key_name }
+
+  security_group_ssh:
+    type: "OS::Neutron::SecurityGroup"
+    properties:
+      rules:
+        - direction: ingress
+          ethertype: IPv4
+          protocol: tcp
+          port_range_min: 22
+          port_range_max: 22
+
+  floating_ip_1:
+    type: "OS::Neutron::FloatingIP"
+    properties:
+      floating_network: "96d88aaf-1ef4-4d34-8aeb-3687c4f9dcc3"
+
+  floating_ip_2:
+    type: "OS::Neutron::FloatingIP"
+    properties:
+      floating_network: "96d88aaf-1ef4-4d34-8aeb-3687c4f9dcc3"
+
+  port_1:
+    type: "OS::Neutron::Port"
+    properties:
+      admin_state_up: true
+      network: { get_param: network_name }
+      security_groups: [{ get_resource: security_group_ssh }]
+
+  port_2:
+    type: "OS::Neutron::Port"
+    properties:
+      admin_state_up: true
+      network: { get_param: network_name }
+      security_groups: [{ get_resource: security_group_ssh }]
