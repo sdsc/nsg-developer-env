@@ -24,7 +24,18 @@ resources:
       block_device_mapping: [{"snapshot_id": "ec58d12c-be0c-406e-a3d1-a9b7d483cb85", "device_name": "vda"}]
       name: "mpi-1"
       key_name: { get_param: key_name }
-
+      user_data_format: RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/bash
+            echo "$PRIVATE_KEY" > /home/ubuntu/.ssh/id_rsa
+            echo "$PUBLIC_KEY" >> /home/ubuntu/.ssh/authorized_keys
+            chown ubuntu:ubuntu /home/ubuntu/.ssh/id_rsa
+            chmod 600 /home/ubuntu/.ssh/id_rsa
+          params:
+            $PRIVATE_KEY: { get_attr: [key_pair, private_key] }
+            $PUBLIC_KEY: { get_attr: [key_pair, public_key] }
 
   server_2:
     type: "OS::Nova::Server"
@@ -34,6 +45,18 @@ resources:
       block_device_mapping: [{"snapshot_id": "ec58d12c-be0c-406e-a3d1-a9b7d483cb85", "device_name": "vda"}]
       name: "mpi-2"
       key_name: { get_param: key_name }
+      user_data_format: RAW
+      user_data:
+        str_replace:
+          template: |
+            #!/bin/bash
+            echo "$PRIVATE_KEY" > /home/ubuntu/.ssh/id_rsa
+            echo "$PUBLIC_KEY" >> /home/ubuntu/.ssh/authorized_keys
+            chown ubuntu:ubuntu /home/ubuntu/.ssh/id_rsa
+            chmod 600 /home/ubuntu/.ssh/id_rsa
+          params:
+            $PRIVATE_KEY: { get_attr: [key_pair, private_key] }
+            $PUBLIC_KEY: { get_attr: [key_pair, public_key] }
 
   security_group_ssh:
     type: "OS::Neutron::SecurityGroup"
@@ -44,6 +67,9 @@ resources:
           protocol: tcp
           port_range_min: 22
           port_range_max: 22
+        - direction: ingress
+          ethertype: IPv4
+          protocol: icmp
 
   floating_ip_1:
     type: "OS::Neutron::FloatingIP"
@@ -68,3 +94,15 @@ resources:
       admin_state_up: true
       network: { get_param: network_name }
       security_groups: [{ get_resource: security_group_ssh }]
+
+  key_pair:
+    type: "OS::Nova::KeyPair"
+    properties:
+      name: "mpi-shared-key"
+      save_private_key: true
+
+
+outputs:
+  KeyPair_1_private_key:
+    description: "The private_key of KeyPair_1."
+    value: "{ get_attr: [key_pair, private_key] }"
