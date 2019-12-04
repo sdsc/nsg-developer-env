@@ -8,20 +8,36 @@ parameters:
     description: Name of key-pair to be used for compute instances
     default: "Trevor Surface id_rsa"
 
+  bootable_snapshot_id:
+    type: string
+    label: Snapshot ID
+    description: ID of the snapshot used to boot instances
+    default: "ec58d12c-be0c-406e-a3d1-a9b7d483cb85"
+
   network_name:
     type: string
     label: Network Name
-    description: Network Name
+    description: Name of network to be used for compute instances
     default: "nsg-devs_network"
 
 resources:
+
+  # Variables that the user shuold not be able to change
+  floating_network:
+    type: OS::Heat::Value
+    properties:
+      type: string
+      value: 96d88aaf-1ef4-4d34-8aeb-3687c4f9dcc3
+
+
+  # Resource that are created by this template
 
   server_1:
     type: "OS::Nova::Server"
     properties:
       networks: [{"port": { get_resource: port_1}, "floating_ip": { get_resource: floating_ip_1 } }]
       flavor: "m1.medium"
-      block_device_mapping: [{"snapshot_id": "ec58d12c-be0c-406e-a3d1-a9b7d483cb85", "device_name": "vda"}]
+      block_device_mapping: [{"snapshot_id": { get_param: bootable_snapshot_id }, "device_name": "vda"}]
       name: "mpi-1"
       key_name: { get_param: key_name }
       user_data_format: RAW
@@ -42,7 +58,7 @@ resources:
     properties:
       networks: [{"port": { get_resource: port_2}, "floating_ip": { get_resource: floating_ip_2 } }]
       flavor: "m1.medium"
-      block_device_mapping: [{"snapshot_id": "ec58d12c-be0c-406e-a3d1-a9b7d483cb85", "device_name": "vda"}]
+      block_device_mapping: [{"snapshot_id": { get_param: bootable_snapshot_id }, "device_name": "vda"}]
       name: "mpi-2"
       key_name: { get_param: key_name }
       user_data_format: RAW
@@ -74,12 +90,12 @@ resources:
   floating_ip_1:
     type: "OS::Neutron::FloatingIP"
     properties:
-      floating_network: "96d88aaf-1ef4-4d34-8aeb-3687c4f9dcc3"
+      floating_network: { get_attr: [floating_network, value] }
 
   floating_ip_2:
     type: "OS::Neutron::FloatingIP"
     properties:
-      floating_network: "96d88aaf-1ef4-4d34-8aeb-3687c4f9dcc3"
+      floating_network: { get_attr: [floating_network, value] }
 
   port_1:
     type: "OS::Neutron::Port"
