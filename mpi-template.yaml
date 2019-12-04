@@ -12,7 +12,7 @@ parameters:
     type: string
     label: Snapshot ID
     description: ID of the snapshot used to boot instances
-    default: "ec58d12c-be0c-406e-a3d1-a9b7d483cb85"
+    default: "2adf4530-30ea-41c3-be96-1730b79d4a85"
 
   network_name:
     type: string
@@ -37,7 +37,7 @@ resources:
     properties:
       networks: [{"port": { get_resource: port_1}, "floating_ip": { get_resource: floating_ip_1 } }]
       flavor: "m1.medium"
-      block_device_mapping: [{"snapshot_id": { get_param: bootable_snapshot_id }, "device_name": "vda"}]
+      block_device_mapping: [{"volume_id": { get_resource: volume_1 }, "device_name": "vda"}]
       name: "mpi-1"
       key_name: { get_param: key_name }
       user_data_format: RAW
@@ -52,13 +52,14 @@ resources:
           params:
             $PRIVATE_KEY: { get_attr: [key_pair, private_key] }
             $PUBLIC_KEY: { get_attr: [key_pair, public_key] }
+    depends_on: [volume_1]
 
   server_2:
     type: "OS::Nova::Server"
     properties:
       networks: [{"port": { get_resource: port_2}, "floating_ip": { get_resource: floating_ip_2 } }]
       flavor: "m1.medium"
-      block_device_mapping: [{"snapshot_id": { get_param: bootable_snapshot_id }, "device_name": "vda"}]
+      block_device_mapping: [{"volume_id": { get_resource: volume_2 }, "device_name": "vda"}]
       name: "mpi-2"
       key_name: { get_param: key_name }
       user_data_format: RAW
@@ -73,19 +74,17 @@ resources:
           params:
             $PRIVATE_KEY: { get_attr: [key_pair, private_key] }
             $PUBLIC_KEY: { get_attr: [key_pair, public_key] }
+    depends_on: [volume_2]
 
-  security_group_ssh:
-    type: "OS::Neutron::SecurityGroup"
+  volume_1:
+    type: "OS::Cinder::Volume"
     properties:
-      rules:
-        - direction: ingress
-          ethertype: IPv4
-          protocol: tcp
-          port_range_min: 22
-          port_range_max: 22
-        - direction: ingress
-          ethertype: IPv4
-          protocol: icmp
+      snapshot_id: { get_param: bootable_snapshot_id }
+
+  volume_2:
+    type: "OS::Cinder::Volume"
+    properties:
+      snapshot_id: { get_param: bootable_snapshot_id }
 
   floating_ip_1:
     type: "OS::Neutron::FloatingIP"
@@ -117,6 +116,18 @@ resources:
       name: "mpi-shared-key"
       save_private_key: true
 
+  security_group_ssh:
+    type: "OS::Neutron::SecurityGroup"
+    properties:
+      rules:
+        - direction: ingress
+          ethertype: IPv4
+          protocol: tcp
+          port_range_min: 22
+          port_range_max: 22
+        - direction: ingress
+          ethertype: IPv4
+          protocol: icmp
 
 outputs:
   KeyPair_1_private_key:
