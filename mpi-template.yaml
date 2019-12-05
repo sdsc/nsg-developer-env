@@ -29,7 +29,6 @@ resources:
       type: string
       value: 96d88aaf-1ef4-4d34-8aeb-3687c4f9dcc3
 
-
   # Resource that are created by this template
 
   server_1:
@@ -49,6 +48,7 @@ resources:
             echo "$PUBLIC_KEY" >> /home/ubuntu/.ssh/authorized_keys
             chown ubuntu:ubuntu /home/ubuntu/.ssh/id_rsa
             chmod 600 /home/ubuntu/.ssh/id_rsa
+            printf "\nHost mpi-*\n\tStrictHostKeyChecking no\n" >> /etc/ssh/ssh_config
           params:
             $PRIVATE_KEY: { get_attr: [key_pair, private_key] }
             $PUBLIC_KEY: { get_attr: [key_pair, public_key] }
@@ -71,6 +71,8 @@ resources:
             echo "$PUBLIC_KEY" >> /home/ubuntu/.ssh/authorized_keys
             chown ubuntu:ubuntu /home/ubuntu/.ssh/id_rsa
             chmod 600 /home/ubuntu/.ssh/id_rsa
+            ssh-keyscan mpi-1 >> ~/.ssh/known_hosts
+            printf "\nHost mpi-*\n\tStrictHostKeyChecking no\n" >> /etc/ssh/ssh_config
           params:
             $PRIVATE_KEY: { get_attr: [key_pair, private_key] }
             $PUBLIC_KEY: { get_attr: [key_pair, public_key] }
@@ -125,6 +127,14 @@ resources:
           protocol: tcp
           port_range_min: 22
           port_range_max: 22
+        - direction: ingress
+          ethertype: IPv4
+          protocol: tcp
+          remote_ip_prefix: 10.0.0.0/8
+        - direction: ingress
+          ethertype: IPv4
+          protocol: udp
+          remote_ip_prefix: 10.0.0.0/8
         - direction: ingress
           ethertype: IPv4
           protocol: icmp
