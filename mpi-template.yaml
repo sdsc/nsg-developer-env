@@ -29,6 +29,18 @@ resources:
       type: string
       value: 96d88aaf-1ef4-4d34-8aeb-3687c4f9dcc3
 
+  network_subnet:
+    type: OS::Heat::Value
+    properties:
+      type: string
+      value: 10.0.0.0/8
+
+  nfs_path:
+    type: OS::Heat::Value
+    properties:
+      type: string
+      value: /projects/data
+
   # Resource that are created by this template
 
   server_1:
@@ -49,9 +61,19 @@ resources:
             chown ubuntu:ubuntu /home/ubuntu/.ssh/id_rsa
             chmod 600 /home/ubuntu/.ssh/id_rsa
             printf "\nHost mpi-*\n\tStrictHostKeyChecking no\n" >> /etc/ssh/ssh_config
+
+            # Install nfs server
+            apt install -y nfs-kernel-server
+            mkdir -p $NFS_PATH
+            chown nobody:nogroup $NFS_PATH
+            chmod 777 $NFS_PATH
+            echo "$NFS_PATH $SUBNET(rw,sync,no_subtree_check)" >> /etc/exports
+            exportfs -a
           params:
             $PRIVATE_KEY: { get_attr: [key_pair, private_key] }
             $PUBLIC_KEY: { get_attr: [key_pair, public_key] }
+            $SUBNET: { get_attr: [network_subnet, value] }
+            $NFS_PATH: { get_attr: [nfs_path, value] }
     depends_on: [volume_1]
 
   server_2:
@@ -73,10 +95,17 @@ resources:
             chmod 600 /home/ubuntu/.ssh/id_rsa
             ssh-keyscan mpi-1 >> ~/.ssh/known_hosts
             printf "\nHost mpi-*\n\tStrictHostKeyChecking no\n" >> /etc/ssh/ssh_config
+
+            # Install nfs client
+            apt-get install -y nfs-common
+            mkdir -p $NFS_PATH
+            chown ubuntu:ubuntu $NFS_PATH
+            mount mpi-1:$NFS_PATH $NFS_PATH
           params:
             $PRIVATE_KEY: { get_attr: [key_pair, private_key] }
             $PUBLIC_KEY: { get_attr: [key_pair, public_key] }
-    depends_on: [volume_2]
+            $NFS_PATH: { get_attr: [nfs_path, value] }
+    depends_on: [volume_2, server_1]
 
   volume_1:
     type: "OS::Cinder::Volume"
@@ -130,11 +159,11 @@ resources:
         - direction: ingress
           ethertype: IPv4
           protocol: tcp
-          remote_ip_prefix: 10.0.0.0/8
+          remote_ip_prefix: { get_attr: [network_subnet, value] }
         - direction: ingress
           ethertype: IPv4
           protocol: udp
-          remote_ip_prefix: 10.0.0.0/8
+          remote_ip_prefix: { get_attr: [network_subnet, value] }
         - direction: ingress
           ethertype: IPv4
           protocol: icmp
