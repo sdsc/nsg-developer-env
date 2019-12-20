@@ -1,0 +1,58 @@
+---
+# tasks file for install-singularity
+
+- name: Install dependencies
+  apt:
+    name: 
+      - build-essential
+      - libssl-dev
+      - uuid-dev
+      - libgpgme11-dev
+      - squashfs-tools
+      - libseccomp-dev
+      - wget
+      - pkg-config
+      - git
+      - cryptsetup
+    state: present
+    update_cache: true
+
+- name: Add repo
+  apt_repository:
+    repo: ppa:longsleep/golang-backports
+
+- name: Install golang
+  apt:
+    name: 
+      - golang-go
+    state: present
+    update_cache: true
+
+
+- name: Download/Unarchive tar file
+  unarchive:
+    src: https://github.com/sylabs/singularity/releases/download/v3.5.0/singularity-3.5.0.tar.gz
+    dest: /tmp
+    remote_src: yes
+
+- name: Configure
+  command: ./mconfig
+  args:
+    chdir: /tmp/singularity
+
+- name: Make
+  make:
+    chdir: /tmp/singularity/builddir
+
+- name: Make install
+  make:
+    chdir: /tmp/singularity/builddir
+    target: install
+
+- name: Link
+  command: ldconfig
+
+- name: Cleanup
+  file:
+    path: /tmp/singularity
+    state: absent

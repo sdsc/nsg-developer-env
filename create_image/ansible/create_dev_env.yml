@@ -1,0 +1,39 @@
+---
+- name: Dev Config
+  hosts: all
+  become: true
+  tasks:
+
+    ### Install Open MPI ###
+    - name: Check whether MPI is installed
+      stat:
+        path: /usr/local/bin/mpirun
+      register: stat_openmpi
+
+    - name: "Include install-openmpi"
+      include_role:
+        name: install-openmpi
+      when: not stat_openmpi.stat.exists
+
+    ### Install Neuron ###
+    - name: Check whether Neuron is installed
+      stat:
+        path: /usr/local/bin/nrniv
+      register: stat_neuron
+
+    - name: "Include install-neuron"
+      include_role:
+        name: install-neuron
+      when: not stat_neuron.stat.exists
+
+
+    ### Install Singularity ###
+    - name: Check whether Singularity is installed
+      stat:
+        path: /usr/local/bin/singularity
+      register: stat_singularity
+
+    - name: "Include install-singulairty"
+      include_role:
+        name: install-singularity
+      when: not stat_singularity.stat.exists

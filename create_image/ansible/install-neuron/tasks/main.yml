@@ -1,0 +1,16 @@
+---
+# tasks file for install-neuron
+- name: Install Neuron dependencies
+  apt:
+    name: 
+      - build-essential
+      - libx11-dev
+      - libreadline-dev
+      - libncurses5-dev
+      - libncursesw5-dev
+    state: present
+    update_cache: true
+
+- name: Install a .deb package from the internet.
+  apt:
+    deb: https://neuron.yale.edu/ftp/neuron/versions/v7.7/nrn-7.7.x86_64-linux.deb
