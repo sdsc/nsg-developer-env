@@ -5,14 +5,20 @@
   apt:
     name: 
       - build-essential
+      - automake
       - libssl-dev
       - uuid-dev
+      - libtool
+      - m4
       - libgpgme11-dev
       - squashfs-tools
       - libseccomp-dev
+      - libarchive-dev
       - wget
+      - debootstrap
       - pkg-config
       - git
+      - python
       - cryptsetup
     state: present
     update_cache: true
@@ -28,25 +34,38 @@
     state: present
     update_cache: true
 
+- name: Download files
+  command: git clone https://github.com/sylabs/singularity.git
+  args:
+    chdir: /tmp
 
-- name: Download/Unarchive tar file
-  unarchive:
-    src: https://github.com/sylabs/singularity/releases/download/v3.5.0/singularity-3.5.0.tar.gz
-    dest: /tmp
-    remote_src: yes
+- name: Fetch
+  command: git fetch --all
+  args:
+    chdir: /tmp/singularity
+
+- name: Checkout
+  command: git checkout 2.6.1
+  args:
+    chdir: /tmp/singularity
 
 - name: Configure
-  command: ./mconfig
+  command: ./autogen.sh
+  args:
+    chdir: /tmp/singularity
+
+- name: Configure
+  command: ./configure --prefix=/usr/local
   args:
     chdir: /tmp/singularity
 
 - name: Make
   make:
-    chdir: /tmp/singularity/builddir
+    chdir: /tmp/singularity/
 
 - name: Make install
   make:
-    chdir: /tmp/singularity/builddir
+    chdir: /tmp/singularity/
     target: install
 
 - name: Link
