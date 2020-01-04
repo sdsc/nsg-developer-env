@@ -1,0 +1,267 @@
+//moddir mod_files
+load_file("nrngui.hoc")
+
+print "This copy of Batch.hoc allows the model to be auto-launched"
+print "from ModelDB.  This version however stops after one time step"
+print "and allows the exploration of the model through the NEURON"
+print "gui interface.  For example see Tools -> Model View, or use"
+print "Tools -> RunControl to further run the model."
+
+begintime = startsw()
+// 2D init file
+X_DIM = 10 // number of Pyramidal cells along the X dimension 
+Y_DIM = 10 // number of Pyramidal cells along the Y dimension
+
+N_TYPE = 4 // number of cell types
+{load_file("parlib.hoc")} // create pc and all the parallel specific functions, etc.
+declare_gids()
+stim_delay_offset = 1
+
+Tfactor=0.0002
+Ttau=0.0
+Hfactor=0.000001
+Htau=0.003
+
+FSx=4 // Coordinates for *all* feeds 
+FSy=4
+
+{load_file("sj10-cortex.hoc")}
+{load_file("wiring_proc_2Dv2.hoc")}
+
+/*
+load_file("noise2D_V2.hoc") 
+UnoiseV(-0.3,0.3)
+UnoiseII(-0.3,0.3)
+UnoiseIPL5(-0.3,0.3)
+UnoiseIPL2(-0.3,0.3)
+*/
+
+// Intra-cortical wiring
+{load_file("wiring-SmlFeed-3_7.hoc")}
+//----------------------------------------
+// Mu timing
+{load_file("MuBurst_10.hoc")}
+//----------------------------------------
+// Mu weights
+{load_file("E-FFFBx_fixed_10.hoc")}
+//----------------------------------------
+// Evoked signal below
+
+
+
+// Redefinition of init()
+// Read files containing segment rest voltages and state variables
+// at steady-state. **PL2 not comprhensive**
+objref f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16
+objref PL5rest,PL2rest,MAR,HCAT,MCAT,HCA,MCA,PL5CAI
+objref HHH,MHH,NHH,NKCA,NKM,PL5_DPL,PL2_DPL,PL5_Q
+{
+f1 = new File()
+{f1.ropen("./STATES/PL5_Rest.dat")}
+PL5rest = new Vector()
+NumF1=PL5rest.scanf(f1,1,1)
+f1.close()
+f2 = new File()
+{f2.ropen("./STATES/PL2_Rest.dat")}
+PL2rest = new Vector()
+NumF2=PL2rest.scanf(f2,1,1)
+f2.close()
+f3 = new File()
+{f3.ropen("./STATES/M_AR.dat")}
+MAR = new Vector()
+NumF3=MAR.scanf(f3,1,1)
+f3.close()
+f4 = new File()
+{f4.ropen("./STATES/H_CAT.dat")}
+HCAT = new Vector()
+NumF4=HCAT.scanf(f4,1,1)
+f4.close()
+f5 = new File()
+{f5.ropen("./STATES/M_CAT.dat")}
+MCAT = new Vector()
+NumF5=MCAT.scanf(f5,1,1)
+f5.close()
+f6 = new File()
+{f6.ropen("./STATES/H_CA.dat")}
+HCA = new Vector()
+NumF6=HCA.scanf(f6,1,1)
+f6.close()
+f7 = new File()
+{f7.ropen("./STATES/M_CA.dat")}
+MCA = new Vector()
+NumF7=MCA.scanf(f7,1,1)
+f7.close()
+f8 = new File()
+{f8.ropen("./STATES/H_HH.dat")}
+HHH = new Vector()
+NumF8=HHH.scanf(f8,1,1)
+f8.close()
+f9 = new File()
+{f9.ropen("./STATES/M_HH.dat")}
+MHH = new Vector()
+NumF9=MHH.scanf(f9,1,1)
+f9.close()
+f10 = new File()
+{f10.ropen("./STATES/N_HH.dat")}
+NHH = new Vector()
+NumF10=NHH.scanf(f10,1,1)
+f10.close()
+f11 = new File()
+{f11.ropen("./STATES/N_KCA.dat")}
+NKCA = new Vector()
+NumF11=NKCA.scanf(f11,1,1)
+f11.close()
+f12 = new File()
+{f12.ropen("./STATES/N_KM.dat")}
+NKM = new Vector()
+NumF12=NKM.scanf(f12,1,1)
+f12.close()
+f13 = new File()
+{f13.ropen("./STATES/PL5_Dipole.dat")}
+PL5_DPL = new Vector()
+NumF13=PL5_DPL.scanf(f13,1,1)
+f13.close()
+f14 = new File()
+{f14.ropen("./STATES/PL5_CAI.dat")}
+PL5CAI = new Vector()
+NumF14=PL5CAI.scanf(f14,1,1)
+f14.close()
+f15 = new File()
+{f15.ropen("./STATES/PL2_Dipole.dat")}
+PL2_DPL = new Vector()
+NumF15=PL2_DPL.scanf(f15,1,1)
+f15.close()
+//
+f16 = new File()
+{f16.ropen("./STATES/PL5_Q.dat")}
+PL5_Q = new Vector()
+NumF16=PL5_Q.scanf(f16,1,1)
+f16.close()
+}
+// Redefine init() to use those voltages & state variables
+
+proc init(){ local i,j,Vnum,v2num,DPnum
+finitialize(-64.9737) // initialize all cells to Inhibitory rest potential
+//
+
+// Initialize Layer V Pyramidal voltage and states
+for i=0,XD{
+for j=0,YD{
+ v2num=0 Vnum=0 
+	 if (cell_exist(PL5_type, i, j)) {
+ PL5[i][j].soma {v=-70.197014 m_ar=0.29453859 h_cat=0.079413855 m_cat=0.091981604\
+    h_hh=0.75925494 m_hh=0.028240063 n_hh=0.24191157 n_km=0.011362846 h_ca=0.63961253\
+    m_ca=3.8876755e-05 n_kca=4.9998916e-05 cai=0.00010000285}
+ PL5[i][j].soma distance()
+ forsec PL5[i][j].dendritic for(x,0){v=PL5rest.x(Vnum) m_ar=MAR.x(Vnum)\
+  h_cat=HCAT.x(Vnum) m_cat=MCAT.x(Vnum) h_ca=HCA.x(Vnum) m_ca=MCA.x(Vnum)\
+  h_hh=HHH.x(Vnum) m_hh=MHH.x(Vnum) n_hh=NHH.x(Vnum) n_kca=NKCA.x(Vnum)\
+  n_km=NKM.x(Vnum) Qsum_dipole=PL5_DPL.x(Vnum) Q_dipole=PL5_Q.x(Vnum) cai=PL5CAI.x(Vnum)
+  Vnum=Vnum+1}
+//
+// dend[5] not properly set by above ???
+  PL5[i][j].dend[5].v = -70.22481
+	}
+//
+// Initialize Layer II Pyramidal 
+	if (cell_exist(PL2_type, i, j)) {
+ PL2[i][j].soma {v=-71.462514 n_km=0.0098896622}
+   PL2[i][j].soma distance()
+   forsec PL2[i][j].dendritic for(x,0){v=PL2rest.x(v2num) Qsum_dipole=PL2_DPL.x(v2num)
+    v2num=v2num+1}
+	}
+} }
+// if (cvode.active()) {cvode.re_init() }else {fcurrent()}
+fcurrent()
+frecord_init()
+}
+/////////////////////////////////////////////////////////////
+// Define the evoked signal with initial start times
+FFgid = 1+gidAlphaend
+FBgid = 2+gidAlphaend
+FF2gid = 3+gidAlphaend
+objref  FF, FB, FF2
+if (pc.id == 0) {
+FF = new FeedX() // Thalamic input (Feed-forward) 
+FF.pp.number=1
+FF.pp.start=454 - stim_delay_offset
+FB = new FeedX() // Feed-Back (eg. Pre-frontal input) 
+FB.pp.number=1
+FB.pp.start=499 - stim_delay_offset
+FF2 = new FeedX() // Thalamic input (Feed-forward) 
+FF2.pp.number=1
+FF2.pp.start=564 - stim_delay_offset
+pc.set_gid2node(FFgid, pc.id)
+pc.set_gid2node(FBgid, pc.id)
+pc.set_gid2node(FF2gid, pc.id)
+pc.cell(FFgid, new NetCon(FF.pp, nil))
+pc.cell(FBgid, new NetCon(FB.pp, nil))
+pc.cell(FF2gid, new NetCon(FF2.pp, nil))
+}
+// and connect it
+{load_file("scale_ep_thresh.hoc")}
+///////////////////////////////////////////////////////////////
+//Total time for one run
+tstop=0.05 // 1500
+// time increment
+dt=0.05
+// Number of runs
+NRUN = 1 // orig 26
+proc runonce(){local runtime
+//
+	runtime = startsw()
+	if (0) {
+init()
+while (t<tstop){
+          fadvance()
+
+// below put a '%f' for every data type defined
+          fprint( "%f %f  \n", \
+ t, \
+ L2_dipole() + L5_dipole() ) // end print statement
+}
+	}else{
+		psolve(tstop)
+		// end of run print the total dipole
+		calc_total_dipole()
+		if (pc.id == 0) {
+			print_total_dipole()
+		}
+	}
+	if (pc.id == 0) printf("runtime = %g\n", startsw() - runtime)
+} //end runonce()
+
+make_MuBursts(400)
+e_fffbx(0.00004,0.00004,5,1)
+
+proc runit(){ local i
+if (pc.id == 0) wopen("Mu_output.dat")
+for i=0, NRUN-1{ runonce() //increments the evoked response starttime each run
+if (pc.id == 0) {
+FF.pp.start = FF.pp.start + 3.85
+FB.pp.start = FB.pp.start + 3.85
+FF2.pp.start = FF2.pp.start + 3.85
+}
+if (pc.id == 0) print(i)}
+if (pc.id == 0) wopen()
+}
+
+setuptime = startsw() - begintime
+if (pc.id == 0) printf("setuptime =  %g\n", setuptime)
+//
+
+want_all_spikes()
+
+runit()
+
+spikeout()
+
+finishtime = startsw() - begintime
+if (pc.id == 0) printf("finishtime = %g\n", finishtime)
+
+if (pc.nhost > 1) {
+	pc.runworker()
+	pc.done()
+	quit()
+}
+

@@ -1,0 +1,75 @@
+begintemplate DipoleForCell
+public bd, seclist, rotmat 
+external total_process_dipole
+//external fill_ztan
+objref bd,  seclist, point, rotmat //rotmat is incase I want a rotation matx
+
+proc init() {
+	//rotmat = new Matrix(3,3)
+	//rotmat.ident
+	point = new Vector(3)
+	seclist = new SectionList()
+	seclist.wholetree
+	bd=new List()
+	forsec seclist {
+		insert dipole
+		bd.append(new Dipole(1))
+	}
+	setup_dipole() // must be called whenever nseg changes
+	fill_ztan() //must also be called whenever nseg changes?
+}
+
+
+proc setup_dipole() { local i, j, x, xold  localobj d
+	j=0
+	forsec seclist {
+		d= bd.object(j) //branch point (1) dipoles via point processes 
+		j += 1
+		d.ri=ri(1)
+		setpointer d.pv,v(0.999)	
+		setpointer d.Qtotal, total_process_dipole
+		i += 1
+		//ri_dipole below is non branch point 
+		//dipoles via density mechanisms
+		xold=0
+		for(x, 0) {// runs over non branch point dipoles via suffix
+			ri_dipole(x)=ri(x) // ri avail for use: diameters taken 
+			setpointer pv_dipole(x),v(xold) //points pv to parent 
+			setpointer Qsum_dipole(x), d.Qsum
+			setpointer Qtotal_dipole(x), total_process_dipole
+			xold=x
+		}
+	}
+}
+
+proc fill_ztan() {local i, j, x  localobj xvec, z3dvec, a3dvec, d  
+	j=0
+	forsec seclist {
+   		xvec = new Vector(nseg+2)  // a vec of L*x values for a single section
+  		z3dvec = new Vector(n3d()) // the 3-d z points for a single section
+  		a3dvec = new Vector(n3d()) // the 3-d arc pos for a single section
+   		i = 0
+   		for(x) { 
+			xvec.x[i] = x*L   //Is L a global thingy??
+			i += 1 
+		}    		
+		for i=0, n3d()-1 { 
+			point.x[0] = x3d(i)
+			point.x[1] = y3d(i)
+			point.x[2] = z3d(i)
+			//rotmat.mulv(point, point)
+			z3dvec.x[i] = point.x[1]   //**THIS IS Y DIRECTION FOR NOW
+			a3dvec.x[i] = arc3d(i) 
+		}
+   		z3dvec.interpolate(xvec, a3dvec) // now it is z for the centers,0and1
+		z3dvec.deriv(1,1) // now it is dz with nseg-1 (nseg+2-1)?? elements
+  		i = 0
+   		for (x, 0) { ztan_dipole(x) = z3dvec.x[i]   i += 1 }
+		d= bd.object(j)
+		j += 1
+		d.ztan = z3dvec.x[i]
+	} //end forsec
+}
+
+
+endtemplate DipoleForCell

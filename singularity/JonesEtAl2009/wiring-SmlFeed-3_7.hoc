@@ -1,0 +1,45 @@
+//Feed to Excitatory FeedtoXX(seg,rtype,maxW,WSC,minD,DSC,fobj)
+//Feed to Inhibitory FeedtoXXX(rtype,maxW,WSC,minD,DSC,fobj)
+//ExctoExc XtoX(maxW,WSC,seg,rtype,minD,DSC)
+//ExctoInh XtoX(maxW,WSC,minD,DSC,rtype)
+//Feeds taken out
+
+IItoII(0.0005,3,1,0,1,3) 
+IItoII(0.0005,3,5,0,1,3)
+IItoII(0.0005,3,6,0,1,3)
+IItoII(0.0005,3,1,1,1,3)
+IItoII(0.0005,3,5,1,1,3)
+IItoII(0.0005,3,6,1,1,3)
+
+IItoV(0.00025,3,1,0,3,3) // WSC=3->1
+IItoV(0.00025,3,6,0,3,3)
+IItoV(0.00025,3,7,0,3,3)
+IItoV(0.00025,3,4,0,3,3) //from 0.00025
+
+IItoIL2(0.0005,3,1,3,0) // from .01 
+
+IItoIL5(0.00025,3,1,3,0) // from .00025
+
+//InhtoExh XtoX(seg,rtype,maxW,WSC,minD,DSC)
+//InhtoInh XtoX(maxW,WSC,minD,DSC,rtype)
+
+IL2toII(7,2,0.05,50,1,50) // from .05
+IL2toII(7,3,0.05,50,1,50) //   "
+
+IL2toV(4,2,0.001,50,1,50) //  from .001 
+
+IL2toIL2(0.02,20,1,20,2) // 
+
+VtoV(0.0005,3,6,0,1,3) //0.005
+VtoV(0.0005,3,7,0,1,3)  
+VtoV(0.0005,3,1,0,1,3)	
+VtoV(0.0005,3,6,1,1,3) 
+VtoV(0.0005,3,7,1,1,3) //0.0005
+VtoV(0.0005,3,1,1,1,3)
+
+VtoIL5(0.0005,3,1,3,0) // from .001
+
+IL5toV(8,2,0.025,70,1,70) //from 0.025
+IL5toV(8,3,0.025,70,1,70)
+
+IL5toIL5(0.02,20,1,20,2)

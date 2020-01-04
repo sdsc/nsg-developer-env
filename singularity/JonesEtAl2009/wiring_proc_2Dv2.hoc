@@ -1,0 +1,679 @@
+//////////////////////////////////////////
+// Feed forward connections
+//////////////////////////////////////////
+proc FeedtoV(){ local weight,delay, distX, distY, distance, preX, preY, postX, postY
+
+// Gaussian Feed Back/Forward to *all* Layer V Pyramidals
+// usage: FeedtoV( L.5 Pyram_compartment [0-8], 
+//        receptor type [ 2=GABAa, 3-GABAb ],
+//        max_weight, weight_space_constant [>1],
+//        min-delay [ms.] , delay-space-constant [>1],
+//        FeedX object(eg. FF) )
+//
+preX=FSx
+preY=FSy
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(PL5_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $3 * exp( -(distance^2) / ( $4^2) )
+    delay = $5 * 1 / (exp( -(distance^2) / ( $6^2) ) )
+
+//       rconnect($o7, PL5[postX][postY], $1, $2, weight, delay, 0) 
+       rconnect($7, PL5[postX][postY], $1, $2, weight, delay, 0) 
+} } }
+///////////////////////////////////////////////////////////
+proc FeedtoII(){ local weight,delay, distX, distY, distance, preX, preY, postX, postY
+
+preX=FSx
+preY=FSy
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(PL2_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $3 * exp( -(distance^2) / ( $4^2) )
+    delay = $5 * 1 / (exp( -(distance^2) / ( $6^2) ) )
+
+//       rconnect($o7, PL2[postX][postY], $1, $2, weight, delay, 0) 
+       rconnect($7, PL2[postX][postY], $1, $2, weight, delay, 0) 
+} } }
+
+//////////////////////////////////////////////////////////
+proc FeedtoIL5(){ local weight,delay, distX, distY, distance, preX, preY, postX, postY
+
+// Gaussian Feed Back/Forward to *all* Layer V Inhibitory cells
+// usage: FeedtoIL5(receptor type [ 2=GABAa, 3-GABAb ],
+//                max_weight, weight_space_constant [>1],
+//                min-delay [ms.] , delay-space-constant [>1],
+//                FeedX object(eg. FF) )
+//
+preX=FSx
+preY=FSy
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(IPL5_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $2 * exp( -(distance^2) / ( $3^2) )
+    delay = $4 * 1 / (exp( -(distance^2) / ( $5^2) ) )
+
+//if (object_id(IPL5[postX][postY])   ){
+//       rconnect($o6, IPL5[postX][postY], 0, $1, weight, delay, 0) }
+       rconnect($6, IPL5[postX][postY], 0, $1, weight, delay, 0)
+} } }
+///////////////
+proc FeedtoIL2(){ local weight,delay, distX, distY, distance, preX, preY, postX, postY
+
+// Gaussian Feed Back/Forward to *all* Layer II/III Inhibitory cells
+// usage: FeedtoIL2(receptor type [ 2=GABAa, 3-GABAb ],
+//                max_weight, weight_space_constant [>1],
+//                min-delay [ms.] , delay-space-constant [>1],
+//                FeedX object(eg. FF) )
+//
+preX=FSx
+preY=FSy
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(IPL2_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $2 * exp( -(distance^2) / ( $3^2) )
+    delay = $4 * 1 / (exp( -(distance^2) / ( $5^2) ) )
+
+
+//if (object_id(IPL2[postX][postY])   ){
+//       rconnect($o6, IPL2[postX][postY], 0, $1, weight, delay, 0) }
+       rconnect($6, IPL2[postX][postY], 0, $1, weight, delay, 0)
+} } }
+
+//////////////////////////////////////////
+// Pyramidal to Pyramidal Connections ------------------------------------------//////////////////////////////////////////
+proc VtoII(){ local weight, delay, distX, distY, distance, preX, preY, postX, postY
+// Connects Layer V to Layer II/III Pyramidals
+// Usage: VtoII( Max_Weight, Space constant, compartment [0-7] receptor type
+// [0=ampa, 1=nmda],
+// minimum_delay, delay_space_constant )
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(PL2_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $1 * exp( -(distance^2) / ( $2^2) )
+    delay = $5 * 1 / (exp( -(distance^2) / ( $6^2) ) )
+
+//      rconnect(PL5[preX][preY], PL2[postX][postY], $3, $4, weight, delay, 0)
+      rconnect(type2gid(PL5_type, preX, preY), PL2[postX][postY], $3, $4, weight, delay, 0)
+} } } } }
+
+proc VtoV(){ local weight, delay, distX, distY, distance, preX, preY, postX, postY
+// Connects Layer V to Layer V Pyramidals
+// Usage: VtoII( Max_Weight, Space constant, compartment [0-7] receptor type
+// [0=ampa, 1=nmda],
+// minimum_delay, delay_space_constant )
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(PL5_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $1 * exp( -(distance^2) / ( $2^2) )
+    delay = $5 * 1 / (exp( -(distance^2) / ( $6^2) ) )
+
+if ((preX == postX) && (preY == postY)){weight = 0}
+
+//       rconnect(PL5[preX][preY], PL5[postX][postY], $3, $4, weight, delay, 0)
+       rconnect(type2gid(PL5_type, preX, preY), PL5[postX][postY], $3, $4, weight, delay, 0)
+} } } } }
+
+
+proc IItoV(){ local weight, delay, distX, distY, distance, preX, preY, postX, postY
+// Connects Layer II/III to Layer V Pyramidals
+// Usage: VtoII( Max_Weight, Space constant, compartment [0-7] receptor type
+// [0=ampa, 1=nmda],
+// minimum_delay, delay_space_constant )
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(PL5_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $1 * exp( -(distance^2) / ( $2^2) )
+    delay = $5 * 1 / (exp( -(distance^2) / ( $6^2) ) )
+
+
+//       rconnect(PL2[preX][preY], PL5[postX][postY], $3, $4, weight, delay, 0)
+       rconnect(type2gid(PL2_type, preX, preY), PL5[postX][postY], $3, $4, weight, delay, 0)
+} } } } }
+
+proc IItoII(){ local weight, delay, distX, distY, distance, preX, preY, postX, postY
+// Connects Layer II/III to Layer II/III Pyramidals
+// Usage: IItoII( Max_Weight, Space constant, compartment [0-7] receptor type
+// [0=ampa, 1=nmda],
+// minimum_delay, delay_space_constant )
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(PL2_type, postX, postY)){
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $1 * exp( -(distance^2) / ( $2^2) )
+    delay = $5 * 1 / (exp( -(distance^2) / ( $6^2) ) )
+
+if ((preX == postX) && (preY == postY)){weight = 0}
+
+
+//       rconnect(PL2[preX][preY], PL2[postX][postY], $3, $4, weight, delay, 0)
+       rconnect(type2gid(PL2_type, preX, preY), PL2[postX][postY], $3, $4, weight, delay, 0)
+} } } } }
+
+//////////////////////////////////////////
+// Inhibitory to Pyramidal connections 
+//////////////////////////////////////////
+proc IL5toV(){ local weight,delay, distX, distY, distance, preX, preY, postX, postY
+
+// Connects *all* Layer V INHIBitory cells to *all* Layer V Pyramidals
+// usage: IL5toV( L.5 Pyram_compartment [0-8], 
+//        receptor type [ 2=GABAa, 3-GABAb ],
+//        max_weight, weight_space_constant [>1],
+//        min-delay [ms.] , delay-space-constant [>1] )
+//
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(PL5_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $3 * exp( -(distance^2) / ( $4^2) )
+    delay = $5 * 1 / (exp( -(distance^2) / ( $6^2) ) )
+
+//if (object_id(IPL5[preX][preY])   ){ // *****// if presynaptic object exists then...
+//       rconnect(IPL5[preX][preY], PL5[postX][postY], $1, $2, weight, delay, 0) }
+       rconnect(type2gid(IPL5_type, preX, preY), PL5[postX][postY], $1, $2, weight, delay, 0)
+} } } } }
+//////////////////////////////////////////////////////////
+proc IL2toV(){ local weight,delay, distX, distY, distance, preX, preY, postX, postY
+
+// Connects *all* Layer II/III INHIBitory cells to *all* Layer V Pyramidals
+// usage: IL2toV( L.5 Pyram_compartment [0-8], 
+//        receptor type [ 2=GABAa, 3-GABAb ],
+//        max_weight, weight_space_constant [>1],
+//        min-delay [ms.] , delay-space-constant [>1] )
+//
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(PL5_type, postX, postY)){
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $3 * exp( -(distance^2) / ( $4^2) )
+    delay = $5 * 1 / (exp( -(distance^2) / ( $6^2) ) )
+
+//if (object_id(IPL2[preX][preY])   ){ // *****// if presynaptic object exists then...
+//       rconnect(IPL2[preX][preY], PL5[postX][postY], $1, $2, weight, delay, 0) }
+       rconnect(type2gid(IPL2_type, preX, preY), PL5[postX][postY], $1, $2, weight, delay, 0)
+} } } } }
+//////////////////////////////////////////////
+proc IL2toII(){ local weight,delay, distX, distY, distance, preX, preY, postX, postY
+
+// Connects *all* Layer II/III INHIBitory cells to *all* Layer II/III Pyramidals
+// usage: IL2toII( L.2 Pyram_compartment [0-8], 
+//        receptor type [ 2=GABAa, 3-GABAb ],
+//        max_weight, weight_space_constant [>1],
+//        min-delay [ms.] , delay-space-constant [>1] )
+//
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(PL2_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $3 * exp( -(distance^2) / ( $4^2) )
+    delay = $5 * 1 / (exp( -(distance^2) / ( $6^2) ) )
+
+//if (object_id(IPL2[preX][preY])   ){ // *****// if presynaptic object exists then...
+//       rconnect(IPL2[preX][preY], PL2[postX][postY], $1, $2, weight, delay, 0) }
+       rconnect(type2gid(IPL2_type, preX, preY), PL2[postX][postY], $1, $2, weight, delay, 0)
+} } } } }
+//////////////////////////////////////////
+// Inhibitory to inhibitory
+//////////////////////////////////////////
+
+proc IL2toIL2(){ local preX, preY, postX, postY, distX, distY, distance, weight, delay
+// Connect Layer II/III inhibitory cells to themselves
+// usage: IL2toIL2(Max_Weight. Space_Constant, Min_Delay, Delay_Space_Constant, receptor_type )
+
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD if(cell_exist(IPL2_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $1 * exp( -(distance^2) / ( $2^2) )
+    delay = $3 * 1 / (exp( -(distance^2) / ( $4^2) ) )
+if ((preX == postX) && (preY == postY)){weight = 0}
+
+//if ( object_id(IPL2[preX][preY]) && object_id(IPL2[postX][postY]) ){
+//          rconnect(IPL2[preX][preY],IPL2[postX][postY],0,$5,weight,delay,0)}
+	rconnect(type2gid(IPL2_type, preX, preY),IPL2[postX][postY],0,$5,weight,delay,0)
+} } } } }
+
+proc IL5toIL5(){ local preX, preY, postX, postY, distX, distY, distance, weight, delay
+// Connect Layer II/III inhibitory cells to themselves
+// usage: IL2toIL2(Max_Weight. Space_Constant, Min_Delay, Delay_Space_Constant, receptor_type )
+
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(IPL5_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $1 * exp( -(distance^2) / ( $2^2) )
+    delay = $3 * 1 / (exp( -(distance^2) / ( $4^2) ) )
+if ((preX == postX) && (preY == postY)){weight = 0}
+
+//if ( object_id(IPL5[preX][preY]) && object_id(IPL5[postX][postY]) ){
+//          rconnect(IPL5[preX][preY],IPL5[postX][postY],0,$5,weight,delay,0)}
+          rconnect(type2gid(IPL5_type, preX, preY),IPL5[postX][postY],0,$5,weight,delay,0)
+} } } } }
+
+
+//////////////////////////////////////////
+//Pyramidal to Inhibitory Connections
+////////////////////////////////////////////
+proc VtoIL5(){ local preX, preY, postX, postY, distX, distY, distance, weight, delay
+// Usage: VtoIL5((Max_Weight. Space_Constant, Min_Delay, Delay_Space_Constant, receptor_type )
+// Connects all Layer V Pyramidal to all Layer V Inhibitory cells
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(IPL5_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $1 * exp( -(distance^2) / ( $2^2) )
+    delay = $3 * 1 / (exp( -(distance^2) / ( $4^2) ) )
+
+//if (object_id(IPL5[postX][postY]) ){
+//       rconnect(PL5[preX][preY], IPL5[postX][postY], 0, $5, weight, delay, 0) }
+       rconnect(type2gid(PL5_type, preX, preY), IPL5[postX][postY], 0, $5, weight, delay, 0)
+} } } } }
+
+proc IItoIL2(){ local preX, preY, postX, postY, distX, distY, distance, weight, delay
+// Usage: IItoIL2(Max_Weight. Space_Constant, Min_Delay, Delay_Space_Constant, receptor_type )
+// Connects all Layer II/III Pyramidal to all Layer II/III Inhibitory cells
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(IPL2_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $1 * exp( -(distance^2) / ( $2^2) )
+    delay = $3 * 1 / (exp( -(distance^2) / ( $4^2) ) )
+
+//if (object_id(IPL2[postX][postY]) ){
+//       rconnect(PL2[preX][preY], IPL2[postX][postY], 0, $5, weight, delay, 0) }
+       rconnect(type2gid(PL2_type, preX, preY), IPL2[postX][postY], 0, $5, weight, delay, 0)
+} } } } }
+
+proc IItoIL5(){ local preX, preY, postX, postY, distX, distY, distance, weight, delay
+// Usage: IItoIL5((Max_Weight. Space_Constant, Min_Delay, Delay_Space_Constant, receptor_type )
+// Connects all Layer II/III Pyramidal to all Layer V Inhibitory cells
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD if (cell_exist(IPL5_type, postX, postY)) {
+    distX = abs(preX-postX)
+    distY = abs(preY-postY)
+    distance = sqrt(distX^2 + distY^2)
+    weight = $1 * exp( -(distance^2) / ( $2^2) )
+    delay = $3 * 1 / (exp( -(distance^2) / ( $4^2) ) )
+
+//if (object_id(IPL5[postX][postY]) ){
+//       rconnect(PL2[preX][preY], IPL5[postX][postY], 0, $5, weight, delay, 0) }
+       rconnect(type2gid(PL2_type, preX, preY), IPL5[postX][postY], 0, $5, weight, delay, 0)
+} } } } }
+
+//////////////////////////////////////////////////////////////
+// Disconnect all connections
+/////////////////////////////////////////////////////////////
+proc unconnect(){
+objref netcon
+
+AMPAconnects.remove_all()
+// objref AMPAconnects
+// AMPAconnects = new List()
+ 
+NMDAconnects.remove_all()
+// objref NMDAconnects
+// NMDAconnects = new List()
+ 
+GABAAconnects.remove_all()
+objref GABAAconnects
+GABAAconnects = new List()
+ 
+GABABconnects.remove_all()
+// objref GABABconnects
+// GABABconnects = new List()
+ 
+}
+////////////////////////////////////////////////////////////////////////
+// Intra-cortical connections using a uniform random distribution
+///////////////////////////////////////////////////////////////////////
+objref w, d
+/////////////////////////////////////////////////////////////////////////
+///////////////// Pyramidal to Pyramidal Connections ////////////////////
+// Usage: U_XtoX( MinWeight, MaxWeight , target compartment, rtype, MinDelay, MaxDelay )
+/////////////////////////////////////////////////////////////////////////
+proc U_VtoV(){ local preX, preY, postX, postY, weight, delay
+// Connects Layer V to Layer V Pyramidals
+w = new Random()  w.uniform($1,$2)
+d = new Random()  d.uniform($5,$6)
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD {
+if ((preX == postX) && (preY == postY)){
+      weight = 0 delay = $5
+}else{weight=w.repick() delay=d.repick()}
+
+//       rconnect(PL5[preX][preY], PL5[postX][postY], $3, $4, weight, delay,0)
+	if (cell_exist(PL5_type, postX, postY)) { //here because of repicks
+		rconnect(type2gid(PL5_type, preX, preY), PL5[postX][postY], $3, $4, weight, delay,0)
+	}
+} } } } }
+////////////////
+proc U_VtoII(){ local preX, preY, postX, postY, weight, delay
+// Connects Layer V to Layer II/III Pyramidals
+w = new Random()  w.uniform($1,$2)
+d = new Random()  d.uniform($5,$6)
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD{
+               weight=w.repick() delay=d.repick()
+
+//       rconnect(PL5[preX][preY], PL2[postX][postY], $3, $4, weight, delay, 0)
+	if (cell_exist(PL2_type, postX, postY)) { // here because of repicks
+		rconnect(type2gid(PL5_type, preX, preY), PL2[postX][postY], $3, $4, weight, delay, 0)
+	}
+} } } } }
+//////////////////
+proc U_IItoII(){ local preX, preY, postX, postY, weight, delay
+// Connects Layer II/III to Layer II/III Pyramidals
+w = new Random()  w.uniform($1,$2)
+d = new Random()  d.uniform($5,$6)
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD{
+if ((preX == postX) && (preY == postY)){
+      weight = 0 delay = $5
+}else{weight=w.repick() delay=d.repick()}
+
+//       rconnect(PL2[preX][preY], PL2[postX][postY], $3, $4, weight, delay,0)
+	if (cell_exist(PL2_type, postX, postY)) {
+		rconnect(type2gid(PL2_type, preX, preY), PL2[postX][postY], $3, $4, weight, delay,0)
+	}
+} } } } }
+///////////////////
+proc U_IItoV(){ local preX, preY, postX, postY, weight, delay
+// Connects Layer II/III to Layer V Pyramidals
+w = new Random()  w.uniform($1,$2)
+d = new Random()  d.uniform($5,$6)
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD{
+               weight=w.repick() delay=d.repick()
+
+//       rconnect(PL2[preX][preY], PL5[postX][postY], $3, $4, weight, delay, 0)
+	if (cell_exist(PL5_type, postX, postY)) {
+		rconnect(type2gid(PL2_type, preX, preY), PL5[postX][postY], $3, $4, weight, delay, 0)
+	}
+} } } } }
+//////////////////
+
+/////////////////Inhibitory to Pyramidal connections //////////////////////////////////////////
+// Usage: U_ILxtoX(Pyramidal compartment, rtype, MinWeight, MaxWeight,  MinDelay, MaxDelay)
+//////////////////////////////////////////////////////////////////////////////////////////////
+proc U_IL5toV(){ local preX, preY, postX, postY, weight,delay
+// Connects *all* Layer V inhibitory cells to *all* Layer V Pyramidals
+w = new Random()  w.uniform($3,$4)
+d = new Random()  d.uniform($5,$6)
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD{
+weight=w.repick()
+delay=d.repick()
+//if (object_id(IPL5[preX][preY]) ){
+//rconnect(IPL5[preX][preY], PL5[postX][postY], $1, $2, weight, delay, 0)}
+	if (cell_exist(PL5_type, postX, postY)) {
+		rconnect(type2gid(IPL5_type, preX, preY), PL5[postX][postY], $1, $2, weight, delay, 0)
+	}
+} } } } }
+////////
+proc U_IL2toV(){ local preX, preY, postX, postY, weight,delay
+// Connects *all* Layer II/III inhibitory cells to *all* Layer V Pyramidals
+w = new Random()  w.uniform($3,$4)
+d = new Random()  d.uniform($5,$6)
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD{
+weight=w.repick()
+delay=d.repick()
+//if (object_id(IPL2[preX][preY]) ){
+//rconnect(IPL2[preX][preY], PL5[postX][postY], $1, $2, weight, delay, 0)}
+	if (cell_exist(PL5_type, postX, postY)) {
+		rconnect(type2gid(IPL2_type, preX, preY), PL5[postX][postY], $1, $2, weight, delay, 0)
+	}
+} } } } }
+////////
+proc U_IL2toII(){ local preX, preY, postX, postY, weight,delay
+// Connects *all* Layer II/III inhibitory cells to *all* Layer II/III Pyramidals
+w = new Random()  w.uniform($3,$4)
+d = new Random()  d.uniform($5,$6)
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD{
+weight=w.repick()
+delay=d.repick()
+//if (object_id(IPL2[preX][preY]) ){
+//rconnect(IPL2[preX][preY], PL2[postX][postY], $1, $2, weight, delay, 0)}
+	if (cell_exist(PL2_type, postX, postY)) {
+		rconnect(type2gid(IPL2_type, preX, preY), PL2[postX][postY], $1, $2, weight, delay, 0)
+	}
+} } } } }
+
+//////////////////////////////////////////
+// Inhibitory to Inhibitory Connections
+// Usage: U_ILxtoILx(MinWeight. MaxWeight, MinDelay, MaxDelay, receptor_type )
+//////////////////////////////////////////
+proc U_IL2toIL2(){ local preX, preY, postX, postY,weight,delay
+// Connect Layer II/III inhibitory cells to themselves
+w = new Random()  w.uniform($1,$2)
+d = new Random()  d.uniform($3,$4)
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD{
+if ((preX == postX) && (preY == postY)){
+      weight = 0 delay = $5
+}else{weight=w.repick() delay=d.repick()}
+
+//if ( object_id(IPL2[preX][preY]) && object_id(IPL2[postX][postY]) ){
+//          rconnect(IPL2[preX][preY],IPL2[postX][postY],0,$5,weight,delay,0)}
+	if (cell_exist(IPL2_type, postX, postY)) {
+		rconnect(type2gid(IPL2_type, preX, preY),IPL2[postX][postY],0,$5,weight,delay,0)
+	}
+} } } } }
+///////////
+proc U_IL5toIL5(){ local preX, preY, postX, postY,weight,delay
+// Connect Layer V inhibitory cells to themselves
+w = new Random()  w.uniform($1,$2)
+d = new Random()  d.uniform($3,$4)
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD{
+if ((preX == postX) && (preY == postY)){
+      weight = 0 delay = $5
+}else{weight=w.repick() delay=d.repick()}
+
+//if ( object_id(IPL5[preX][preY]) && object_id(IPL5[postX][postY]) ){
+//          rconnect(IPL5[preX][preY],IPL5[postX][postY],0,$5,weight,delay,0)}
+	if (cell_exist(IPL5_type, postX, postY)) {
+		rconnect(type2gid(IPL5_type, preX, preY),IPL5[postX][postY],0,$5,weight,delay,0)
+	}
+} } } } }
+
+//////////////////////////////////////////
+// Pyramidal to Inhibitory Connections
+// Usage: U_XtoILx(MinWeight, MaxWeight, rtype, MinDelay, MaxDelay)
+////////////////////////////////////////////
+proc U_VtoIL5(){ local preX, preY, postX, postY, weight, delay
+// Connects Layer V to Layer V Inhibitory
+w = new Random()  w.uniform($1,$2)
+d = new Random()  d.uniform($4,$5)
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD{
+weight=w.repick()
+delay=d.repick()
+//if ( object_id(IPL5[postX][postY]) ){
+//rconnect(PL5[preX][preY], IPL5[postX][postY], 0, $3, weight, delay, 0) } 
+	if (cell_exist(IPL5_type, postX, postY)) {
+		rconnect(type2gid(PL5_type, preX, preY), IPL5[postX][postY], 0, $3, weight, delay, 0)
+	}
+} } } } }
+//////////
+proc U_IItoIL2(){ local preX, preY, postX, postY, weight, delay
+// Connects Layer II/III to Layer II/III Inhibitory
+w = new Random()  w.uniform($1,$2)
+d = new Random()  d.uniform($4,$5)
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD{
+weight=w.repick()
+delay=d.repick()
+//if ( object_id(IPL2[postX][postY]) ){
+//rconnect(PL2[preX][preY], IPL2[postX][postY], 0, $3, weight, delay, 0) } 
+	if (cell_exist(IPL2_type, postX, postY)) {
+		rconnect(type2gid(PL2_type, preX, preY), IPL2[postX][postY], 0, $3, weight, delay, 0)
+	}
+} } } } }
+//////////
+proc U_IItoIL5(){ local preX, preY, postX, postY, weight, delay
+// Connects Layer II/III to Layer V Inhibitory
+w = new Random()  w.uniform($1,$2)
+d = new Random()  d.uniform($4,$5)
+for preX=0,XD{
+ for preY=0,YD{
+  for postX=0,XD{
+   for postY=0,YD{
+weight=w.repick()
+delay=d.repick()
+//if ( object_id(IPL5[postX][postY]) ){
+//rconnect(PL2[preX][preY], IPL5[postX][postY], 0, $3, weight, delay, 0) } 
+	if (cell_exist(IPL5_type, postX, postY)) {
+		rconnect(type2gid(PL2_type, preX, preY), IPL5[postX][postY], 0, $3, weight, delay, 0)
+	}
+} } } } }
+
+////////Uniform Random Feed Connections//////////////////////////////////////////////////////
+
+proc UFeedtoV(){ local weight, delay, postX, postY
+// Uniform Random feed to Layer V pyramidals
+// usage: UFeedtoV(L5_section, receptor_type, MinWeight,
+//                 MaxWeight, MinDelay, MaxDelay, FeedX object(eg. FF))
+w = new Random()  w.uniform($3,$4)
+d = new Random()  d.uniform($5,$6)
+
+  for postX=0,XD{
+   for postY=0,YD{
+        weight=w.repick()
+        delay=d.repick()
+
+//                rconnect($o7, PL5[postX][postY], $1, $2, weight, delay, 0)
+	if (cell_exist(PL5_type, postX, postY)) {
+		rconnect($7, PL5[postX][postY], $1, $2, weight, delay, 0)
+	}
+} } }
+/////////////
+proc UFeedtoII(){ local weight, delay, postX, postY
+// Uniform Random feed to Layer II/III pyramidals
+// usage: UFeedtoII(L2_section, receptor_type, MinWeight,
+//                 MaxWeight, MinDelay, MaxDelay, FeedX object(eg. FF))
+w = new Random()  w.uniform($3,$4)
+d = new Random()  d.uniform($5,$6)
+
+  for postX=0,XD{
+   for postY=0,YD{
+        weight=w.repick()
+        delay=d.repick()
+
+//                rconnect($o7, PL2[postX][postY], $1, $2, weight, delay, 0)
+	if (cell_exist(PL2_type, postX, postY)) {
+		rconnect($7, PL2[postX][postY], $1, $2, weight, delay, 0)
+	}
+} } }
+////////////
+proc UFeedtoIL5(){ local weight, delay, postX, postY
+
+// Uniform Random feed to *all* Layer V Inhibitory cells
+// usage: UFeedtoIL5(receptor type [ 2=GABAa, 3-GABAb ],
+//                  MinWeight, MaxWeight,
+//                  MinDelay, MaxDelay,
+//                  FeedX object(eg. FF))
+w = new Random()  w.uniform($2,$3)
+d = new Random()  d.uniform($4,$5)
+
+  for postX=0,XD{
+   for postY=0,YD{
+        weight=w.repick()
+        delay=d.repick()
+//if (object_id(IPL5[postX][postY])   ){
+//       rconnect($o6, IPL5[postX][postY], 0, $1, weight, delay, 0) }
+	if (cell_exist(IPL5_type, postX, postY)) {
+		rconnect($6, IPL5[postX][postY], 0, $1, weight, delay, 0)
+	}
+} } }
+/////////////
+proc UFeedtoIL2(){ local weight, delay, postX, postY
+
+// Uniform Random feed to *all* Layer II/III Inhibitory cells
+// usage: UFeedtoIL2(receptor type [ 2=GABAa, 3-GABAb ],
+//                  MinWeight, MaxWeight,
+//                  MinDelay, MaxDelay,
+//                  FeedX object(eg. FF))
+w = new Random()  w.uniform($2,$3)
+d = new Random()  d.uniform($4,$5)
+
+  for postX=0,XD{
+   for postY=0,YD{
+        weight=w.repick()
+        delay=d.repick()
+//if (object_id(IPL2[postX][postY])   ){
+//       rconnect($o6, IPL2[postX][postY], 0, $1, weight, delay, 0) }
+	if (cell_exist(IPL2_type, postX, postY)) {
+		rconnect($6, IPL2[postX][postY], 0, $1, weight, delay, 0)
+	}
+} } }
+

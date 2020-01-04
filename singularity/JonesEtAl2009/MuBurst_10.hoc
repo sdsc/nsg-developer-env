@@ -1,0 +1,103 @@
+N_ALPHA = 150 // not changeable unless change the explicit for loops below
+objref AlphaFF[N_ALPHA]
+objref AlphaFB[N_ALPHA]
+
+// Alpha gids are contiguous after real cells
+// declare the gids and provide
+gidAlphabegin = gid_end
+gidAlphaend = gidAlphabegin + 2*N_ALPHA
+FF_type = 0
+FB_type = 1
+objref gidvecAlpha
+gidvecAlpha = new Vector()
+for (i=gidAlphabegin+pc.id; i < gidAlphaend; i += pc.nhost) {
+	gidvecAlpha.append(i)
+	pc.set_gid2node(i, pc.id)
+}
+//gid = alphagid(type, index)
+func alphagid() {
+	return gidAlphabegin + $1*N_ALPHA + $2
+}
+
+objref GaussRand
+GaussRand=new Random()
+
+proc aff() {local r
+	r = GaussRand.normal($2, $3)
+	if (pc.gid_exists(alphagid(FF_type, $1))) {
+		AlphaFF[$1].pp.start = r - stim_delay_offset
+	}
+}
+
+proc afb() {local r
+	r = GaussRand.normal($2, $3)
+	if (pc.gid_exists(alphagid(FB_type, $1))) {
+		AlphaFB[$1].pp.start = r - stim_delay_offset
+	}
+}
+
+////////////////////////////////////////////////////////
+proc make_MuBursts(){local i, gid  localobj nil
+// Usage: make_MuBursts(start-time-variance)// Creates 150 feed-forward and  feed-back sources
+// 10 feed-forward and 10 feed-back at every 100ms
+//
+// Feed-Forward
+for i=0,149{ 
+	gid = alphagid(FF_type, i)
+	if (pc.gid_exists(gid)) {
+AlphaFF[i] = new FeedX()
+AlphaFF[i].pp.noise=0
+AlphaFF[i].pp.number=2 //CHANGED THIS!!
+AlphaFF[i].pp.interval = 10
+AlphaFF[i].pp.start = 50
+		pc.cell(gid, new NetCon(AlphaFF[i].pp, nil))
+	}
+}
+
+for i=0,9 if (pc.gid_exists(alphagid(FF_type, i))) {AlphaFF[i].pp.number = 0} // Not Used// Start at 150ms.
+
+for i=10,19 aff(i,150,$1) //{AlphaFF[i].pp.start=GaussRand.normal(150,$1)}
+for i=20,29 aff(i,250,$1) //{AlphaFF[i].pp.start= GaussRand.normal(250,$1)}
+for i=30,39 aff(i,350,$1) //{AlphaFF[i].pp.start= GaussRand.normal(350,$1)}
+for i=40,49 aff(i,450,$1) //{AlphaFF[i].pp.start= GaussRand.normal(450,$1)}
+for i=50,59 aff(i,550,$1) //{AlphaFF[i].pp.start= GaussRand.normal(550,$1)} 
+for i=60,69 aff(i,650,$1) //{AlphaFF[i].pp.start= GaussRand.normal(650,$1)}
+for i=70,79 aff(i,750,$1) //{AlphaFF[i].pp.start= GaussRand.normal(750,$1)}
+for i=80,89 aff(i,850,$1) //{AlphaFF[i].pp.start= GaussRand.normal(850,$1)}
+for i=90,99 aff(i,950,$1) //{AlphaFF[i].pp.start= GaussRand.normal(950,$1)}
+for i=100,109 aff(i,1050,$1) //{AlphaFF[i].pp.start= GaussRand.normal(1050,$1)}
+for i=110,119 aff(i,1150,$1) //{AlphaFF[i].pp.start= GaussRand.normal(1150,$1)}
+for i=120,129 aff(i,1250,$1) //{AlphaFF[i].pp.start= GaussRand.normal(1250,$1)}
+for i=130,139 aff(i,1350,$1) //{AlphaFF[i].pp.start= GaussRand.normal(1350,$1)}
+for i=140,149 aff(i,1450,$1) //{AlphaFF[i].pp.start= GaussRand.normal(1450,$1)}
+//// Feedback
+for i=0,149{ 
+	gid = alphagid(FB_type, i)
+	if (pc.gid_exists(gid)) {
+AlphaFB[i] = new FeedX()
+AlphaFB[i].pp.noise=0
+AlphaFB[i].pp.number=2 //THIS IS STILL 2 - CHANGE IT?
+AlphaFB[i].pp.interval = 10
+AlphaFB[i].pp.start = 50
+		pc.cell(gid, new NetCon(AlphaFB[i].pp, nil))
+	}
+}
+for i=0,9 if (pc.gid_exists(alphagid(FB_type, i))) {AlphaFB[i].pp.number = 0} // Not Used// Start at 150ms.
+
+for i=10,19 afb(i,150,$1) //{AlphaFB[i].pp.start=GaussRand.normal(150,$1)}
+for i=20,29 afb(i,250,$1) //{AlphaFB[i].pp.start= GaussRand.normal(250,$1)}
+for i=30,39 afb(i,350,$1) //{AlphaFB[i].pp.start= GaussRand.normal(350,$1)}
+for i=40,49 afb(i,450,$1) //{AlphaFB[i].pp.start= GaussRand.normal(450,$1)}
+for i=50,59 afb(i,550,$1) //{AlphaFB[i].pp.start= GaussRand.normal(550,$1)} 
+for i=60,69 afb(i,650,$1) //{AlphaFB[i].pp.start= GaussRand.normal(650,$1)}
+for i=70,79 afb(i,750,$1) //{AlphaFB[i].pp.start= GaussRand.normal(750,$1)}
+for i=80,89 afb(i,850,$1) //{AlphaFB[i].pp.start= GaussRand.normal(850,$1)}
+for i=90,99 afb(i,950,$1) //{AlphaFB[i].pp.start= GaussRand.normal(950,$1)}
+for i=100,109 afb(i,1050,$1) //{AlphaFB[i].pp.start= GaussRand.normal(1050,$1)}
+for i=110,119 afb(i,1150,$1) //{AlphaFB[i].pp.start= GaussRand.normal(1150,$1)}
+for i=120,129 afb(i,1250,$1) //{AlphaFB[i].pp.start= GaussRand.normal(1250,$1)}
+for i=130,139 afb(i,1350,$1) //{AlphaFB[i].pp.start= GaussRand.normal(1350,$1)}
+for i=140,149 afb(i,1450,$1) //{AlphaFB[i].pp.start= GaussRand.normal(1450,$1)}
+}
+// For implementing stochastic interval// for //i=5,9{AlphaFF[i].pp.start=GaussRand.interval=GuassRand.normal($2,$3)}
+

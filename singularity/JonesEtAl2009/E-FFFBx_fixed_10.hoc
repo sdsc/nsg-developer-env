@@ -1,0 +1,110 @@
+// Used to set weights for Mu generations allowing for reduced weights during
+// evoked signal.
+// usage: E-fffbx(max-weight-non-evoked,max-weight-evoked,feed-back delay,
+//        Feed-back-factor)
+//Feed-back-factor is used to change the weight of the FB relative to FF
+//max-weight-evoked is used during the time window from 550-850ms only
+//feed-back delay is delay between ongoing FF and FB inputs MuBursts_10.hoc
+objref GSrand
+GSrand=new Random() 
+
+proc e_fffbx(){local i, fbdelay, weight
+
+fbdelay=$3
+GSrand.uniform($1,$1)
+//
+// 150-450ms
+for i=10, 49{
+weight=GSrand.repick()
+FeedtoII(1,0, weight,100,0,100,alphagid(FF_type, i))  //Feed-forward connection
+weight=GSrand.repick()
+FeedtoII(5,0, weight,100,0,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoII(6,0, weight, 100,0,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoIL2(0, weight *2, 100,0,100,alphagid(FF_type, i)) //Feed-forward connection
+//
+
+weight=GSrand.repick()
+FeedtoV(1,0, weight, 100,1,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoV(6,0, weight, 100,1,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoV(7,0, weight, 100,1,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoIL5(0, weight *2,100,1,100,alphagid(FF_type, i)) //Feed-forward connection
+//
+
+weight=GSrand.repick()
+FeedtoII(3,0, weight*$4,100,fbdelay,100,alphagid(FB_type, i)) //Feed-Back connection
+weight=GSrand.repick()
+FeedtoIL2(0, weight*$4 , 100,fbdelay,100,alphagid(FB_type, i)) //Feed-Back connection
+weight=GSrand.repick()
+FeedtoV(4,0, weight*$4, 100,fbdelay,100,alphagid(FB_type, i)) //Feed-Back connection
+
+}
+// 950-1450ms
+for i=90, 149{
+weight=GSrand.repick()
+FeedtoII(1,0, weight,100,0,100,alphagid(FF_type, i))  //Feed-forward connection
+weight=GSrand.repick()
+FeedtoII(5,0, weight,100,0,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoII(6,0, weight, 100,0,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoIL2(0, weight *2, 100,0,100,alphagid(FF_type, i)) //Feed-forward connection
+//
+
+weight=GSrand.repick()
+FeedtoV(1,0, weight, 100,1,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoV(6,0, weight, 100,1,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoV(7,0, weight, 100,1,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoIL5(0, weight *2,100,1,100,alphagid(FF_type, i)) //Feed-forward connection
+//
+
+weight=GSrand.repick()
+FeedtoII(3,0, weight*$4,100,fbdelay,100,alphagid(FB_type, i)) //Feed-Back connection
+weight=GSrand.repick()
+FeedtoIL2(0, weight*$4 , 100,fbdelay,100,alphagid(FB_type, i)) //Feed-Back connection
+weight=GSrand.repick()
+FeedtoV(4,0, weight*$4, 100,fbdelay,100,alphagid(FB_type, i)) //Feed-Back connection
+
+}
+//
+GSrand.uniform($2,$2)
+// 550-850ms. during evoked signal
+for i=50, 89{
+weight=GSrand.repick()
+FeedtoII(1,0, weight,100,0,100,alphagid(FF_type, i))  //Feed-forward connection
+weight=GSrand.repick()
+FeedtoII(5,0, weight,100,0,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoII(6,0, weight, 100,0,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoIL2(0, weight *2, 100,0,100,alphagid(FF_type, i)) //Feed-forward connection
+//
+
+weight=GSrand.repick()
+FeedtoV(1,0, weight, 100,1,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoV(6,0, weight, 100,1,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoV(7,0, weight, 100,1,100,alphagid(FF_type, i)) //Feed-forward connection
+weight=GSrand.repick()
+FeedtoIL5(0, weight *2,100,1,100,alphagid(FF_type, i)) //Feed-forward connection
+//
+
+weight=GSrand.repick()
+FeedtoII(3,0, weight*$4,100,fbdelay,100,alphagid(FB_type, i)) //Feed-Back connection
+weight=GSrand.repick()
+FeedtoIL2(0, weight*$4 , 100,fbdelay,100,alphagid(FB_type, i)) //Feed-Back connection
+weight=GSrand.repick()
+FeedtoV(4,0, weight*$4, 100,fbdelay,100,alphagid(FB_type, i)) //Feed-Back connection
+
+}
+}
+
+

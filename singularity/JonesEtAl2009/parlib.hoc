@@ -1,0 +1,145 @@
+objref pc, nil
+pc = new ParallelContext()
+{load_file("stdlib.hoc") } // need String
+
+// map functions between gid and (type, iXD, jYD)
+// original serial program creates
+//objref PL5[X_DIM][Y_DIM]
+//objref PL2[X_DIM][Y_DIM]
+//objref IPL2[X_DIM][Y_DIM]
+//objref IPL5[X_DIM][Y_DIM]
+//Although some of the IPL are empty because of zigzag there is no reason
+//to have contiguous gids so we start with a simple map.
+
+// type ranges from 0 to 3 and refers to PL5, PL2, IPL2, IPL5
+gid_end = N_TYPE*X_DIM*Y_DIM // NOT the number of cells (because of zigzag)
+PL5_type = 0
+PL2_type = 1
+IPL2_type = 2
+IPL5_type = 3
+
+//gid = type2gid(type, ixd, jyd)
+func type2gid() {local type, ixd, jyd, gid
+	type = $1  ixd = $2  jyd = $3
+	gid = type * X_DIM * Y_DIM  +  ixd * Y_DIM + jyd
+	return gid
+}
+
+//type = gid2type(gid, &ixd, &jyd)
+func gid2type() { local gid, x, type, ixd, jyd
+	gid = $1
+	jyd = gid%Y_DIM
+	x = (gid - jyd)/Y_DIM
+	ixd = x%X_DIM
+	type = (x - ixd)/X_DIM
+	$&2 = ixd
+	$&3 = jyd
+	return type
+}
+
+// only if cell exists
+//1or0 = cell_exist(type, ixd, jyd) {
+func cell_exist() {
+	return (pc.gid_exists(type2gid($1, $2, $3)) > 1)
+}
+
+// round robin iterator
+// for pcitr(&gid) { ... }
+iterator pcitr() {local gid
+	for (gid = pc.id; gid < gid_end; gid += pc.nhost) {
+		$&1 = gid
+		// will generally have to check if the gid is really associated
+		// with a cell by checking the return value of pc.gid_exists(gid)
+		iterator_statement
+	}
+}
+
+// gids owned by this host (because of zigzag, some the gids for
+// inhibitory cells will not be associated with cells.
+proc declare_gids() {local gid
+	for pcitr(&gid) {
+		pc.set_gid2node(gid, pc.id)
+	}
+}
+
+//cell = cell_create("create statement", type, iXD, jYD)
+// assumes gid exists
+objref tmpcell
+obfunc create_cell() { local gid   localobj cell, nc, nil, s
+	gid = type2gid($2, $3, $4)
+	if (pc.gid_exists(gid)) {
+		s = new String()
+		sprint(s.s, "tmpcell = %s", $s1)	
+		execute(s.s)
+		tmpcell.connect2target(nil, nc)
+		pc.cell(gid, nc)
+		cell = tmpcell
+		tmpcell = nil
+	}
+	return cell
+}
+
+objref spikevec, idvec
+proc want_all_spikes() {local gid
+	spikevec = new Vector(10000)
+	idvec = new Vector(10000)
+	spikevec.resize(0)
+	idvec.resize(0)	
+	// real cells
+	for pcitr(&gid) {
+		if (pc.gid_exists(gid) > 1) {
+			pc.spike_record(gid, spikevec, idvec)
+		}
+	}
+	// AlphaFF and AlphaFB --- see MuBurst_10.hoc
+	for (gid = gidAlphabegin+pc.id; gid < gidAlphaend; gid += pc.nhost) {
+		pc.spike_record(gid, spikevec, idvec)
+	}
+	// FF, FB, FF2
+	if (pc.id == 0) {
+		pc.spike_record(FFgid, spikevec, idvec)
+		pc.spike_record(FBgid, spikevec, idvec)
+		pc.spike_record(FF2gid, spikevec, idvec)
+	}
+}
+
+proc spikeout() {local rank, i  localobj f
+	f = new File("out.dat")
+	if (pc.id == 0) { f.wopen()  f.close() }
+	for rank = 0, pc.nhost-1 {
+		pc.barrier()
+		if (rank == pc.id) {
+			f.aopen()
+			for i=0, idvec.size-1 {
+				f.printf("%.3f %d\n", spikevec.x[i], idvec.x[i])
+			}
+			f.close()
+		}
+	}
+	pc.barrier()
+}
+
+total_process_dipole = 0
+objref dipole_record, t_record
+dipole_record = new Vector()
+t_record = new Vector()
+
+proc calc_total_dipole() {
+	// need to do a reduce sum on all the dipole_record
+	pc.allreduce(dipole_record, 1)
+}
+proc print_total_dipole() {local i
+	if (pc.id == 0) {
+		for i=0, t_record.size-1 {
+			fprint("%f %f  \n", t_record.x[i], dipole_record.x[i])
+		}
+	}
+}
+
+proc psolve() {
+	t_record.record(&t)
+	dipole_record.record(&total_process_dipole)
+	pc.set_maxstep(10)
+	init()
+	pc.psolve($1)
+}

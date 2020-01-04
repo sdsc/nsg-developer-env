@@ -1,0 +1,146 @@
+begintemplate PNOISE
+public setmean
+objref r, pp
+proc init() {
+pp=new IClamp(0.5)
+pp.dur=5000
+r=new Random()
+r.MCellRan4()
+}
+proc setmean() {
+r.poisson($1)
+r.play(&pp.amp)
+}
+endtemplate PNOISE
+
+objref noisyV[X_DIM * Y_DIM * 10]
+// Insert Poisson noise into all compartments of the Pyramidal V cells
+proc PnoiseV(){local postX, PostY, j
+j=0
+  for postX=0,XD{
+   for postY=0,YD{ forsec PL5[postX][postY].all {noisyV[j]=new PNOISE() noisyV[j].setmean($1) j=j+1 } } } }
+
+objref noisyII[X_DIM * Y_DIM * 10]
+// Insert Poisson noise into all compartments of the Pyramidal II/III cells
+proc PnoiseII(){local postX, PostY, j
+j=0
+  for postX=0,XD{
+   for postY=0,YD{ forsec PL2[postX][postY].all {noisyII[j]=new PNOISE() noisyII[j].setmean($1) j=j+1 } } } }
+
+objref noisyIPL5[X_DIM * Y_DIM]
+// Insert Poisson noise into all compartments of inhibitory LayerV cells
+proc PnoiseIPL5(){ local postX, postY, j
+j=0
+  for postX=0,XD{
+   for postY=0,YD{
+if (object_id(IPL5[postX][postY]) ){
+ IPL5[postX][postY].cell {noisyIPL5[j]=new PNOISE() noisyIPL5[j].setmean($1) j=j+1 } }
+ } } }
+
+objref noisyIPL2[X_DIM * Y_DIM]
+// Insert Poisson noise into all compartments of inhibitory LayerII/III cells
+proc PnoiseIPL2(){ local postX, postY, j
+j=0
+  for postX=0,XD{
+   for postY=0,YD{
+if (object_id(IPL2[postX][postY]) ){
+ IPL2[postX][postY].cell {noisyIPL2[j]=new PNOISE() noisyIPL2[j].setmean($1) j=j+1 } }
+ } } }
+
+begintemplate GNOISE
+public setmean
+objref r, pp
+proc init() {
+pp=new IClamp(0.5)
+pp.dur=5000
+r=new Random()
+r.MCellRan4()
+}
+proc setmean() {
+r.normal($1,$2)
+r.play(&pp.amp)
+}
+endtemplate GNOISE
+
+objref GnoisyV[X_DIM * Y_DIM * 10]
+// Insert Gaussian noise into all compartments of the Pyramidal V cells
+proc GnoiseV(){
+j=0
+for postX=0,XD{
+   for postY=0,YD{ forsec PL5[postX][postY].all {GnoisyV[j]=new GNOISE() GnoisyV[j].setmean($1,$2) j=j+1 } } } }
+
+objref GnoisyII[X_DIM * Y_DIM * 10]
+// Insert Gaussian noise into all compartments of the Pyramidal II/III cells
+proc GnoiseII(){
+j=0
+for postX=0,XD{
+   for postY=0,YD{ forsec PL2[postX][postY].all {GnoisyII[j]=new GNOISE() GnoisyII[j].setmean($1,$2) j=j+1 } } } }
+
+objref GnoisyIPL5[X_DIM * Y_DIM]
+// Insert Gaussian noise into all compartments of inhibitory LayerV cells
+proc GnoiseIPL5(){ local postX, postY, j
+j=0
+ for postX=0,XD{
+   for postY=0,YD{
+if (object_id(IPL5[postX][postY]) ){
+  IPL5[postX][postY].cell {GnoisyIPL5[j]=new GNOISE() GnoisyIPL5[j].setmean($1,$2) j=j+1 } } 
+} } }
+
+objref GnoisyIPL2[X_DIM * Y_DIM]
+// Insert Gaussian noise into all compartments of inhibitory LayerII/III cells
+proc GnoiseIPL2(){ local postX, postY, j
+j=0
+ for postX=0,XD{
+   for postY=0,YD{
+if (object_id(IPL2[postX][postY]) ){
+  IPL2[postX][postY].cell {GnoisyIPL2[j]=new GNOISE() GnoisyIPL2[j].setmean($1,$2) j=j+1 } } 
+} } }
+
+begintemplate UNOISE
+public setmean
+objref r, pp
+proc init() {
+pp=new IClamp(0.5)
+pp.dur=5000
+r=new Random()
+r.MCellRan4()
+}
+proc setmean() {
+r.uniform($1,$2)
+r.play(&pp.amp)
+}
+endtemplate UNOISE
+
+objref UnoisyV[X_DIM * Y_DIM * 10]
+// Insert Uniform noise into all compartments of the Pyramidal V cells
+proc UnoiseV(){
+j=0
+for postX=0,XD{
+   for postY=0,YD{ forsec PL5[postX][postY].all {UnoisyV[j]=new UNOISE() UnoisyV[j].setmean($1,$2) j=j+1 } } } }
+
+objref UnoisyII[X_DIM * Y_DIM * 10]
+// Insert Uniform noise into all compartments of the Pyramidal II/III cells
+proc UnoiseII(){
+j=0
+for postX=0,XD{
+   for postY=0,YD{ forsec PL2[postX][postY].all {UnoisyII[j]=new UNOISE() UnoisyII[j].setmean($1,$2) j=j+1 } } } }
+
+objref UnoisyIPL5[X_DIM * Y_DIM]
+// Insert Uniform noise into all compartments of inhibitory LayerV cells
+proc UnoiseIPL5(){
+j=0
+ for postX=0,XD{
+   for postY=0,YD{
+if (object_id(IPL5[postX][postY]) ){
+ IPL5[postX][postY].cell {UnoisyIPL5[j]=new UNOISE() UnoisyIPL5[j].setmean($1,$2) j=j+1 } } 
+} } }
+
+objref UnoisyIPL2[X_DIM * Y_DIM]
+// Insert Uniform noise into all compartments of inhibitory LayerII/III cells
+proc UnoiseIPL2(){
+j=0
+ for postX=0,XD{
+   for postY=0,YD{
+if (object_id(IPL2[postX][postY]) ){
+ IPL2[postX][postY].cell {UnoisyIPL2[j]=new UNOISE() UnoisyIPL2[j].setmean($1,$2) j=j+1 } } 
+} } }
