@@ -1,2 +1,8 @@
 ---
 # vars file for install-openmpi
+# For version 4.0.1 , version_major=4 , version_minor=0 and version_patch=1
+version_major: 3
+version_minor: 1
+version_patch: 4
+version: "{{version_major}}.{{version_minor}}.{{version_patch}}"
+install_directory: /opt/openmpi-{{version}}

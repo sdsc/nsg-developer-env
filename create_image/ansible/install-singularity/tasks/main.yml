@@ -5,21 +5,13 @@
   apt:
     name: 
       - build-essential
-      - automake
       - libssl-dev
       - uuid-dev
-      - libtool
-      - m4
       - libgpgme11-dev
       - squashfs-tools
       - libseccomp-dev
-      - libarchive-dev
       - wget
-      - debootstrap
       - pkg-config
-      - git
-      - python
-      - cryptsetup
     state: present
     update_cache: true
 
@@ -30,48 +22,65 @@
 - name: Install golang
   apt:
     name: 
-      - golang-go
+      - golang-go=2:1.13~1longsleep1+xenial
     state: present
     update_cache: true
 
-- name: Download files
+- name: Install 'dep'
+  command: go get -u github.com/golang/dep/cmd/dep
+  environment:
+    GO111MODULE: "off"
+
+- name: Remove singularity repo if it already exists
+  file:
+    path: /usr/lib/go/src/github.com/sylabs/singularity
+    state: absent
+
+- name: Create /usr/lib/go/src/github.com/sylabs if it does not exist
+  file:
+    path: /usr/lib/go/src/github.com/sylabs
+    state: directory
+    mode: '0755'
+
+- name: Download repo
   command: git clone https://github.com/sylabs/singularity.git
   args:
-    chdir: /tmp
-
-- name: Fetch
-  command: git fetch --all
-  args:
-    chdir: /tmp/singularity
+    chdir: /usr/lib/go/src/github.com/sylabs  
 
 - name: Checkout
-  command: git checkout 2.6.1
+  command: git checkout v{{version}}
   args:
-    chdir: /tmp/singularity
+    chdir: /usr/lib/go/src/github.com/sylabs/singularity
 
 - name: Configure
-  command: ./autogen.sh
+  command: ./mconfig --prefix={{install_directory}}
   args:
-    chdir: /tmp/singularity
-
-- name: Configure
-  command: ./configure --prefix=/usr/local
-  args:
-    chdir: /tmp/singularity
+    chdir: /usr/lib/go/src/github.com/sylabs/singularity
 
 - name: Make
-  make:
-    chdir: /tmp/singularity/
+  command: make -C ./builddir
+  args:
+    chdir: /usr/lib/go/src/github.com/sylabs/singularity
+  environment:
+    GO111MODULE: "off"
 
 - name: Make install
-  make:
-    chdir: /tmp/singularity/
-    target: install
+  command: make -C ./builddir install
+  args:
+    chdir: /usr/lib/go/src/github.com/sylabs/singularity
+  become: true
+  environment:
+    GO111MODULE: "off"
 
 - name: Link
   command: ldconfig
 
 - name: Cleanup
   file:
-    path: /tmp/singularity
+    path: /usr/lib/go/src/github.com/sylabs/singularity
     state: absent
+  
+- name: Add bin dir to system-wide $PATH.
+  copy:
+    dest: /etc/profile.d/singularity-{{version}}.sh
+    content: 'PATH=$PATH:{{install_directory}}/bin'

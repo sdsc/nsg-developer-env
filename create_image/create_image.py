@@ -1,3 +1,4 @@
+import argparse
 import cred
 import os
 import openstack
@@ -7,10 +8,16 @@ import subprocess
 from time import sleep
 
 
+
 def main():
+    args = parse_args()
+
+    create_image(args.name)
+
+def create_image(image_name):
 
     conn = openstack.connect(
-        auth_url=cred.uth_url,
+        auth_url=cred.auth_url,
         project_name=cred.project_name,
         username=cred.username,
         password=cred.password,
@@ -66,9 +73,8 @@ def main():
 
         wait_for_ssh_port(floating_ip.floating_ip_address, 5, 20)
         configure_server(floating_ip.floating_ip_address, keypair.private_key)
-        conn.compute.create_server_image(server, 'test-image')
-
-        val = input("Press Enter to Destroy: ") 
+        conn.compute.create_server_image(server, image_name, wait=True)
+        print(f'Server image \'{image_name}\' created')
 
     except Exception as e:
         print(e)
@@ -99,6 +105,11 @@ def main():
         if security_group is not None:
             conn.network.delete_security_group(security_group)
             print('security group deleted')
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-n', '--name', help='Name of created image', required=True)
+    return parser.parse_args()
 
 def configure_server(ip, private_key_string):
     try:

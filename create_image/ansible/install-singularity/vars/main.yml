@@ -1,2 +1,7 @@
 ---
 # vars file for install-singularity
+version_major: 3
+version_minor: 1
+version_patch: 0
+version: "{{version_major}}.{{version_minor}}.{{version_patch}}"
+install_directory: /opt/singularity-{{version}}

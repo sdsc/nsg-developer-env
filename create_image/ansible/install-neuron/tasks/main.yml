@@ -11,6 +11,6 @@
     state: present
     update_cache: true
 
-- name: Install a .deb package from the internet.
+- name: Download/Install neuron .deb file
   apt:
     deb: https://neuron.yale.edu/ftp/neuron/versions/v7.7/nrn-7.7.x86_64-linux.deb

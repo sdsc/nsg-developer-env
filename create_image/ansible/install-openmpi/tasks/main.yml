@@ -11,18 +11,18 @@
 
 - name: Download/Unarchive open mpi tar file
   unarchive:
-    src: https://download.open-mpi.org/release/open-mpi/v3.1/openmpi-3.1.4.tar.gz
+    src: https://download.open-mpi.org/release/open-mpi/v{{version_major}}.{{version_minor}}/openmpi-{{version}}.tar.gz
     dest: /tmp
     remote_src: yes
 
 - name: Configure
-  command: ./configure --prefix=/usr/local
+  command: ./configure --prefix={{install_directory}}
   args:
-    chdir: /tmp/openmpi-3.1.4
+    chdir: /tmp/openmpi-{{version}}
 
 - name: Make
   make:
-    chdir: /tmp/openmpi-3.1.4
+    chdir: /tmp/openmpi-{{version}}
     target: install
 
 - name: Link
@@ -30,5 +30,10 @@
 
 - name: Cleanup
   file:
-    path: /tmp/openmpi-3.1.4
+    path: /tmp/openmpi-{{version}}
     state: absent
+
+- name: Add bin dir to system-wide $PATH.
+  copy:
+    dest: /etc/profile.d/openmpi-{{version}}.sh
+    content: 'PATH=$PATH:{{install_directory}}/bin'

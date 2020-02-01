@@ -2,17 +2,32 @@
 - name: Dev Config
   hosts: all
   become: true
+  vars:
+    open_mpi_version_major: 3
+    open_mpi_version_minor: 1
+    open_mpi_version_patch: 4
+    open_mpi_install_directory: "/opt/openmpi-{{open_mpi_version_major}}.{{open_mpi_version_minor}}.{{open_mpi_version_patch}}"
+
+    singularity_version_major: 3
+    singularity_version_minor: 1
+    singularity_version_patch: 0
+    singularity_install_directory: /opt/singularity-{{singularity_version_major}}.{{singularity_version_minor}}.{{singularity_version_patch}}
   tasks:
 
     ### Install Open MPI ###
     - name: Check whether MPI is installed
       stat:
-        path: /usr/local/bin/mpirun
+        path: "{{open_mpi_install_directory}}/bin/mpirun"
       register: stat_openmpi
 
     - name: "Include install-openmpi"
       include_role:
         name: install-openmpi
+      vars:
+        version_major: "{{open_mpi_version_major}}"
+        version_minor: "{{open_mpi_version_minor}}"
+        version_patch: "{{open_mpi_version_patch}}"
+        install_directory: "{{open_mpi_install_directory}}"
       when: not stat_openmpi.stat.exists
 
     ### Install Neuron ###
@@ -26,14 +41,18 @@
         name: install-neuron
       when: not stat_neuron.stat.exists
 
-
     ### Install Singularity ###
     - name: Check whether Singularity is installed
       stat:
-        path: /usr/local/bin/singularity
+        path: "{{singularity_install_directory}}/bin/singularity"
       register: stat_singularity
 
     - name: "Include install-singulairty"
       include_role:
         name: install-singularity
+      vars:
+        version_major: "{{singularity_version_major}}"
+        version_minor: "{{singularity_version_minor}}"
+        version_patch: "{{singularity_version_patch}}"
+        install_directory: "{{singularity_install_directory}}"
       when: not stat_singularity.stat.exists
