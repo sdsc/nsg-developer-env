@@ -15,77 +15,83 @@
   tasks:
 
 
-    # ### Install python and pip ###
-    # - name: Install python
-    #   apt:
-    #     name: 
-    #       - python2.7
-    #       - python3
-    #       - python-pip
-    #       - python3-pip
-    #     state: present
-    #     update_cache: true
+    ### Install python and pip ###
+    - name: Install python
+      apt:
+        name: 
+          - python2.7
+          - python3
+          - python-pip
+          - python3-pip
+        state: present
+        update_cache: true
 
-    # ### Install google-chrome ###
-    # - name: Check whether google-chrome is installed
-    #   stat:
-    #     path: "/usr/bin/google-chrome"
-    #   register: stat_google_chrome
+    ### Install google-chrome ###
+    - name: Check whether google-chrome is installed
+      stat:
+        path: "/usr/bin/google-chrome"
+      register: stat_google_chrome
 
-    # - name: "Include install-google_chrome"
-    #   include_role:
-    #     name: install-google_chrome
-    #   when: not stat_google_chrome.stat.exists
+    - name: "Include install-google_chrome"
+      include_role:
+        name: install-google_chrome
+      when: not stat_google_chrome.stat.exists
 
-    # - name: Install vnc
-    #   stat:
-    #     path: "/usr/bin/google-chrome"
-    #   register: stat_google_chrome
+    ### Install VNC ###
+    - name: Install VNC
+      stat:
+        path: "/usr/bin/vncserver"
+      register: stat_vnc
 
     - name: "Include install-vnc"
       include_role:
         name: install-vnc
-      # when: not stat_google_chrome.stat.exists
+      when: not stat_vnc.stat.exists
 
-    # ### Install Open MPI ###
-    # - name: Check whether MPI is installed
-    #   stat:
-    #     path: "{{open_mpi_install_directory}}/bin/mpirun"
-    #   register: stat_openmpi
+    ### Install Jupyter ###
+    - name: "Include jupyter"
+      include_role:
+        name: install-jupyter
 
-    # - name: "Include install-openmpi"
-    #   include_role:
-    #     name: install-openmpi
-    #   vars:
-    #     version_major: "{{open_mpi_version_major}}"
-    #     version_minor: "{{open_mpi_version_minor}}"
-    #     version_patch: "{{open_mpi_version_patch}}"
-    #     install_directory: "{{open_mpi_install_directory}}"
-    #   when: not stat_openmpi.stat.exists
+    ### Install Open MPI ###
+    - name: Check whether MPI is installed
+      stat:
+        path: "{{open_mpi_install_directory}}/bin/mpirun"
+      register: stat_openmpi
 
-    # ### Install Neuron ###
-    # - name: Check whether Neuron is installed
-    #   stat:
-    #     path: /usr/local/bin/nrniv
-    #   register: stat_neuron
+    - name: "Include install-openmpi"
+      include_role:
+        name: install-openmpi
+      vars:
+        version_major: "{{open_mpi_version_major}}"
+        version_minor: "{{open_mpi_version_minor}}"
+        version_patch: "{{open_mpi_version_patch}}"
+        install_directory: "{{open_mpi_install_directory}}"
+      when: not stat_openmpi.stat.exists
 
-    # - name: "Include install-neuron"
-    #   include_role:
-    #     name: install-neuron
-    #   when: not stat_neuron.stat.exists
+    ### Install Neuron ###
+    - name: Check whether Neuron is installed
+      stat:
+        path: /usr/local/bin/nrniv
+      register: stat_neuron
 
-    # ### Install Singularity ###
-    # - name: Check whether Singularity is installed
-    #   stat:
-    #     path: "{{singularity_install_directory}}/bin/singularity"
-    #   register: stat_singularity
+    - name: "Include install-neuron"
+      include_role:
+        name: install-neuron
+      when: not stat_neuron.stat.exists
 
-    # - name: "Include install-singulairty"
-    #   include_role:
-    #     name: install-singularity
-    #   vars:
-    #     version_major: "{{singularity_version_major}}"
-    #     version_minor: "{{singularity_version_minor}}"
-    #     version_patch: "{{singularity_version_patch}}"
-    #     install_directory: "{{singularity_install_directory}}"
-    #   when: not stat_singularity.stat.exists
+    ### Install Singularity ###
+    - name: Check whether Singularity is installed
+      stat:
+        path: "{{singularity_install_directory}}/bin/singularity"
+      register: stat_singularity
+
+    - name: "Include install-singulairty"
+      include_role:
+        name: install-singularity
+      vars:
+        version_major: "{{singularity_version_major}}"
+        version_minor: "{{singularity_version_minor}}"
+        version_patch: "{{singularity_version_patch}}"
+        install_directory: "{{singularity_install_directory}}"
+      when: not stat_singularity.stat.exists

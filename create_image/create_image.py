@@ -7,8 +7,6 @@ import stat
 import subprocess
 from time import sleep
 
-
-
 def main():
     args = parse_args()
 
@@ -39,7 +37,6 @@ def create_image(image_name):
         flavor = conn.compute.find_flavor('m1.medium')
         image = conn.compute.find_image('Ubuntu 18.04 LTS x86_64')
         ext_network = conn.network.find_network('ext-net')
-
 
         volume = conn.block_storage.create_volume(size=20)
         print('created volume')
@@ -80,6 +77,7 @@ def create_image(image_name):
         print(e)
 
     finally:
+
         if volume is not None:
             conn.block_storage.delete_volume(volume)
             print('deleted volume')
