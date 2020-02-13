@@ -1,0 +1,20 @@
+---
+# tasks file for install-google_chrome
+
+- name: Enable universe repo
+  command: add-apt-repository universe
+
+- name: Install dependencies
+  apt:
+    name: 
+      - libappindicator3-1
+      - fonts-liberation
+      - libgconf2-4
+      - libnss3
+      - libxss1
+    state: present
+    update_cache: true
+
+- name: Download/Install google-chrome .deb file
+  apt:
+    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb

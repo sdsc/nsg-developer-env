@@ -1,0 +1,5 @@
+---
+# tasks file for install-jupyter
+
+- name: Install with pip
+  command: pip3 install jupyterlab

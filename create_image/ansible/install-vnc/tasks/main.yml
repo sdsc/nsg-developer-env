@@ -1,0 +1,55 @@
+---
+# tasks file for install-vnc
+
+- name: Install dependencies
+  apt:
+    name: 
+      - xfce4
+      - xfce4-goodies
+    state: present
+    update_cache: true
+
+- name: Install vnc server
+  apt:
+    name: 
+      - tightvncserver
+    state: present
+    update_cache: true
+
+- name: Create vnc config folder
+  file:
+    path: /home/ubuntu/.vnc
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: '0700'
+
+- name: set password for ubuntu
+  shell: echo "nsg-dev" | tightvncpasswd -f >> /home/ubuntu/.vnc/passwd
+
+- name: Change file ownership
+  file:
+    path: /home/ubuntu/.vnc/passwd
+    owner: ubuntu
+    group: ubuntu
+    mode: '0600'
+
+- name: Copy systemd config
+  copy:
+    src: "{{ role_path }}/files/vncserver@.service"
+    dest: /etc/systemd/system/vncserver@.service
+
+- name: just force systemd to reread configs
+  systemd:
+    daemon_reload: yes
+
+- name: enable service vncserver@1 and ensure it is not masked
+  systemd:
+    name: vncserver@1
+    enabled: yes
+    masked: no
+
+- name: Start vncserver@1
+  systemd:
+    state: started
+    name: vncserver@1
