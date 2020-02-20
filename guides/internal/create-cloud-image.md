@@ -1,8 +1,8 @@
 # Create Cloud Image
 
-There is an ansible script that will install the dev stack on a Ubuntu machine.
-You will need to run the ansible script, then the cloud-init script to purge
-cloud data from the machine. You will need to have ansible instlled on your
+There is an Ansible script that will install the dev stack on a Ubuntu machine.
+You will need to run the Ansible script, then the cloud-init script to purge
+cloud data from the machine. You will need to have Ansible installed on your
 local machine to follow this guide.
 
 1. Create an instance on SDSC cloud. You can follow the guide [here](https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034977/Getting+Started+with+Linux+Instances).
