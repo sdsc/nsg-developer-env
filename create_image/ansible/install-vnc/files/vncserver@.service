@@ -4,6 +4,8 @@ After=syslog.target network.target
 
 [Service]
 Type=forking
+Restart=always
+RestartSec=3
 User=ubuntu
 Group=ubuntu
 WorkingDirectory=/home/ubuntu
