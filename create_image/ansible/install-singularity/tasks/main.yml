@@ -22,7 +22,7 @@
 - name: Install golang
   apt:
     name: 
-      - golang-go=2:1.13~1longsleep1+xenial
+      - golang-go
     state: present
     update_cache: true
 
