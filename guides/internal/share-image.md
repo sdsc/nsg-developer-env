@@ -22,8 +22,8 @@ source /path/to/project-rc
 ## Sharing an Image
 Make sure that you are using credentials for a user in the project that 
 owns the image. To share, run the following command, replacing \<image id\>
-with the id of the image that you want to share and \<project id\> with project
-that you would like to share the image with. 
+with the id of the image that you want to share and \<project id\> with the id 
+of the project that you would like to share the image with. 
 ```
 openstack image add project <image id> <project id>
 ```

@@ -1,0 +1,30 @@
+<h1 id="how-to-share-an-image">How to Share an Image</h1>
+<p>This guide will show you how to share an image using the Openstack cli. This 
+will involve a two step process:</p>
+<ol>
+<li>Share the image from the project that owns the image</li>
+<li>Accept the image share from the project that wants to be able to use the image</li>
+</ol>
+<h2 id="setup">Setup</h2>
+<p>To share an image, you will need the <a href="https://pypi.org/project/openstacksdk/">Openstack cli</a> and your 
+<a href="https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034947/How+To+Download+the+OpenStack+Project+RC+File">project rc file</a></p>
+<p>You can can install the Openstack cli by running</p>
+<pre><code>pip <span class="hljs-keyword">install</span> openstacksdk
+</code></pre><p>Once you have the cli installed, source your project rc file and enter your 
+password when prompted</p>
+<pre><code><span class="hljs-keyword">source</span> <span class="hljs-regexp">/path/</span>to<span class="hljs-regexp">/project-rc</span>
+</code></pre><h2 id="sharing-an-image">Sharing an Image</h2>
+<p>Make sure that you are using credentials for a user in the project that 
+owns the image. To share, run the following command, replacing \<image id\>
+with the id of the image that you want to share and \<project id\> with the id 
+of the project that you would like to share the image with. </p>
+<pre><code>openstack <span class="hljs-built_in">image</span> <span class="hljs-built_in">add</span> project &lt;<span class="hljs-built_in">image</span> id&gt; &lt;project id&gt;
+</code></pre><h2 id="accepting-a-shared-image">Accepting a Shared Image</h2>
+<p>Make sure that you are using credentials for a user in the project that the
+image was shared with. To accept the shared image, run the following command,
+replacing \<image id\> with the id of the image that was shared.</p>
+<pre><code>openstack <span class="hljs-built_in">image</span> <span class="hljs-built_in">set</span> --accept &lt;<span class="hljs-built_in">image</span> id&gt;
+</code></pre><h3 id="relevant-links-">Relevant Links:</h3>
+<p><a href="https://docs.openstack.org/image-guide/share-images.html">https://docs.openstack.org/image-guide/share-images.html</a></p>
+<p><a href="https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/image.html#image-add-project">https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/image.html#image-add-project</a></p>
+<p><a href="https://ask.openstack.org/en/question/108975/devstack-how-to-share-image-with-other-projects/">https://ask.openstack.org/en/question/108975/devstack-how-to-share-image-with-other-projects/</a></p>
