@@ -5,7 +5,7 @@ with the username and password given to you by NSG.</p>
 <h2 id="adding-an-ssh-key">Adding an SSH Key</h2>
 <p>Before launching any instances, you should upload an SSH key so that you can authenticate with them. Navigate to the <strong>Key Pairs</strong> page by going to <strong>Project</strong> -&gt;
 <strong>Compute</strong> -&gt; <strong>Key Pairs</strong> in the navigation menu on the left.</p>
-<p><img src="key_pairs.PNG" alt="Key pairs page web view"></p>
+<p><img src="res/key_pairs.PNG" alt="Key pairs page web view"></p>
 <p>You can either create a key pair using the dashboard or upload an
 existing public key.</p>
 <h3 id="create-a-key-pair">Create a Key Pair</h3>
@@ -23,7 +23,7 @@ click <strong>Import Public Key</strong>.</p>
 you will need to set up a security group that will allow SSH connections.</p>
 <p>Navigate to the <strong>Security Groups</strong> page. You can do this by going to <strong>Project</strong>
 -&gt; <strong>Network</strong> -&gt; <strong>Security Groups</strong> in the navigation menu on the left.</p>
-<p><img src="security_groups.PNG" alt="Security group page web view"></p>
+<p><img src="res/security_groups.PNG" alt="Security group page web view"></p>
 <p>Click <strong>Create Security Group</strong> on the right side of the screen. In the popup
 window, name the security group &quot;SSH&quot; and then click <strong>Create Security Group</strong>.
 Next, click <strong>Add Rule</strong> on the right side of the screen. In the <strong>Rule</strong> 
@@ -34,25 +34,25 @@ development.</p>
 <p>Navigate to the <strong>Instances</strong> page.
 You can do this by going to <strong>Project</strong> -&gt; <strong>Compute</strong> -&gt; <strong>Instances</strong> in the 
 navigation menu on the left.</p>
-<p><img src="instances_page.PNG" alt="Instances page web view"></p>
+<p><img src="res/instances_page.PNG" alt="Instances page web view"></p>
 <p>Click <strong>Launch Instance</strong> on the right side of the screen.</p>
-<p><img src="launch_instance.PNG" alt="Launch instance page web view"></p>
+<p><img src="res/launch_instance.PNG" alt="Launch instance page web view"></p>
 <p>In the popup window, give your new instance any name you would like.</p>
-<p><img src="instance_name.PNG" alt="Instance name"></p>
+<p><img src="res/instance_name.PNG" alt="Instance name"></p>
 <p>Click on <strong>Source</strong> on the left. In the dropdown for <strong>Select Boot Source</strong>,
 select <strong>Image</strong>. Under the <strong>Available</strong> section, select <strong>dev_env_0.0.1</strong>
 by clicking on the up arrow at the end of the row.</p>
-<p><img src="instance_source.PNG" alt="Instance source"></p>
+<p><img src="res/instance_source.PNG" alt="Instance source"></p>
 <p>Click on <strong>Flavor</strong> on the left. Select the flavor with the CPU and RAM
 configuration that meets your needs by clicking on the up arrow at the end
 of the row. For this example, I will use <strong>m1.medium</strong>.</p>
-<p><img src="instance_flavor.PNG" alt="Instance flavor"></p>
+<p><img src="res/instance_flavor.PNG" alt="Instance flavor"></p>
 <p>Click on <strong>Security Groups</strong> on the left. Select the <strong>SSH</strong> security group
 that you created earlier by clicking on the up arrow at the end of the row.</p>
-<p><img src="instance_security_groups.PNG" alt="Instance security groups"></p>
+<p><img src="res/instance_security_groups.PNG" alt="Instance security groups"></p>
 <p>Click on <strong>Key Pair</strong> on the left. Select the SSH Key that you created earlier
 by clicking on the up arrow at the end of the row.</p>
-<p><img src="instance_key_pair.PNG" alt="Instance key pair"></p>
+<p><img src="res/instance_key_pair.PNG" alt="Instance key pair"></p>
 <p>Click <strong>Launch Instance</strong> on the bottom right of the popup to finish.</p>
 <h3 id="getting-a-public-ip-address">Getting a public IP Address</h3>
 <p>Your newly created instance will not be able to be reached until you
@@ -60,9 +60,9 @@ give it a public IP address by <strong>Associating a Floating IP</strong> with i
 From the instances page, find the instance that you would like to add an
 IP to. Click the dropdown arrow at the end of the row and click 
 <strong>Associate Floating IP</strong>.</p>
-<p><img src="floating_ip.PNG" alt="Associate floating IP"></p>
+<p><img src="res/floating_ip.PNG" alt="Associate floating IP"></p>
 <p>In the <strong>IP Address</strong> field, click the + at the end.</p>
-<p><img src="add_floating_ip.PNG" alt="Add floating IP"></p>
+<p><img src="res/add_floating_ip.PNG" alt="Add floating IP"></p>
 <p>In the popup window, click <strong>Allocate IP</strong>. Then click <strong>Associate</strong> in the
 bottom right of the popup window.</p>
 <p>Your instance should now be accessible at the associated IP address. Note that 
@@ -80,12 +80,12 @@ not lost.</p>
 <p>From the instances page, find the instance that you would like to shelve.
 Click the dropdown arrow at the end of the row and click 
 <strong>Shelve Instance</strong>.</p>
-<p><img src="shelve_instance.PNG" alt="Add floating IP"></p>
+<p><img src="res/shelve_instance.PNG" alt="Add floating IP"></p>
 <h2 id="unshelving-an-instance">Unshelving an Instance</h2>
 <p>From the instances page, find the instance that you would like to unshelve.
 Click the dropdown arrow at the end of the row and click 
 <strong>Unshelve Instance</strong>.</p>
-<p><img src="unshelve_instance.PNG" alt="Add floating IP"></p>
+<p><img src="res/unshelve_instance.PNG" alt="Add floating IP"></p>
 <h2 id="more-information-and-guides">More Information and Guides</h2>
 <p>For more information and guides on how to use the SDSC cloud, see the 
 <a href="https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/overview">SDSC Cloud Wiki</a>.</p>
