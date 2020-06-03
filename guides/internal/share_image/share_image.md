@@ -1,0 +1,45 @@
+# How to Share an Image
+This guide will show you how to share an image using the Openstack cli. This 
+will involve a two step process:
+
+1. Share the image from the project that owns the image
+2. Accept the image share from the project that wants to be able to use the image
+
+## Setup
+To share an image, you will need the [Openstack cli](https://pypi.org/project/openstacksdk/) and your 
+[project rc file](https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034947/How+To+Download+the+OpenStack+Project+RC+File)
+
+You can can install the Openstack cli by running
+```
+pip install openstacksdk
+```
+Once you have the cli installed, source your project rc file and enter your 
+password when prompted
+```
+source /path/to/project-rc
+```
+
+## Sharing an Image
+Make sure that you are using credentials for a user in the project that 
+owns the image. To share, run the following command, replacing \<image id\>
+with the id of the image that you want to share and \<project id\> with the id 
+of the project that you would like to share the image with. 
+```
+openstack image add project <image id> <project id>
+```
+
+## Accepting a Shared Image
+Make sure that you are using credentials for a user in the project that the
+image was shared with. To accept the shared image, run the following command,
+replacing \<image id\> with the id of the image that was shared.
+```
+openstack image set --accept <image id>
+```
+
+### Relevant Links:
+
+https://docs.openstack.org/image-guide/share-images.html
+
+https://docs.openstack.org/python-openstackclient/latest/cli/command-objects/image.html#image-add-project
+
+https://ask.openstack.org/en/question/108975/devstack-how-to-share-image-with-other-projects/
