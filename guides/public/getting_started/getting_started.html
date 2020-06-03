@@ -1,0 +1,91 @@
+<h2 id="getting-started">Getting Started</h2>
+<p>Development is done on the SDSC Cloud. To access the cloud dashboard,
+follow <a href="https://dashboard.cloud.sdsc.edu/">this link</a>. You will log in
+with the username and password given to you by NSG.</p>
+<h2 id="adding-an-ssh-key">Adding an SSH Key</h2>
+<p>Before launching any instances, you should upload an SSH key so that you can authenticate with them. Navigate to the <strong>Key Pairs</strong> page by going to <strong>Project</strong> -&gt;
+<strong>Compute</strong> -&gt; <strong>Key Pairs</strong> in the navigation menu on the left.</p>
+<p><img src="key_pairs.PNG" alt="Key pairs page web view"></p>
+<p>You can either create a key pair using the dashboard or upload an
+existing public key.</p>
+<h3 id="create-a-key-pair">Create a Key Pair</h3>
+<p>Click <strong>Create Key Pair</strong> on the right side of the screen. Give it any name
+that you would like and select <strong>SSH Key</strong> as the key type. Finally, click
+<strong>Create Key Pair</strong>. Your browser will automatically download the private key 
+for you.</p>
+<h3 id="upload-a-public-key">Upload a Public Key</h3>
+<p>Click <strong>Import Public Key</strong> on the right side of the screen. Give it any name
+that you would like and select <strong>SSH Key</strong> as the key type. Then either select
+the public key file or paste its contents into the text box. Finally,
+click <strong>Import Public Key</strong>.</p>
+<h2 id="adding-an-ssh-security-group">Adding an SSH Security Group</h2>
+<p>Before you are able to use your SSH key to authenticate with an instance,
+you will need to set up a security group that will allow SSH connections.</p>
+<p>Navigate to the <strong>Security Groups</strong> page. You can do this by going to <strong>Project</strong>
+-&gt; <strong>Network</strong> -&gt; <strong>Security Groups</strong> in the navigation menu on the left.</p>
+<p><img src="security_groups.PNG" alt="Security group page web view"></p>
+<p>Click <strong>Create Security Group</strong> on the right side of the screen. In the popup
+window, name the security group &quot;SSH&quot; and then click <strong>Create Security Group</strong>.
+Next, click <strong>Add Rule</strong> on the right side of the screen. In the <strong>Rule</strong> 
+dropdown, select <strong>SSH</strong>. Click <strong>Add</strong> to add the rule.</p>
+<h2 id="launching-a-development-instance">Launching a Development Instance</h2>
+<p>Development instances on the SDSC Cloud come prepackaged with software for
+development.</p>
+<p>Navigate to the <strong>Instances</strong> page.
+You can do this by going to <strong>Project</strong> -&gt; <strong>Compute</strong> -&gt; <strong>Instances</strong> in the 
+navigation menu on the left.</p>
+<p><img src="instances_page.PNG" alt="Instances page web view"></p>
+<p>Click <strong>Launch Instance</strong> on the right side of the screen.</p>
+<p><img src="launch_instance.PNG" alt="Launch instance page web view"></p>
+<p>In the popup window, give your new instance any name you would like.</p>
+<p><img src="instance_name.PNG" alt="Instance name"></p>
+<p>Click on <strong>Source</strong> on the left. In the dropdown for <strong>Select Boot Source</strong>,
+select <strong>Image</strong>. Under the <strong>Available</strong> section, select <strong>dev_env_0.0.1</strong>
+by clicking on the up arrow at the end of the row.</p>
+<p><img src="instance_source.PNG" alt="Instance source"></p>
+<p>Click on <strong>Flavor</strong> on the left. Select the flavor with the CPU and RAM
+configuration that meets your needs by clicking on the up arrow at the end
+of the row. For this example, I will use <strong>m1.medium</strong>.</p>
+<p><img src="instance_flavor.PNG" alt="Instance flavor"></p>
+<p>Click on <strong>Security Groups</strong> on the left. Select the <strong>SSH</strong> security group
+that you created earlier by clicking on the up arrow at the end of the row.</p>
+<p><img src="instance_security_groups.PNG" alt="Instance security groups"></p>
+<p>Click on <strong>Key Pair</strong> on the left. Select the SSH Key that you created earlier
+by clicking on the up arrow at the end of the row.</p>
+<p><img src="instance_key_pair.PNG" alt="Instance key pair"></p>
+<p>Click <strong>Launch Instance</strong> on the bottom right of the popup to finish.</p>
+<h3 id="getting-a-public-ip-address">Getting a public IP Address</h3>
+<p>Your newly created instance will not be able to be reached until you
+give it a public IP address by <strong>Associating a Floating IP</strong> with it.
+From the instances page, find the instance that you would like to add an
+IP to. Click the dropdown arrow at the end of the row and click 
+<strong>Associate Floating IP</strong>.</p>
+<p><img src="floating_ip.PNG" alt="Associate floating IP"></p>
+<p>In the <strong>IP Address</strong> field, click the + at the end.</p>
+<p><img src="add_floating_ip.PNG" alt="Add floating IP"></p>
+<p>In the popup window, click <strong>Allocate IP</strong>. Then click <strong>Associate</strong> in the
+bottom right of the popup window.</p>
+<p>Your instance should now be accessible at the associated IP address. Note that 
+this is the IP address that starts with <strong>132.*</strong> not <strong>10.*</strong> .</p>
+<h2 id="connecting-to-an-instance">Connecting to an Instance</h2>
+<p>You should be able to connect to your instances using the SSH key that you
+selected when created the instance.</p>
+<p>For help connecting from Mac or Linux, look <a href="https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034993/SSH+to+Instance+using+Mac+and+Linux">here</a>.
+For help connecting from Windows, look <a href="https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034995/SSH+to+Instance+using+Windows">here</a>.</p>
+<h2 id="shelving-an-instance">Shelving an Instance</h2>
+<p>Instances should only be kept running when they are being used. When instances
+are not in use, they should be <em>shelved</em>. Shelved instances are essentially
+paused until they are needed again. Data stays on shelved instances and is
+not lost.</p>
+<p>From the instances page, find the instance that you would like to shelve.
+Click the dropdown arrow at the end of the row and click 
+<strong>Shelve Instance</strong>.</p>
+<p><img src="shelve_instance.PNG" alt="Add floating IP"></p>
+<h2 id="unshelving-an-instance">Unshelving an Instance</h2>
+<p>From the instances page, find the instance that you would like to unshelve.
+Click the dropdown arrow at the end of the row and click 
+<strong>Unshelve Instance</strong>.</p>
+<p><img src="unshelve_instance.PNG" alt="Add floating IP"></p>
+<h2 id="more-information-and-guides">More Information and Guides</h2>
+<p>For more information and guides on how to use the SDSC cloud, see the 
+<a href="https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/overview">SDSC Cloud Wiki</a>.</p>

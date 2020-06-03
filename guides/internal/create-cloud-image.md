@@ -13,7 +13,7 @@ set up ssh access (keypair, security group and floating ip).
 This command will take some time to run.
 
     ```
-    ansible-playbook -i -e 'ansible_python_interpreter=/usr/bin/python3' <ip address of instance>, -u ubuntu  create_dev_env.yml
+    ansible-playbook -e 'ansible_python_interpreter=/usr/bin/python3' -i <ip address of instance>, -u ubuntu  create_dev_env.yml
     ```
 
 3. Make sure that you are in create_image/ and run the cloud-init script. Once
@@ -25,7 +25,7 @@ you run this command, you will not be able to ssh back into the instance.
 
 4. Go to the SDSC Cloud dashboard [instances page](https://dashboard.cloud.sdsc.edu/dashboard/project/instances/). Find the instance that you are working with. On
 the very right, under the "Actions" row, click the dropdown arrow and select 
-"Shut off Instance".
+"Shut Off Instance".
 
 5. Go to the SDSC Cloud dashboard [volumes page](https://dashboard.cloud.sdsc.edu/dashboard/project/volumes/). From there, find the volume attached to your instance that
 you just shut down. On the very right, under the "Actions" row, click the
