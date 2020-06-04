@@ -1,3 +1,25 @@
+## Introduction
+This is the user doc for the cloud environment that the Neuroscience Gateway
+(NSG) provides for neuroscience tool developers. The SDSC cloud based developer
+environment allows neuroscience tool developers to create a suitable instance
+on the SDSC cloud and use an image that includes basic software stack and tools
+that neuroscience tool developers may use for their tool development work. It
+provides:
+
+* Python 2.7
+* Python 3
+* TightVNC
+* Google Chrome (for use with VNC)
+* Jupyter
+* Open MPI 3.1.4
+* Neuron 7.7
+* Singularity 3.1.0
+
+It allows developers to put software in a Singularity container, connect to a
+VNC server, run Jupyter Notebook etc. Based on needs of the neuroscientist tool
+developers, other software and features will be provided in the tool development
+environment.
+
 ## Getting Started
 
 Development is done on the SDSC Cloud. To access the cloud dashboard,
