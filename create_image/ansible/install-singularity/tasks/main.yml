@@ -12,6 +12,7 @@
       - libseccomp-dev
       - wget
       - pkg-config
+      - debootstrap
     state: present
     update_cache: true
 
