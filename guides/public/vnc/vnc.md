@@ -9,4 +9,11 @@ using to connect to your instance.
     ```
     ssh -L 5901:127.0.0.1:5901 -C -N ubuntu@<remote-instance-ip>
     ```
-2. On your local machine, use your VNC client to connect to localhost:5901 . The password is **nsg-dev** .
+2. On your local machine, use your VNC client to connect to localhost:5901 .
+The password is **nsg-dev** .
+
+Note: If you would like to change the password for the VNC, you can use the
+following command:
+``` bash
+echo "new-password" | tightvncpasswd -f > /home/ubuntu/.vnc/passwd
+```
