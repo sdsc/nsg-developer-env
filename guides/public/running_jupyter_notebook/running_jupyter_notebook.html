@@ -1,0 +1,47 @@
+<h1 id="running-a-jupyter-notebook">Running a Jupyter Notebook</h1>
+<h2 id="start-the-notebook-server">Start the Notebook Server</h2>
+<p>To start a notebook server, run the following command from the
+development server:</p>
+<pre><code class="lang-bash"><span class="hljs-attribute">jupyter</span> notebook --<span class="hljs-literal">no</span>-browser
+</code></pre>
+<p>Make sure that you leave your terminal open to keep the notebook
+server up.</p>
+<h2 id="connecting-to-the-notebook-server">Connecting to the Notebook Server</h2>
+<p>To securely connect to a notebook on a development instance, you
+can either connect to the notebook using the VNC or use an ssh
+tunnel to connect to the notebook directly.</p>
+<h3 id="using-the-vnc">Using the VNC</h3>
+<ol>
+<li><p>Follow the instructions in the VNC guide to connect to the
+VNC with a VNC client.</p>
+</li>
+<li><p>From within your VNC client, you can launch a browser with the following
+command:</p>
+<pre><code class="lang-bash"><span class="hljs-attribute">google-chrome</span>
+</code></pre>
+</li>
+<li><p>In the browser, copy and paste the link that the notebook
+command printed to the screen. Note that if you have problems
+copying and pasting the link from your terminal to the VNC client,
+you instead run the notebook server from a terminal within your
+VNC client.</p>
+</li>
+</ol>
+<h3 id="using-an-ssh-tunnel-directly">Using an SSH Tunnel Directly</h3>
+<ol>
+<li><p>On your local machine, set up the ssh tunnel with the following command. Make
+sure to keep the terminal open to keep the connection open:</p>
+<pre><code class="lang-bash">ssh -L &lt;local-port&gt;<span class="hljs-symbol">:</span><span class="hljs-number">127.0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span><span class="hljs-symbol">:&lt;development-instance-port&gt;</span> -C -N ubuntu@&lt;development-instance-ip&gt;
+</code></pre>
+<p>\<development-instance-port\> is the port that the jupyter notebook command has
+included in its output (probably 8888). \<local-port\> is whatever port on your
+local machine that you would like to access the notebook on. It can be any port
+that is open, but if you change it to something other than
+\<development-instance-port\>, make sure that connect to that port in the next
+step.</p>
+</li>
+<li><p>Open up a browser on your local computer and paste in the link from the
+notebook server command. If \<local-port\> is different from
+\<development-instance-port\>, make sure to use \<local-port\>.</p>
+</li>
+</ol>
