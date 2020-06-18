@@ -1,0 +1,57 @@
+<h1 id="prerequisites">Prerequisites</h1>
+<p>This guide will show you how to set up a two node cluster that is configured to
+run OpenMPI. Before following this guide, make sure that you have <a href="https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034977/Getting+Started+with+Linux+Instances#GettingStartedwithLinuxInstances-ssh-keyCreateanSSHKey">set up an
+SSH key</a>.</p>
+<h1 id="setting-up-an-mpi-cluster">Setting up an MPI Cluster</h1>
+<ol>
+<li>Log in to the <a href="https://dashboard.cloud.sdsc.edu/">SDSC Cloud</a>.</li>
+<li><p>Navigate to <strong>Project -&gt; Orchestration -&gt; Stacks</strong> using the menu on the
+left.
+<img src="res/stacks.png" alt="Dashboard view of stacks"></p>
+</li>
+<li><p>Click <strong>Launch Stack</strong> on the upper right of the screen.
+<img src="res/launch_stack.png" alt="Dashboard view of stacks"></p>
+</li>
+<li><p>Change <strong>Template Source</strong> to URL and paste the following URL into
+<strong>Template URL</strong>:</p>
+</li>
+</ol>
+<pre><code>https:<span class="hljs-regexp">//</span>raw.githubusercontent.com<span class="hljs-regexp">/sdsc/</span>nsg-developer-env<span class="hljs-regexp">/master/gui</span>des<span class="hljs-regexp">/public/m</span>pi_cluster<span class="hljs-regexp">/res/</span>cluster-template.yaml
+</code></pre><ol>
+<li><p>Click <strong>Next</strong>.</p>
+</li>
+<li><p>Fill out the form that shows up:</p>
+</li>
+<li><strong>Stack Name</strong> - whatever you would like to name your cluster</li>
+<li><strong>Password for [username]</strong> - your openstack password</li>
+<li><strong>Image Name</strong> - the name of the image that you would like to use for
+all nodes in the cluster (This image must have the MPI software stack installed
+on it. If unsure, use the default. )</li>
+<li><strong>Key Name</strong> - the name of the SSH key that you would like to use to access
+nodes in the cluster</li>
+<li><p><strong>Network Name</strong> - should be &quot;[project name]s_network&quot; where your replace 
+[project name] with the name of your project. This value should be in the upper
+left corner.
+<img src="res/project_name.png" alt="Project name example">
+For example, the project name here is &quot;nsg-dev&quot;</p>
+</li>
+<li><p>Click <strong>Launch</strong>. The stack will create two compute instances called
+&quot;nsg-node-1&quot; and &quot;nsg-node-2&quot;. You can connect to these nodes via ssh using
+the ssh key specified earlier. Use whatever username is default for the image
+that you specified earlier. If you specified an nsg-dev image, then the user
+should be &quot;ubuntu&quot;.</p>
+</li>
+</ol>
+<p><strong>Note: Clusters should only stay up for as long as they are needed. When they
+are not needed, be sure to destroy them or <a href="https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/348585987/Shelving+an+Instance+to+Minimize+Resource+Usage+Charges">shelve the nodes</a>.</strong></p>
+<h1 id="destroying-an-mpi-cluster">Destroying an MPI Cluster</h1>
+<ol>
+<li>Log in to the <a href="https://dashboard.cloud.sdsc.edu/">SDSC Cloud</a></li>
+<li><p>Navigate to <strong>Project -&gt; Orchestration -&gt; Stacks</strong> using the menu on the
+left.
+<img src="res/stacks.png" alt="Dashboard view of stacks"></p>
+</li>
+<li><p>Select the check mark for the stack that you would like to destroy. Then
+click <strong>Delete Stacks</strong> in the upper right. </p>
+</li>
+</ol>

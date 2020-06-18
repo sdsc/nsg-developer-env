@@ -1,8 +1,11 @@
-# Setting up an MPI Cluster
+# Prerequisites
 This guide will show you how to set up a two node cluster that is configured to
-run OpenMPI across itself.
+run OpenMPI. Before following this guide, make sure that you have [set up an
+SSH key](https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034977/Getting+Started+with+Linux+Instances#GettingStartedwithLinuxInstances-ssh-keyCreateanSSHKey).
 
-1. Log in to the [SDSC Cloud](https://dashboard.cloud.sdsc.edu/)
+# Setting up an MPI Cluster
+
+1. Log in to the [SDSC Cloud](https://dashboard.cloud.sdsc.edu/).
 2. Navigate to **Project -> Orchestration -> Stacks** using the menu on the
 left.
 ![Dashboard view of stacks](res/stacks.png)
@@ -23,7 +26,8 @@ https://raw.githubusercontent.com/sdsc/nsg-developer-env/master/guides/public/mp
 * **Stack Name** - whatever you would like to name your cluster
 * **Password for [username]** - your openstack password
 * **Image Name** - the name of the image that you would like to use for
-all nodes in the cluster
+all nodes in the cluster (This image must have the MPI software stack installed
+on it. If unsure, use the default. )
 * **Key Name** - the name of the SSH key that you would like to use to access
 nodes in the cluster
 * **Network Name** - should be "[project name]s_network" where your replace 
@@ -37,6 +41,9 @@ For example, the project name here is "nsg-dev"
 the ssh key specified earlier. Use whatever username is default for the image
 that you specified earlier. If you specified an nsg-dev image, then the user
 should be "ubuntu".
+
+**Note: Clusters should only stay up for as long as they are needed. When they
+are not needed, be sure to destroy them or [shelve the nodes](https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/348585987/Shelving+an+Instance+to+Minimize+Resource+Usage+Charges).**
 
 # Destroying an MPI Cluster
 1. Log in to the [SDSC Cloud](https://dashboard.cloud.sdsc.edu/)
