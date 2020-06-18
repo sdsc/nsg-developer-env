@@ -128,7 +128,8 @@ this is the IP address that starts with **132.\*** not **10.\*** .
 
 ## Connecting to an Instance
 You should be able to connect to your instances using the SSH key that you
-selected when created the instance.
+selected when created the instance. When connecting to your instance, use
+**ubuntu** as your username.
 
 For help connecting from Mac or Linux, look [here](https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034993/SSH+to+Instance+using+Mac+and+Linux).
 For help connecting from Windows, look [here](https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034995/SSH+to+Instance+using+Windows).
