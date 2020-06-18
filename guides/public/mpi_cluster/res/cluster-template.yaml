@@ -11,7 +11,7 @@ parameters:
     type: string
     label: Image Name
     description: Name of the image to boot instances from
-    default: "dev_env_1.0.0"
+    default: "dev_env_0.0.2"
 
   network_name:
     type: string
