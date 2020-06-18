@@ -5,6 +5,17 @@ You will need to run the Ansible script, then the cloud-init script to purge
 cloud data from the machine. You will need to have Ansible installed on your
 local machine to follow this guide.
 
+The current software stack includes:
+* Python 2.7
+* Python 3
+* TightVNC
+* Google Chrome (for use with VNC)
+* Jupyter
+* Open MPI 3.1.4
+* Neuron 7.7
+* Singularity 3.1.0
+
+
 1. Create an instance on SDSC cloud. You can follow the guide [here](https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034977/Getting+Started+with+Linux+Instances).
 Make sure that you select "Ubuntu 18.04 LTS x86_64" as your source and have
 set up ssh access (keypair, security group and floating ip).
