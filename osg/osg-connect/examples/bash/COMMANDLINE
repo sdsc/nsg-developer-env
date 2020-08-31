@@ -1,0 +1,1 @@
+inputfile bash -b 8 -r 5 -s 10000
