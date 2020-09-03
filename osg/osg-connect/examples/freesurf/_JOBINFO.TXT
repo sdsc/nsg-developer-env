@@ -1,0 +1,64 @@
+Task label=bert
+Task ID=99995
+Tool=freesurf
+created on=2020-01-01 00:42:00.0
+JobHandle=NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+resource=osg
+User ID=999
+User Name=mkandes
+email=mkandes@sdsc.edu
+
+JOBID=4293932
+
+job_properties ({'Task': 'ID=99995', 'resource': 'osg', 'created': 'on=2020-01-01 00:42:00.0', 'Tool': 'freesurf', 'JobHandle': 'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'JOBID': '4293932', 'User': 'Name=mkandes', 'email': 'mkandes@sdsc.edu'})
+
+gatewayuser (mkandes)
+
+gateway_submit_attributes=curl -XPOST --data @$HOME/.xsede-gateway-attributes-apikey --data-urlencode "gatewayuser=mkandes"  --data-urlencode "xsederesourcename=comet.sdsc.xsede" --data-urlencode "jobid=4293932" --data-urlencode "submittime=`date '+%F %T %:z'`" https://xsede-xdcdb-api.xsede.org/gateway/v2/job_attributes
+
+gateway_submit_attributes retval (0) output (Form variable "apikey" is missing.
+)
+
+JOBID=4293961
+
+job_properties ({'Task': 'ID=99995', 'resource': 'osg', 'created': 'on=2020-01-01 00:42:00.0', ')': '', 'Tool': 'freesurf', 'job_properties': "({'Task': 'ID=99995', 'resource': 'osg', 'created': 'on=2020-01-01 00:42:00.0', 'Tool': 'freesurf', 'JobHandle': 'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'JOBID': '4293932', 'User': 'Name=mkandes', 'email': 'mkandes@sdsc.edu'})", 'JobHandle': 'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'JOBID': '4293961', 'gatewayuser': '(mkandes)', 'User': 'Name=mkandes', 'email': 'mkandes@sdsc.edu', 'gateway_submit_attributes': 'retval (0) output (Form variable "apikey" is missing.'})
+
+gatewayuser (mkandes)
+
+gateway_submit_attributes=curl -XPOST --data @$HOME/.xsede-gateway-attributes-apikey --data-urlencode "gatewayuser=mkandes"  --data-urlencode "xsederesourcename=comet.sdsc.xsede" --data-urlencode "jobid=4293961" --data-urlencode "submittime=`date '+%F %T %:z'`" https://xsede-xdcdb-api.xsede.org/gateway/v2/job_attributes
+
+gateway_submit_attributes retval (0) output (Form variable "apikey" is missing.
+)
+
+JOBID=4293979
+
+job_properties ({'Task': 'ID=99995', 'resource': 'osg', 'created': 'on=2020-01-01 00:42:00.0', ')': '', 'Tool': 'freesurf', 'job_properties': '({\'Task\': \'ID=99995\', \'resource\': \'osg\', \'created\': \'on=2020-01-01 00:42:00.0\', \')\': \'\', \'Tool\': \'freesurf\', \'job_properties\': "({\'Task\': \'ID=99995\', \'resource\': \'osg\', \'created\': \'on=2020-01-01 00:42:00.0\', \'Tool\': \'freesurf\', \'JobHandle\': \'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\', \'JOBID\': \'4293932\', \'User\': \'Name=mkandes\', \'email\': \'mkandes@sdsc.edu\'})", \'JobHandle\': \'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\', \'JOBID\': \'4293961\', \'gatewayuser\': \'(mkandes)\', \'User\': \'Name=mkandes\', \'email\': \'mkandes@sdsc.edu\', \'gateway_submit_attributes\': \'retval (0) output (Form variable "apikey" is missing.\'})', 'JobHandle': 'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'JOBID': '4293979', 'gatewayuser': '(mkandes)', 'User': 'Name=mkandes', 'email': 'mkandes@sdsc.edu', 'gateway_submit_attributes': 'retval (0) output (Form variable "apikey" is missing.'})
+
+gatewayuser (mkandes)
+
+gateway_submit_attributes=curl -XPOST --data @$HOME/.xsede-gateway-attributes-apikey --data-urlencode "gatewayuser=mkandes"  --data-urlencode "xsederesourcename=comet.sdsc.xsede" --data-urlencode "jobid=4293979" --data-urlencode "submittime=`date '+%F %T %:z'`" https://xsede-xdcdb-api.xsede.org/gateway/v2/job_attributes
+
+gateway_submit_attributes retval (0) output (Form variable "apikey" is missing.
+)
+
+JOBID=4294294
+
+job_properties ({'Task': 'ID=99995', 'resource': 'osg', 'created': 'on=2020-01-01 00:42:00.0', ')': '', 'Tool': 'freesurf', 'job_properties': '({\'Task\': \'ID=99995\', \'resource\': \'osg\', \'created\': \'on=2020-01-01 00:42:00.0\', \')\': \'\', \'Tool\': \'freesurf\', \'job_properties\': \'({\\\'Task\\\': \\\'ID=99995\\\', \\\'resource\\\': \\\'osg\\\', \\\'created\\\': \\\'on=2020-01-01 00:42:00.0\\\', \\\')\\\': \\\'\\\', \\\'Tool\\\': \\\'freesurf\\\', \\\'job_properties\\\': "({\\\'Task\\\': \\\'ID=99995\\\', \\\'resource\\\': \\\'osg\\\', \\\'created\\\': \\\'on=2020-01-01 00:42:00.0\\\', \\\'Tool\\\': \\\'freesurf\\\', \\\'JobHandle\\\': \\\'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\\\', \\\'JOBID\\\': \\\'4293932\\\', \\\'User\\\': \\\'Name=mkandes\\\', \\\'email\\\': \\\'mkandes@sdsc.edu\\\'})", \\\'JobHandle\\\': \\\'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\\\', \\\'JOBID\\\': \\\'4293961\\\', \\\'gatewayuser\\\': \\\'(mkandes)\\\', \\\'User\\\': \\\'Name=mkandes\\\', \\\'email\\\': \\\'mkandes@sdsc.edu\\\', \\\'gateway_submit_attributes\\\': \\\'retval (0) output (Form variable "apikey" is missing.\\\'})\', \'JobHandle\': \'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\', \'JOBID\': \'4293979\', \'gatewayuser\': \'(mkandes)\', \'User\': \'Name=mkandes\', \'email\': \'mkandes@sdsc.edu\', \'gateway_submit_attributes\': \'retval (0) output (Form variable "apikey" is missing.\'})', 'JobHandle': 'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'JOBID': '4294294', 'gatewayuser': '(mkandes)', 'User': 'Name=mkandes', 'email': 'mkandes@sdsc.edu', 'gateway_submit_attributes': 'retval (0) output (Form variable "apikey" is missing.'})
+
+gatewayuser (mkandes)
+
+gateway_submit_attributes=curl -XPOST --data @$HOME/.xsede-gateway-attributes-apikey --data-urlencode "gatewayuser=mkandes"  --data-urlencode "xsederesourcename=comet.sdsc.xsede" --data-urlencode "jobid=4294294" --data-urlencode "submittime=`date '+%F %T %:z'`" https://xsede-xdcdb-api.xsede.org/gateway/v2/job_attributes
+
+gateway_submit_attributes retval (0) output (Form variable "apikey" is missing.
+)
+
+JOBID=4296851
+
+job_properties ({'Task': 'ID=99995', 'resource': 'osg', 'created': 'on=2020-01-01 00:42:00.0', ')': '', 'Tool': 'freesurf', 'job_properties': '({\'Task\': \'ID=99995\', \'resource\': \'osg\', \'created\': \'on=2020-01-01 00:42:00.0\', \')\': \'\', \'Tool\': \'freesurf\', \'job_properties\': \'({\\\'Task\\\': \\\'ID=99995\\\', \\\'resource\\\': \\\'osg\\\', \\\'created\\\': \\\'on=2020-01-01 00:42:00.0\\\', \\\')\\\': \\\'\\\', \\\'Tool\\\': \\\'freesurf\\\', \\\'job_properties\\\': \\\'({\\\\\\\'Task\\\\\\\': \\\\\\\'ID=99995\\\\\\\', \\\\\\\'resource\\\\\\\': \\\\\\\'osg\\\\\\\', \\\\\\\'created\\\\\\\': \\\\\\\'on=2020-01-01 00:42:00.0\\\\\\\', \\\\\\\')\\\\\\\': \\\\\\\'\\\\\\\', \\\\\\\'Tool\\\\\\\': \\\\\\\'freesurf\\\\\\\', \\\\\\\'job_properties\\\\\\\': "({\\\\\\\'Task\\\\\\\': \\\\\\\'ID=99995\\\\\\\', \\\\\\\'resource\\\\\\\': \\\\\\\'osg\\\\\\\', \\\\\\\'created\\\\\\\': \\\\\\\'on=2020-01-01 00:42:00.0\\\\\\\', \\\\\\\'Tool\\\\\\\': \\\\\\\'freesurf\\\\\\\', \\\\\\\'JobHandle\\\\\\\': \\\\\\\'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\\\\\\\', \\\\\\\'JOBID\\\\\\\': \\\\\\\'4293932\\\\\\\', \\\\\\\'User\\\\\\\': \\\\\\\'Name=mkandes\\\\\\\', \\\\\\\'email\\\\\\\': \\\\\\\'mkandes@sdsc.edu\\\\\\\'})", \\\\\\\'JobHandle\\\\\\\': \\\\\\\'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\\\\\\\', \\\\\\\'JOBID\\\\\\\': \\\\\\\'4293961\\\\\\\', \\\\\\\'gatewayuser\\\\\\\': \\\\\\\'(mkandes)\\\\\\\', \\\\\\\'User\\\\\\\': \\\\\\\'Name=mkandes\\\\\\\', \\\\\\\'email\\\\\\\': \\\\\\\'mkandes@sdsc.edu\\\\\\\', \\\\\\\'gateway_submit_attributes\\\\\\\': \\\\\\\'retval (0) output (Form variable "apikey" is missing.\\\\\\\'})\\\', \\\'JobHandle\\\': \\\'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\\\', \\\'JOBID\\\': \\\'4293979\\\', \\\'gatewayuser\\\': \\\'(mkandes)\\\', \\\'User\\\': \\\'Name=mkandes\\\', \\\'email\\\': \\\'mkandes@sdsc.edu\\\', \\\'gateway_submit_attributes\\\': \\\'retval (0) output (Form variable "apikey" is missing.\\\'})\', \'JobHandle\': \'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\', \'JOBID\': \'4294294\', \'gatewayuser\': \'(mkandes)\', \'User\': \'Name=mkandes\', \'email\': \'mkandes@sdsc.edu\', \'gateway_submit_attributes\': \'retval (0) output (Form variable "apikey" is missing.\'})', 'JobHandle': 'NGBW-JOB-FREESURF_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'JOBID': '4296851', 'gatewayuser': '(mkandes)', 'User': 'Name=mkandes', 'email': 'mkandes@sdsc.edu', 'gateway_submit_attributes': 'retval (0) output (Form variable "apikey" is missing.'})
+
+gatewayuser (mkandes)
+
+gateway_submit_attributes=curl -XPOST --data @$HOME/.xsede-gateway-attributes-apikey --data-urlencode "gatewayuser=mkandes"  --data-urlencode "xsederesourcename=comet.sdsc.xsede" --data-urlencode "jobid=4296851" --data-urlencode "submittime=`date '+%F %T %:z'`" https://xsede-xdcdb-api.xsede.org/gateway/v2/job_attributes
+
+gateway_submit_attributes retval (0) output (Form variable "apikey" is missing.
+)

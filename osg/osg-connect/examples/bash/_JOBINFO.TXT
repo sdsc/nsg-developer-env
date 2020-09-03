@@ -1,0 +1,20 @@
+Task label=pi
+Task ID=99999
+Tool=bash
+created on=2020-01-01 00:42:00.0
+JobHandle=NGBW-JOB-BASH_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+resource=osg
+User ID=999
+User Name=mkandes
+email=mkandes@sdsc.edu
+
+JOBID=4293674
+
+job_properties ({'Task': 'ID=99999', 'resource': 'osg', 'created': 'on=2020-01-01 00:42:00.0', 'Tool': 'bash', 'JobHandle': 'NGBW-JOB-BASH_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'JOBID': '4293674', 'User': 'Name=mkandes', 'email': 'mkandes@sdsc.edu'})
+
+gatewayuser (mkandes)
+
+gateway_submit_attributes=curl -XPOST --data @$HOME/.xsede-gateway-attributes-apikey --data-urlencode "gatewayuser=mkandes"  --data-urlencode "xsederesourcename=comet.sdsc.xsede" --data-urlencode "jobid=4293674" --data-urlencode "submittime=`date '+%F %T %:z'`" https://xsede-xdcdb-api.xsede.org/gateway/v2/job_attributes
+
+gateway_submit_attributes retval (0) output (Form variable "apikey" is missing.
+)
