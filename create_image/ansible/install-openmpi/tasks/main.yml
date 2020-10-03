@@ -24,6 +24,11 @@
   make:
     chdir: /tmp/openmpi-{{version}}
     target: install
+  become: true
+  register: makelog
+  async: 900
+  poll: 15
+- debug: var=makelog.stdout_lines
 
 - name: Link
   command: ldconfig

@@ -40,7 +40,8 @@ existing public key.
 Click **Create Key Pair** on the right side of the screen. Give it any name
 that you would like and select **SSH Key** as the key type. Finally, click
 **Create Key Pair**. Your browser will automatically download the private key 
-for you.
+for you. You can store the private key anywhere on your computer. 
+Remember the location as you need to need it when you try to SSH into your instance.
 
 
 ### Upload a Public Key
@@ -51,8 +52,10 @@ click **Import Public Key**.
 
 
 ## Adding an SSH Security Group
+**The following section should only be done once per project**\
 Before you are able to use your SSH key to authenticate with an instance,
-you will need to set up a security group that will allow SSH connections.
+you will need to set up a security group that will allow SSH connections. At a high level, a security group is a firewall which control outgoing and incoming connections. 
+
 
 Navigate to the **Security Groups** page. You can do this by going to **Project**
 -> **Network** -> **Security Groups** in the navigation menu on the left.
@@ -107,18 +110,42 @@ by clicking on the up arrow at the end of the row.
 
 Click **Launch Instance** on the bottom right of the popup to finish.
 
-### Getting a public IP Address
+### Assigning a public IP Address
 Your newly created instance will not be able to be reached until you
 give it a public IP address by **Associating a Floating IP** with it.
-From the instances page, find the instance that you would like to add an
-IP to. Click the dropdown arrow at the end of the row and click 
-**Associate Floating IP**.
+From the instances page. There are 2 options to associate a floating IP
+address to an instance. First, will be checking if the project already has available 
+IPs to use. Second, will be requesting new IPs if the project does not currently have 
+any IPs or all of them are in use.
 
 ![Associate floating IP](res/floating_ip.png)
+Start by finding the instance that you would like to add an
+IP to. Click on the dropdown menu under the **Actions** column.
+Then select **Associate Floating IP** option
+
+### Checking for existing Floating IPs
+Click the dropdown arrow at the end of the row and click 
+**Associate Floating IP**. 
+
+![Associate floating IP](res/check_floating_ip.png)
+
+In the **IP Address** field, click the dropdown arrow.
+
+![Associate floating IP](res/existing_floating_ip.png)
+
+Select the IP address from the dropdown menu that you 
+would like to use. Then click on the **Associate** button.
+
+If you do not see any IPs in the dropdown menu, the next section 
+will cover how to request a new IP
+
+### Requesting new a IP
+
+
+![Add floating IP](res/add_floating_ip.png)
 
 In the **IP Address** field, click the + at the end.
 
-![Add floating IP](res/add_floating_ip.png)
 
 In the popup window, click **Allocate IP**. Then click **Associate** in the
 bottom right of the popup window.
@@ -129,7 +156,10 @@ this is the IP address that starts with **132.\*** not **10.\*** .
 ## Connecting to an Instance
 You should be able to connect to your instances using the SSH key that you
 selected when created the instance. When connecting to your instance, use
-**ubuntu** as your username.
+**ubuntu** as your username. **The IP address starts with 132.\* is the one you will use to SSH into the instance**
+The IP should be the 2nd value in the **IP Address** column on the **Instances** page.
+
+![Instance IP](res/instance_ip.png)
 
 For help connecting from Mac or Linux, look [here](https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034993/SSH+to+Instance+using+Mac+and+Linux).
 For help connecting from Windows, look [here](https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034995/SSH+to+Instance+using+Windows).
