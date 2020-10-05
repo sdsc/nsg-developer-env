@@ -38,7 +38,9 @@ For example, the project name here is "nsg-dev"
 
 7. Click **Launch**. The stack will create two compute instances called
 "nsg-node-1" and "nsg-node-2". You can connect to these nodes via ssh using
-the ssh key specified earlier. Use whatever username is default for the image
+the ssh key specified earlier. The IPs for these instances can be found on the
+**Instances** page.
+Use whatever username is default for the image
 that you specified earlier. If you specified an nsg-dev image, then the user
 should be "ubuntu".
 
