@@ -1,5 +1,7 @@
-<h2>
-<a id="user-content-introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
+<html><head><style>body {
+   color: black;
+}
+</style></head><body><h2 id="introduction">Introduction</h2>
 <p>This is the user doc for the cloud environment that the Neuroscience Gateway
 (NSG) provides for neuroscience tool developers. The SDSC cloud based developer
 environment allows neuroscience tool developers to create a suitable instance
@@ -20,106 +22,115 @@ provides:</p>
 VNC server, run Jupyter Notebook etc. Based on needs of the neuroscientist tool
 developers, other software and features will be provided in the tool development
 environment.</p>
-<h2>
-<a id="user-content-getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
+<h2 id="getting-started">Getting Started</h2>
 <p>Development is done on the SDSC Cloud. To access the cloud dashboard,
-follow <a href="https://dashboard.cloud.sdsc.edu/" rel="nofollow">this link</a>. You will log in
+follow <a href="https://dashboard.cloud.sdsc.edu/">this link</a>. You will log in
 with the username and password given to you by NSG.</p>
-<h2>
-<a id="user-content-adding-an-ssh-key" class="anchor" href="#adding-an-ssh-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adding an SSH Key</h2>
+<h2 id="adding-an-ssh-key">Adding an SSH Key</h2>
 <p>Before launching any instances, you should upload an SSH key so that you can authenticate with them. Navigate to the <strong>Key Pairs</strong> page by going to <strong>Project</strong> -&gt;
 <strong>Compute</strong> -&gt; <strong>Key Pairs</strong> in the navigation menu on the left.</p>
-<p><a href="res/key_pairs.PNG" target="_blank" rel="noopener noreferrer"><img src="res/key_pairs.PNG" alt="Key pairs page web view" style="max-width:100%;"></a></p>
+<p><img src="res/key_pairs.png" alt="Key pairs page web view"></p>
 <p>You can either create a key pair using the dashboard or upload an
 existing public key.</p>
-<h3>
-<a id="user-content-create-a-key-pair" class="anchor" href="#create-a-key-pair" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create a Key Pair</h3>
+<h3 id="create-a-key-pair">Create a Key Pair</h3>
 <p>Click <strong>Create Key Pair</strong> on the right side of the screen. Give it any name
 that you would like and select <strong>SSH Key</strong> as the key type. Finally, click
-<strong>Create Key Pair</strong>. Your browser will automatically download the private key
-for you.</p>
-<h3>
-<a id="user-content-upload-a-public-key" class="anchor" href="#upload-a-public-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Upload a Public Key</h3>
+<strong>Create Key Pair</strong>. Your browser will automatically download the private key 
+for you. You can store the private key anywhere on your computer. 
+Remember the location as you need to need it when you try to SSH into your instance.</p>
+<h3 id="upload-a-public-key">Upload a Public Key</h3>
 <p>Click <strong>Import Public Key</strong> on the right side of the screen. Give it any name
 that you would like and select <strong>SSH Key</strong> as the key type. Then either select
 the public key file or paste its contents into the text box. Finally,
 click <strong>Import Public Key</strong>.</p>
-<h2>
-<a id="user-content-adding-an-ssh-security-group" class="anchor" href="#adding-an-ssh-security-group" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adding an SSH Security Group</h2>
-<p>Before you are able to use your SSH key to authenticate with an instance,
-you will need to set up a security group that will allow SSH connections.</p>
+<h2 id="adding-an-ssh-security-group">Adding an SSH Security Group</h2>
+<p><strong>The following section should only be done once per project</strong>\
+Before you are able to use your SSH key to authenticate with an instance,
+you will need to set up a security group that will allow SSH connections. At a high level, a security group is a firewall which control outgoing and incoming connections. </p>
 <p>Navigate to the <strong>Security Groups</strong> page. You can do this by going to <strong>Project</strong>
 -&gt; <strong>Network</strong> -&gt; <strong>Security Groups</strong> in the navigation menu on the left.</p>
-<p><a href="res/security_groups.PNG" target="_blank" rel="noopener noreferrer"><img src="res/security_groups.PNG" alt="Security group page web view" style="max-width:100%;"></a></p>
+<p><img src="res/security_groups.png" alt="Security group page web view"></p>
 <p>Click <strong>Create Security Group</strong> on the right side of the screen. In the popup
-window, name the security group "SSH" and then click <strong>Create Security Group</strong>.
-Next, click <strong>Add Rule</strong> on the right side of the screen. In the <strong>Rule</strong>
+window, name the security group &quot;SSH&quot; and then click <strong>Create Security Group</strong>.
+Next, click <strong>Add Rule</strong> on the right side of the screen. In the <strong>Rule</strong> 
 dropdown, select <strong>SSH</strong>. Click <strong>Add</strong> to add the rule.</p>
-<h2>
-<a id="user-content-launching-a-development-instance" class="anchor" href="#launching-a-development-instance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Launching a Development Instance</h2>
+<h2 id="launching-a-development-instance">Launching a Development Instance</h2>
 <p>Development instances on the SDSC Cloud come prepackaged with software for
 development.</p>
 <p>Navigate to the <strong>Instances</strong> page.
-You can do this by going to <strong>Project</strong> -&gt; <strong>Compute</strong> -&gt; <strong>Instances</strong> in the
+You can do this by going to <strong>Project</strong> -&gt; <strong>Compute</strong> -&gt; <strong>Instances</strong> in the 
 navigation menu on the left.</p>
-<p><a href="res/instances_page.PNG" target="_blank" rel="noopener noreferrer"><img src="res/instances_page.PNG" alt="Instances page web view" style="max-width:100%;"></a></p>
+<p><img src="res/instances_page.png" alt="Instances page web view"></p>
 <p>Click <strong>Launch Instance</strong> on the right side of the screen.</p>
-<p><a href="res/launch_instance.PNG" target="_blank" rel="noopener noreferrer"><img src="res/launch_instance.PNG" alt="Launch instance page web view" style="max-width:100%;"></a></p>
+<p><img src="res/launch_instance.png" alt="Launch instance page web view"></p>
 <p>In the popup window, give your new instance any name you would like.</p>
-<p><a href="res/instance_name.PNG" target="_blank" rel="noopener noreferrer"><img src="res/instance_name.PNG" alt="Instance name" style="max-width:100%;"></a></p>
+<p><img src="res/instance_name.png" alt="Instance name"></p>
 <p>Click on <strong>Source</strong> on the left. In the dropdown for <strong>Select Boot Source</strong>,
 select <strong>Image</strong>. Under the <strong>Available</strong> section, select <strong>dev_env_0.0.1</strong>
 by clicking on the up arrow at the end of the row.</p>
-<p><a href="res/instance_source.PNG" target="_blank" rel="noopener noreferrer"><img src="res/instance_source.PNG" alt="Instance source" style="max-width:100%;"></a></p>
+<p><img src="res/instance_source.png" alt="Instance source"></p>
 <p>Click on <strong>Flavor</strong> on the left. Select the flavor with the CPU and RAM
 configuration that meets your needs by clicking on the up arrow at the end
 of the row. For this example, I will use <strong>m1.medium</strong>.</p>
-<p><a href="res/instance_flavor.PNG" target="_blank" rel="noopener noreferrer"><img src="res/instance_flavor.PNG" alt="Instance flavor" style="max-width:100%;"></a></p>
+<p><img src="res/instance_flavor.png" alt="Instance flavor"></p>
 <p>Click on <strong>Security Groups</strong> on the left. Select the <strong>SSH</strong> security group
 that you created earlier by clicking on the up arrow at the end of the row.</p>
-<p><a href="res/instance_security_groups.PNG" target="_blank" rel="noopener noreferrer"><img src="res/instance_security_groups.PNG" alt="Instance security groups" style="max-width:100%;"></a></p>
+<p><img src="res/instance_security_groups.png" alt="Instance security groups"></p>
 <p>Click on <strong>Key Pair</strong> on the left. Select the SSH Key that you created earlier
 by clicking on the up arrow at the end of the row.</p>
-<p><a href="res/instance_key_pair.PNG" target="_blank" rel="noopener noreferrer"><img src="res/instance_key_pair.PNG" alt="Instance key pair" style="max-width:100%;"></a></p>
+<p><img src="res/instance_key_pair.png" alt="Instance key pair"></p>
 <p>Click <strong>Launch Instance</strong> on the bottom right of the popup to finish.</p>
-<h3>
-<a id="user-content-getting-a-public-ip-address" class="anchor" href="#getting-a-public-ip-address" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting a public IP Address</h3>
+<h3 id="assigning-a-public-ip-address">Assigning a public IP Address</h3>
 <p>Your newly created instance will not be able to be reached until you
 give it a public IP address by <strong>Associating a Floating IP</strong> with it.
-From the instances page, find the instance that you would like to add an
-IP to. Click the dropdown arrow at the end of the row and click
-<strong>Associate Floating IP</strong>.</p>
-<p><a href="res/floating_ip.PNG" target="_blank" rel="noopener noreferrer"><img src="res/floating_ip.PNG" alt="Associate floating IP" style="max-width:100%;"></a></p>
+From the instances page. There are 2 options to associate a floating IP
+address to an instance. First, will be checking if the project already has available 
+IPs to use. Second, will be requesting new IPs if the project does not currently have 
+any IPs or all of them are in use.</p>
+<p><img src="res/floating_ip.png" alt="Associate floating IP">
+Start by finding the instance that you would like to add an
+IP to. Click on the dropdown menu under the <strong>Actions</strong> column.
+Then select <strong>Associate Floating IP</strong> option</p>
+<h3 id="checking-for-existing-floating-ips">Checking for existing Floating IPs</h3>
+<p>Click the dropdown arrow at the end of the row and click 
+<strong>Associate Floating IP</strong>. </p>
+<p><img src="res/check_floating_ip.png" alt="Associate floating IP"></p>
+<p>In the <strong>IP Address</strong> field, click the dropdown arrow.</p>
+<p><img src="res/existing_floating_ip.png" alt="Associate floating IP"></p>
+<p>Select the IP address from the dropdown menu that you 
+would like to use. Then click on the <strong>Associate</strong> button.</p>
+<p>If you do not see any IPs in the dropdown menu, the next section 
+will cover how to request a new IP</p>
+<h3 id="requesting-new-a-ip">Requesting new a IP</h3>
+<p><img src="res/add_floating_ip.png" alt="Add floating IP"></p>
 <p>In the <strong>IP Address</strong> field, click the + at the end.</p>
-<p><a href="res/add_floating_ip.PNG" target="_blank" rel="noopener noreferrer"><img src="res/add_floating_ip.PNG" alt="Add floating IP" style="max-width:100%;"></a></p>
 <p>In the popup window, click <strong>Allocate IP</strong>. Then click <strong>Associate</strong> in the
 bottom right of the popup window.</p>
-<p>Your instance should now be accessible at the associated IP address. Note that
+<p>Your instance should now be accessible at the associated IP address. Note that 
 this is the IP address that starts with <strong>132.*</strong> not <strong>10.*</strong> .</p>
-<h2>
-<a id="user-content-connecting-to-an-instance" class="anchor" href="#connecting-to-an-instance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Connecting to an Instance</h2>
+<h2 id="connecting-to-an-instance">Connecting to an Instance</h2>
 <p>You should be able to connect to your instances using the SSH key that you
-selected when created the instance.</p>
-<p>For help connecting from Mac or Linux, look <a href="https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034993/SSH+to+Instance+using+Mac+and+Linux" rel="nofollow">here</a>.
-For help connecting from Windows, look <a href="https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034995/SSH+to+Instance+using+Windows" rel="nofollow">here</a>.</p>
-<h2>
-<a id="user-content-shelving-an-instance" class="anchor" href="#shelving-an-instance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shelving an Instance</h2>
+selected when created the instance. When connecting to your instance, use
+<strong>ubuntu</strong> as your username. <strong>The IP address starts with 132.* is the one you will use to SSH into the instance</strong>
+The IP should be the 2nd value in the <strong>IP Address</strong> column on the <strong>Instances</strong> page.</p>
+<p><img src="res/instance_ip.png" alt="Instance IP"></p>
+<p>For help connecting from Mac or Linux, look <a href="https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034993/SSH+to+Instance+using+Mac+and+Linux">here</a>.
+For help connecting from Windows, look <a href="https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/pages/110034995/SSH+to+Instance+using+Windows">here</a>.</p>
+<h2 id="shelving-an-instance">Shelving an Instance</h2>
 <p>Instances should only be kept running when they are being used. When instances
 are not in use, they should be <em>shelved</em>. Shelved instances are essentially
 paused until they are needed again. Data stays on shelved instances and is
 not lost.</p>
 <p>From the instances page, find the instance that you would like to shelve.
-Click the dropdown arrow at the end of the row and click
+Click the dropdown arrow at the end of the row and click 
 <strong>Shelve Instance</strong>.</p>
-<p><a href="res/shelve_instance.PNG" target="_blank" rel="noopener noreferrer"><img src="res/shelve_instance.PNG" alt="Add floating IP" style="max-width:100%;"></a></p>
-<h2>
-<a id="user-content-unshelving-an-instance" class="anchor" href="#unshelving-an-instance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unshelving an Instance</h2>
+<p><img src="res/shelve_instance.png" alt="Add floating IP"></p>
+<h2 id="unshelving-an-instance">Unshelving an Instance</h2>
 <p>From the instances page, find the instance that you would like to unshelve.
-Click the dropdown arrow at the end of the row and click
+Click the dropdown arrow at the end of the row and click 
 <strong>Unshelve Instance</strong>.</p>
-<p><a href="res/unshelve_instance.PNG" target="_blank" rel="noopener noreferrer"><img src="res/unshelve_instance.PNG" alt="Add floating IP" style="max-width:100%;"></a></p>
-<h2>
-<a id="user-content-more-information-and-guides" class="anchor" href="#more-information-and-guides" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>More Information and Guides</h2>
-<p>For more information and guides on how to use the SDSC cloud, see the
-<a href="https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/overview" rel="nofollow">SDSC Cloud Wiki</a>.</p>
-
+<p><img src="res/unshelve_instance.png" alt="Add floating IP"></p>
+<h2 id="more-information-and-guides">More Information and Guides</h2>
+<p>For more information and guides on how to use the SDSC cloud, see the 
+<a href="https://sdsc-ucsd.atlassian.net/wiki/spaces/SC/overview">SDSC Cloud Wiki</a>.</p>
+</body></html>

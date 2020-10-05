@@ -4,3 +4,4 @@ cred.py
 .vscode/
 venv/
 singularity/
+.DS_STORE
