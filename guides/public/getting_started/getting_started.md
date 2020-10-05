@@ -41,7 +41,7 @@ Click **Create Key Pair** on the right side of the screen. Give it any name
 that you would like and select **SSH Key** as the key type. Finally, click
 **Create Key Pair**. Your browser will automatically download the private key 
 for you. You can store the private key anywhere on your computer. 
-Remember the location as you need to need it when you try to SSH into your instance.
+Remember the location you will need it when you try to SSH into your instance.
 
 
 ### Upload a Public Key
@@ -53,8 +53,9 @@ click **Import Public Key**.
 
 ## Adding an SSH Security Group
 **The following section should only be done once per project**\
+A security group is a firewall which control outgoing and incoming connections.
 Before you are able to use your SSH key to authenticate with an instance,
-you will need to set up a security group that will allow SSH connections. At a high level, a security group is a firewall which control outgoing and incoming connections. 
+you will need to set up a security group that will allow SSH connections. 
 
 
 Navigate to the **Security Groups** page. You can do this by going to **Project**
@@ -124,9 +125,6 @@ IP to. Click on the dropdown menu under the **Actions** column.
 Then select **Associate Floating IP** option
 
 ### Checking for existing Floating IPs
-Click the dropdown arrow at the end of the row and click 
-**Associate Floating IP**. 
-
 ![Associate floating IP](res/check_floating_ip.png)
 
 In the **IP Address** field, click the dropdown arrow.
