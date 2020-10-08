@@ -9,7 +9,7 @@ copy and paste from the link, or run this command:
 wget -O mpi-example.def https://raw.githubusercontent.com/mkandes/ubuntu-openmpi/master/Singularity
 ```
 This matches the OpenMPI v3.1.6 on Expanse at this writing:
-https://github.com/mkandes/ubuntu-openmpi/blob/master/Singularity.ubuntu-18.04-openmpi-3.1.6
+https://raw.githubusercontent.com/mkandes/ubuntu-openmpi/master/Singularity.ubuntu-18.04-openmpi-3.1.6
 
 2. Build the container with the following command:
 ``` bash
