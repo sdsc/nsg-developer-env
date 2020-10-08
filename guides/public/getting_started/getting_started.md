@@ -87,10 +87,11 @@ In the popup window, give your new instance any name you would like.
 ![Instance name](res/instance_name.png)
 
 Click on **Source** on the left. In the dropdown for **Select Boot Source**,
-select **Image**. Under the **Available** section, select **dev_env_0.0.1**
+select **Image**. Under the **Available** section, select **NSGImage**. 
+You can also search for the image in the search box.
 by clicking on the up arrow at the end of the row.
 
-![Instance source](res/instance_source.png)
+![Instance source](res/instance_source_v2.png)
 
 Click on **Flavor** on the left. Select the flavor with the CPU and RAM
 configuration that meets your needs by clicking on the up arrow at the end
@@ -98,8 +99,8 @@ of the row. For this example, I will use **m1.medium**.
 
 ![Instance flavor](res/instance_flavor.png)
 
-Click on **Security Groups** on the left. Select the **SSH** security group
-that you created earlier by clicking on the up arrow at the end of the row.
+Click on **Security Groups** on the left. Select the **SSH** security group that 
+you or your group has created earlier by clicking on the up arrow at the end of the row.
 
 ![Instance security groups](res/instance_security_groups.png)
 

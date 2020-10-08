@@ -37,7 +37,7 @@ existing public key.</p>
 that you would like and select <strong>SSH Key</strong> as the key type. Finally, click
 <strong>Create Key Pair</strong>. Your browser will automatically download the private key 
 for you. You can store the private key anywhere on your computer. 
-Remember the location as you need to need it when you try to SSH into your instance.</p>
+Remember the location you will need it when you try to SSH into your instance.</p>
 <h3 id="upload-a-public-key">Upload a Public Key</h3>
 <p>Click <strong>Import Public Key</strong> on the right side of the screen. Give it any name
 that you would like and select <strong>SSH Key</strong> as the key type. Then either select
@@ -45,8 +45,9 @@ the public key file or paste its contents into the text box. Finally,
 click <strong>Import Public Key</strong>.</p>
 <h2 id="adding-an-ssh-security-group">Adding an SSH Security Group</h2>
 <p><strong>The following section should only be done once per project</strong>\
+A security group is a firewall which control outgoing and incoming connections.
 Before you are able to use your SSH key to authenticate with an instance,
-you will need to set up a security group that will allow SSH connections. At a high level, a security group is a firewall which control outgoing and incoming connections. </p>
+you will need to set up a security group that will allow SSH connections. </p>
 <p>Navigate to the <strong>Security Groups</strong> page. You can do this by going to <strong>Project</strong>
 -&gt; <strong>Network</strong> -&gt; <strong>Security Groups</strong> in the navigation menu on the left.</p>
 <p><img src="res/security_groups.png" alt="Security group page web view"></p>
@@ -66,15 +67,15 @@ navigation menu on the left.</p>
 <p>In the popup window, give your new instance any name you would like.</p>
 <p><img src="res/instance_name.png" alt="Instance name"></p>
 <p>Click on <strong>Source</strong> on the left. In the dropdown for <strong>Select Boot Source</strong>,
-select <strong>Image</strong>. Under the <strong>Available</strong> section, select <strong>dev_env_0.0.1</strong>
+select <strong>Image</strong>. Under the <strong>Available</strong> section, select <strong>NSGImage</strong>. 
+You can also search for the image in the search box.
 by clicking on the up arrow at the end of the row.</p>
-<p><img src="res/instance_source.png" alt="Instance source"></p>
+<p><img src="res/instance_source_v2.png" alt="Instance source"></p>
 <p>Click on <strong>Flavor</strong> on the left. Select the flavor with the CPU and RAM
 configuration that meets your needs by clicking on the up arrow at the end
 of the row. For this example, I will use <strong>m1.medium</strong>.</p>
 <p><img src="res/instance_flavor.png" alt="Instance flavor"></p>
-<p>Click on <strong>Security Groups</strong> on the left. Select the <strong>SSH</strong> security group
-that you created earlier by clicking on the up arrow at the end of the row.</p>
+<p>Click on <strong>Security Groups</strong> on the left. Select the <strong>SSH</strong> security group that you or your group has created earlier by clicking on the up arrow at the end of the row.</p>
 <p><img src="res/instance_security_groups.png" alt="Instance security groups"></p>
 <p>Click on <strong>Key Pair</strong> on the left. Select the SSH Key that you created earlier
 by clicking on the up arrow at the end of the row.</p>
@@ -92,8 +93,6 @@ Start by finding the instance that you would like to add an
 IP to. Click on the dropdown menu under the <strong>Actions</strong> column.
 Then select <strong>Associate Floating IP</strong> option</p>
 <h3 id="checking-for-existing-floating-ips">Checking for existing Floating IPs</h3>
-<p>Click the dropdown arrow at the end of the row and click 
-<strong>Associate Floating IP</strong>. </p>
 <p><img src="res/check_floating_ip.png" alt="Associate floating IP"></p>
 <p>In the <strong>IP Address</strong> field, click the dropdown arrow.</p>
 <p><img src="res/existing_floating_ip.png" alt="Associate floating IP"></p>
