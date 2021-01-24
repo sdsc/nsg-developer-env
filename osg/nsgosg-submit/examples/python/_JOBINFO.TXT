@@ -1,0 +1,9 @@
+Task label=pi
+Task ID=99998
+Tool=python
+created on=2020-01-01 00:42:00.0
+JobHandle=NGBW-JOB-PY_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+resource=osg
+User ID=999
+User Name=mkandes
+email=mkandes@sdsc.edu

@@ -1,0 +1,1 @@
+inputfile recon-all -i /cvmfs/stash.osgstorage.org/osgconnect/public/mkandes/data/freesurfer/tutorial_data_20190918_1558/practice_with_data/DICOM/I50 -s bert -all -parallel -openmp 8

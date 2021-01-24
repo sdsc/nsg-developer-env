@@ -1,0 +1,31 @@
+Task label=cnn-cifar
+Task ID=99997
+Tool=tensorflow
+created on=2020-01-01 00:42:00.0
+JobHandle=NGBW-JOB-TENSORFLOW_PY_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+resource=osg
+User ID=999
+User Name=mkandes
+email=mkandes@sdsc.edu
+
+JOBID=4271460
+
+job_properties ({'Task': 'ID=99997', 'resource': 'osg', 'created': 'on=2020-01-01 00:42:00.0', 'Tool': 'tensorflow', 'JobHandle': 'NGBW-JOB-TENSORFLOW_PY_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'JOBID': '4271460', 'User': 'Name=mkandes', 'email': 'mkandes@sdsc.edu'})
+
+gatewayuser (mkandes)
+
+gateway_submit_attributes=curl -XPOST --data @$HOME/.xsede-gateway-attributes-apikey --data-urlencode "gatewayuser=mkandes"  --data-urlencode "xsederesourcename=comet.sdsc.xsede" --data-urlencode "jobid=4271460" --data-urlencode "submittime=`date '+%F %T %:z'`" https://xsede-xdcdb-api.xsede.org/gateway/v2/job_attributes
+
+gateway_submit_attributes retval (0) output (Form variable "apikey" is missing.
+)
+
+JOBID=4271522
+
+job_properties ({'Task': 'ID=99997', 'resource': 'osg', 'created': 'on=2020-01-01 00:42:00.0', ')': '', 'Tool': 'tensorflow', 'job_properties': "({'Task': 'ID=99997', 'resource': 'osg', 'created': 'on=2020-01-01 00:42:00.0', 'Tool': 'tensorflow', 'JobHandle': 'NGBW-JOB-TENSORFLOW_PY_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'JOBID': '4271460', 'User': 'Name=mkandes', 'email': 'mkandes@sdsc.edu'})", 'JobHandle': 'NGBW-JOB-TENSORFLOW_PY_TG-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'JOBID': '4271522', 'gatewayuser': '(mkandes)', 'User': 'Name=mkandes', 'email': 'mkandes@sdsc.edu', 'gateway_submit_attributes': 'retval (0) output (Form variable "apikey" is missing.'})
+
+gatewayuser (mkandes)
+
+gateway_submit_attributes=curl -XPOST --data @$HOME/.xsede-gateway-attributes-apikey --data-urlencode "gatewayuser=mkandes"  --data-urlencode "xsederesourcename=comet.sdsc.xsede" --data-urlencode "jobid=4271522" --data-urlencode "submittime=`date '+%F %T %:z'`" https://xsede-xdcdb-api.xsede.org/gateway/v2/job_attributes
+
+gateway_submit_attributes retval (0) output (Form variable "apikey" is missing.
+)
