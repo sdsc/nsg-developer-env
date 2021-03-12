@@ -3,13 +3,13 @@ This is an example of running an MPI job using a singularity container. More
 example definition files can be found [here](https://github.com/mkandes/naked-singularity).
 
 ## Building a Container from a Definition File
-1. Grab the definition file from [this link](https://raw.githubusercontent.com/mkandes/ubuntu-openmpi/master/Singularity). You can either
+1. Grab the definition file from [this link](https://raw.githubusercontent.com/mkandes/naked-singularity/master/definition-files/ubuntu/Singularity.ubuntu-18.04-openmpi-3.1.6). You can either
 copy and paste from the link, or run this command:
 ``` bash
-wget -O mpi-example.def https://raw.githubusercontent.com/mkandes/ubuntu-openmpi/master/Singularity
+wget -O mpi-example.def https://raw.githubusercontent.com/mkandes/naked-singularity/master/definition-files/ubuntu/Singularity.ubuntu-18.04-openmpi-3.1.6
 ```
 This matches the OpenMPI v3.1.6 on Expanse at this writing:
-https://raw.githubusercontent.com/mkandes/ubuntu-openmpi/master/Singularity.ubuntu-18.04-openmpi-3.1.6
+https://raw.githubusercontent.com/mkandes/naked-singularity/master/definition-files/ubuntu/Singularity.ubuntu-18.04-openmpi-3.1.6
 
 2. Build the container with the following command:
 ``` bash
