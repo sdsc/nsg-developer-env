@@ -1,0 +1,484 @@
+2021/11/29.
+
+NSG - OSG - Fw: Open Science Pool Access Point cleanup - action required
+
+You
+are receiving this email as you have one or more access points attached to the Open Science Pool (flock.opensciencegrid.org).
+We are currently conducting a cleanup of old resources and a move to using the OSG Topology database for defining and maintaining the relationship between your hosts and the pool.
+
+We’d
+like you to review the registration and software state of your access point (submit host). If you do not take action before November 30, your host will be unable to submit to the Open Science Pool. The hosts you are responsible for:
+
+nsgosg.sdsc.edu
+
+To
+keep your host(s) active, the following actions are required:
+
+1) Ensure we have the correct information in the OSG Topology. You can find entries for your hosts by drilling down under your organization and site here:
+
+https://github.com/opensciencegrid/topology/tree/master/topology 
+
+topology/topology/University of California San Diego/San Diego Supercomputer Center/SDSC-NSG.yaml 
+
+---
+Production: true
+SupportCenter: Self Supported
+GroupDescription: Resources related at SDSC for the Neuroscience Gateway
+GroupID: 1130
+Resources:
+  SDSC-NSG-AP1:
+    Active: true
+    Description: The Neuroscience gateway access point for the OS Pool
+    ID: 1215
+    ContactLists:
+      Administrative Contact:
+        Primary:
+          Name: Marty Kandes
+          ID: 5cb19c49b0d5fff51f9bff3827f1be928303a54b
+      Security Contact:
+        Primary:
+        Primary:
+          Name: Marty Kandes
+          ID: 5cb19c49b0d5fff51f9bff3827f1be928303a54b
+    FQDN: nsgosg.sdsc.edu
+    Services:
+      Submit Node:
+        Description: OS Pool access point
+
+
+2) Read the updated acceptable usage policies:
+
+https://opensciencegrid.org/docs/submit/ap-ospool-aup/ 
+
+
+3) Upgrade your submit host to the HTCondor 9.0.x series. We document the upgrade, using OSG 3.6, here::
+
+https://opensciencegrid.org/docs/submit/osg-flock/
+
+Checking exisiting version of HTcondor ...
+
+[root@nsgosg ~]# condor_q --version
+$CondorVersion: 8.9.9 Oct 26 2020 PackageID: 8.9.9-1 $
+$CondorPlatform: X86_64-CentOS_8.2 $
+[root@nsgosg ~]#
+
+Check existing yum repolist ...
+
+[root@nsgosg ~]# yum repolist
+repo id                 repo name
+SDSC-CentOS-AppStream   CentOS AppStream Repository (SDSC mirror)
+SDSC-CentOS-BaseOS      CentOS BaseOS Repository (SDSC mirror)
+SDSC-CentOS-extras      CentOS Extras Repository (SDSC mirror)
+appstream               CentOS Linux 8 - AppStream
+baseos                  CentOS Linux 8 - BaseOS
+duosecurity             Duo Security Repository
+epel                    Extra Packages for Enterprise Linux 8 - x86_64
+epel-modular            Extra Packages for Enterprise Linux Modular 8 - x86_64
+extras                  CentOS Linux 8 - Extras
+osg                     OSG Software for Enterprise Linux 8 - x86_64
+[root@nsgosg ~]#
+
+[root@nsgosg ~]# yum repolist osg
+repo id           repo name                                              status
+osg               OSG Software for Enterprise Linux 8 - x86_64           enabled
+[root@nsgosg ~]#
+
+
+[root@nsgosg ~]# yum -v repolist osg
+Loaded plugins: builddep, changelog, config-manager, copr, debug, debuginfo-install, download, generate_completion_cache, groups-manager, needs-restarting, playground, repoclosure, repodiff, repograph, repomanage, reposync
+YUM version: 4.4.2
+cachedir: /var/cache/dnf
+Last metadata expiration check: 2:41:32 ago on Mon 29 Nov 2021 09:46:42 AM PST.
+Repo-id            : osg
+Repo-name          : OSG Software for Enterprise Linux 8 - x86_64
+Repo-status        : enabled
+Repo-revision      : 1638205406
+Repo-tags          : binary-x86_64
+Repo-distro-tags      : [cpe:/o:fedoraproject:fedora:15]: a, d, e, h, i, r, w
+Repo-updated       : Mon 29 Nov 2021 09:03:45 AM PST
+Repo-pkgs          : 353
+Repo-available-pkgs: 353
+Repo-size          : 1.1 G
+Repo-mirrors       : https://repo.opensciencegrid.org/mirror/osg/3.5/el8/release/x86_64
+Repo-baseurl       : http://repo.opensciencegrid.org/osg/3.5/el8/release/x86_64
+                   : (2 more)
+Repo-expire        : 172,800 second(s) (last: Mon 29 Nov 2021 09:46:40 AM PST)
+Repo-filename      : /etc/yum.repos.d/osg.repo
+Total packages: 353
+[root@nsgosg ~]#
+
+Need to update to osg/3.6 ...
+
+[root@nsgosg ~]# yum clean all --enablerepo=*
+216 files removed
+[root@nsgosg ~]#
+
+[root@nsgosg ~]# ls /etc/yum.repos.d/
+CentOS-Linux-AppStream.repo          epel-testing-modular.repo
+CentOS-Linux-BaseOS.repo             epel-testing.repo
+CentOS-Linux-ContinuousRelease.repo  osg-contrib.repo
+CentOS-Linux-Debuginfo.repo          osg-development.repo
+CentOS-Linux-Devel.repo              osg-empty.repo
+CentOS-Linux-Extras.repo             osg-minefield.repo
+CentOS-Linux-FastTrack.repo          osg-prerelease.repo
+CentOS-Linux-HighAvailability.repo   osg.repo
+CentOS-Linux-Media.repo              osg-rolling.repo
+CentOS-Linux-Plus.repo               osg-testing.repo
+CentOS-Linux-PowerTools.repo         osg-upcoming-development.repo
+CentOS-Linux-Sources.repo            osg-upcoming-minefield.repo
+devops-itb.repo                      osg-upcoming-prerelease.repo
+devops.repo                          osg-upcoming.repo
+duosecurity.repo                     osg-upcoming-rolling.repo
+epel-modular.repo                    osg-upcoming-testing.repo
+epel-playground.repo                 sdsc.repo
+epel.repo
+[root@nsgosg ~]# yum-config-manager --disable osg-upcoming
+[root@nsgosg ~]# rpm -e osg-release
+[root@nsgosg ~]# less /etc/yum.repos.d/osg.repo 
+/etc/yum.repos.d/osg.repo: No such file or directory
+[root@nsgosg ~]# ls /etc/yum.repos.d/
+CentOS-Linux-AppStream.repo          CentOS-Linux-PowerTools.repo
+CentOS-Linux-BaseOS.repo             CentOS-Linux-Sources.repo
+CentOS-Linux-ContinuousRelease.repo  duosecurity.repo
+CentOS-Linux-Debuginfo.repo          epel-modular.repo
+CentOS-Linux-Devel.repo              epel-playground.repo
+CentOS-Linux-Extras.repo             epel.repo
+CentOS-Linux-FastTrack.repo          epel-testing-modular.repo
+CentOS-Linux-HighAvailability.repo   epel-testing.repo
+CentOS-Linux-Media.repo              sdsc.repo
+CentOS-Linux-Plus.repo
+[root@nsgosg ~]#
+
+[root@nsgosg ~]# yum install https://repo.opensciencegrid.org/osg/3.6/osg-3.6-el8-release-latest.rpm
+Last metadata expiration check: 0:03:27 ago on Mon 29 Nov 2021 03:08:54 PM PST.
+osg-3.6-el8-release-latest.rpm                   81 kB/s |  20 kB     00:00    
+Dependencies resolved.
+================================================================================
+ Package           Architecture Version                Repository          Size
+================================================================================
+Installing:
+ osg-release       noarch       3.6-3.osg36.el8        @commandline        20 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total size: 20 k
+Installed size: 15 k
+Is this ok [y/N]: y
+Downloading Packages:
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : osg-release-3.6-3.osg36.el8.noarch                     1/1 
+  Verifying        : osg-release-3.6-3.osg36.el8.noarch                     1/1 
+
+Installed:
+  osg-release-3.6-3.osg36.el8.noarch                                            
+
+Complete!
+[root@nsgosg ~]# yum -v repolist osg
+Loaded plugins: builddep, changelog, config-manager, copr, debug, debuginfo-install, download, generate_completion_cache, groups-manager, needs-restarting, playground, repoclosure, repodiff, repograph, repomanage, reposync
+YUM version: 4.4.2
+cachedir: /var/cache/dnf
+OSG Software for Enterprise Linux 8 - x86_64    371 kB/s | 379 kB     00:01    
+Repo-id            : osg
+Repo-name          : OSG Software for Enterprise Linux 8 - x86_64
+Repo-status        : enabled
+Repo-revision      : 1638223963
+Repo-tags          : binary-x86_64
+Repo-distro-tags      : [cpe:/o:fedoraproject:fedora:15]: a, d, e, h, i, r, w
+Repo-updated       : Mon 29 Nov 2021 02:13:06 PM PST
+Repo-pkgs          : 290
+Repo-available-pkgs: 290
+Repo-size          : 763 M
+Repo-mirrors       : https://repo.opensciencegrid.org/mirror/osg/3.6/el8/release/x86_64
+Repo-baseurl       : http://repo.opensciencegrid.org/osg/3.6/el8/release/x86_64
+                   : (2 more)
+Repo-expire        : 172,800 second(s) (last: Mon 29 Nov 2021 03:12:32 PM PST)
+Repo-filename      : /etc/yum.repos.d/osg.repo
+Total packages: 290
+[root@nsgosg ~]#
+
+Shutdown OSG/HTCondor-related services before upgrade ...
+
+[root@nsgosg ~]# systemctl status gratia-probes-cron
+● gratia-probes-cron.service - SYSV: Enable specified gratia probes to run via >
+   Loaded: loaded (/etc/rc.d/init.d/gratia-probes-cron; generated)
+   Active: active (exited) since Tue 2021-10-19 20:42:39 PDT; 1 months 10 days >
+     Docs: man:systemd-sysv-generator(8)
+  Process: 1038 ExecStart=/etc/rc.d/init.d/gratia-probes-cron start (code=exite>
+    Tasks: 0 (limit: 23517)
+   Memory: 0B
+   CGroup: /system.slice/gratia-probes-cron.service
+
+Warning: Journal has been rotated since unit was started. Log output is incompl>
+...skipping...
+● gratia-probes-cron.service - SYSV: Enable specified gratia probes to run via >
+   Loaded: loaded (/etc/rc.d/init.d/gratia-probes-cron; generated)
+   Active: active (exited) since Tue 2021-10-19 20:42:39 PDT; 1 months 10 days >
+     Docs: man:systemd-sysv-generator(8)
+  Process: 1038 ExecStart=/etc/rc.d/init.d/gratia-probes-cron start (code=exite>
+    Tasks: 0 (limit: 23517)
+   Memory: 0B
+   CGroup: /system.slice/gratia-probes-cron.service
+
+Warning: Journal has been rotated since unit was started. Log output is incompl>
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+[root@nsgosg ~]# systemctl stop gratia-probes-cron
+[root@nsgosg ~]# systemctl status gratia-probes-cron
+● gratia-probes-cron.service - SYSV: Enable specified gratia probes to run via >
+   Loaded: loaded (/etc/rc.d/init.d/gratia-probes-cron; generated)
+   Active: inactive (dead) since Mon 2021-11-29 15:21:15 PST; 1s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 1454891 ExecStop=/etc/rc.d/init.d/gratia-probes-cron stop (code=exit>
+  Process: 1038 ExecStart=/etc/rc.d/init.d/gratia-probes-cron start (code=exite>
+
+Nov 29 15:21:15 nsgosg.sdsc.edu systemd[1]: Stopping SYSV: Enable specified gra>
+Nov 29 15:21:15 nsgosg.sdsc.edu gratia-probes-cron[1454891]: Disabling gratia p>
+Nov 29 15:21:15 nsgosg.sdsc.edu systemd[1]: gratia-probes-cron.service: Succeed>
+Nov 29 15:21:15 nsgosg.sdsc.edu systemd[1]: Stopped SYSV: Enable specified grat>
+Warning: Journal has been rotated since unit was started. Log output is incompl>
+lines 1-12/12 (END)...skipping...
+● gratia-probes-cron.service - SYSV: Enable specified gratia probes to run via >
+   Loaded: loaded (/etc/rc.d/init.d/gratia-probes-cron; generated)
+   Active: inactive (dead) since Mon 2021-11-29 15:21:15 PST; 1s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 1454891 ExecStop=/etc/rc.d/init.d/gratia-probes-cron stop (code=exit>
+  Process: 1038 ExecStart=/etc/rc.d/init.d/gratia-probes-cron start (code=exite>
+
+Nov 29 15:21:15 nsgosg.sdsc.edu systemd[1]: Stopping SYSV: Enable specified gra>
+Nov 29 15:21:15 nsgosg.sdsc.edu gratia-probes-cron[1454891]: Disabling gratia p>
+Nov 29 15:21:15 nsgosg.sdsc.edu systemd[1]: gratia-probes-cron.service: Succeed>
+Nov 29 15:21:15 nsgosg.sdsc.edu systemd[1]: Stopped SYSV: Enable specified grat>
+Warning: Journal has been rotated since unit was started. Log output is incompl
+
+[root@nsgosg ~]# systemctl status condor
+● condor.service - Condor Distributed High-Throughput-Computing
+   Loaded: loaded (/usr/lib/systemd/system/condor.service; disabled; vendor preset: disabled)
+  Drop-In: /usr/lib/systemd/system/condor.service.d
+           └─osg-env.conf
+   Active: active (running) since Thu 2021-10-28 13:05:39 PDT; 1 months 1 days ago
+ Main PID: 274589 (condor_master)
+   Status: "All daemons are responding"
+    Tasks: 4 (limit: 4194303)
+   Memory: 264.2M
+   CGroup: /system.slice/condor.service
+           ├─274589 /usr/sbin/condor_master -f
+           ├─274629 condor_procd -A /var/run/condor/procd_pipe -L /var/log/condor/ProcLog -R 1000000 -S 60 -C 992
+           ├─274630 condor_shared_port
+           └─274634 condor_schedd
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+[root@nsgosg ~]# systemctl stop condor
+[root@nsgosg ~]# systemctl status condor
+● condor.service - Condor Distributed High-Throughput-Computing
+   Loaded: loaded (/usr/lib/systemd/system/condor.service; disabled; vendor preset: disabled)
+  Drop-In: /usr/lib/systemd/system/condor.service.d
+           └─osg-env.conf
+   Active: inactive (dead)
+
+Nov 29 15:22:27 nsgosg.sdsc.edu systemd[1]: Stopping Condor Distributed High-Throughput-Computing...
+Nov 29 15:22:27 nsgosg.sdsc.edu systemd[1]: condor.service: Succeeded.
+Nov 29 15:22:27 nsgosg.sdsc.edu systemd[1]: Stopped Condor Distributed High-Throughput-Computing.
+[root@nsgosg ~]#
+
+Run upgrade ...
+
+[root@nsgosg condor]# yum upgrade
+Last metadata expiration check: 0:12:15 ago on Mon 29 Nov 2021 03:12:32 PM PST.
+Dependencies resolved.
+================================================================================
+ Package             Arch   Version                    Repository          Size
+================================================================================
+Installing:
+ gratia-probe-condor-ap
+                     noarch 2.3.3-1.osg36.el8          osg                 41 k
+     replacing  gratia-probe-condor.x86_64 1.24.0-1.osg35.el8
+     replacing  gratia-probe-glideinwms.x86_64 1.24.0-1.osg35.el8
+Upgrading:
+ blahp               x86_64 2.1.3-1.1.osg36.el8        osg                317 k
+ condor              x86_64 9.0.6-1.osg36.el8          osg                7.0 M
+ condor-classads     x86_64 9.0.6-1.osg36.el8          osg                296 k
+ condor-procd        x86_64 9.0.6-1.osg36.el8          osg                160 k
+ gratia-probe-common noarch 2.3.3-1.osg36.el8          osg                187 k
+ igtf-ca-certs       noarch 1.113-1.osg36.el8          osg                268 k
+ osg-flock           noarch 1.6-3.osg36.el8            osg                 10 k
+ python3-condor      x86_64 9.0.6-1.osg36.el8          osg                733 k
+ voms                x86_64 2.1.0-0.14.rc2.2.osg36.el8 osg                166 k
+Installing dependencies:
+ net-tools           x86_64 2.0-0.52.20160912git.el8   SDSC-CentOS-BaseOS 322 k
+
+Transaction Summary
+================================================================================
+Install  2 Packages
+Upgrade  9 Packages
+
+Total download size: 9.4 M
+Is this ok [y/N]: y
+
+...
+
+Upgraded:
+  blahp-2.1.3-1.1.osg36.el8.x86_64                                              
+  condor-9.0.6-1.osg36.el8.x86_64                                               
+  condor-classads-9.0.6-1.osg36.el8.x86_64                                      
+  condor-procd-9.0.6-1.osg36.el8.x86_64                                         
+  gratia-probe-common-2.3.3-1.osg36.el8.noarch                                  
+  igtf-ca-certs-1.113-1.osg36.el8.noarch                                        
+  osg-flock-1.6-3.osg36.el8.noarch                                              
+  python3-condor-9.0.6-1.osg36.el8.x86_64                                       
+  voms-2.1.0-0.14.rc2.2.osg36.el8.x86_64                                        
+Installed:
+  gratia-probe-condor-ap-2.3.3-1.osg36.el8.noarch                               
+  net-tools-2.0-0.52.20160912git.el8.x86_64                                     
+
+Complete!
+[root@nsgosg condor]#
+
+Reconfigure gratia probe ... 
+
+[root@nsgosg condor-ap]# pwd
+/etc/gratia/condor-ap
+[root@nsgosg condor-ap]# ls
+ProbeConfig
+[root@nsgosg condor-ap]#
+
+sed -i 's/ProbeName="condor:<HOSTNAME>"/ProbeName="condor-ap:nsgosg.sdsc.edu"/' ProbeConfig
+sed -i 's/SiteName="OSG_US_EXAMPLE_SUBMIT"/SiteName="SDSC"/' ProbeConfig
+sed -i 's/EnableProbe="0"/EnableProbe="1"/' ProbeConfig
+
+Copy condor idtoken to new filename ...
+
+[root@nsgosg condor-ap]# cd /etc/condor/tokens.d/
+[root@nsgosg tokens.d]# ls
+flock.opensciencegrid.org
+[root@nsgosg tokens.d]# cp flock.opensciencegrid.org ospool.token
+[root@nsgosg tokens.d]# ls
+flock.opensciencegrid.org  ospool.token
+[root@nsgosg tokens.d]# md5sum flock.opensciencegrid.org 
+86ed1d4d766320a0418eb8cd034aef7a  flock.opensciencegrid.org
+[root@nsgosg tokens.d]# md5sum ospool.token 
+86ed1d4d766320a0418eb8cd034aef7a  ospool.token
+[root@nsgosg tokens.d]#
+
+Re-enable gratia, condor and restart the service ... 
+
+[root@nsgosg config.d]# chkconfig gratia-probes-cron on
+[root@nsgosg config.d]# systemctl enable gratia-probes-cron
+gratia-probes-cron.service is not a native service, redirecting to systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install enable gratia-probes-cron
+[root@nsgosg config.d]# systemctl start gratia-probes-cron
+[root@nsgosg config.d]# systemctl status gratia-probes-cron
+● gratia-probes-cron.service - SYSV: Enable specified gratia probes to run via >
+   Loaded: loaded (/etc/rc.d/init.d/gratia-probes-cron; generated)
+   Active: active (exited) since Mon 2021-11-29 15:39:39 PST; 7s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 1469866 ExecStart=/etc/rc.d/init.d/gratia-probes-cron start (code=ex>
+
+Nov 29 15:39:39 nsgosg.sdsc.edu systemd[1]: Starting SYSV: Enable specified gra>
+Nov 29 15:39:39 nsgosg.sdsc.edu gratia-probes-cron[1469866]: Enabling gratia pr>
+Nov 29 15:39:39 nsgosg.sdsc.edu systemd[1]: Started SYSV: Enable specified grat
+
+[root@nsgosg config.d]# systemctl enable condor
+Created symlink /etc/systemd/system/multi-user.target.wants/condor.service → /usr/lib/systemd/system/condor.service.
+[root@nsgosg config.d]# systemctl restart condor
+[root@nsgosg config.d]# systemctl status condor
+● condor.service - Condor Distributed High-Throughput-Computing
+   Loaded: loaded (/usr/lib/systemd/system/condor.service; enabled; vendor pres>
+  Drop-In: /usr/lib/systemd/system/condor.service.d
+           └─osg-env.conf
+   Active: active (running) since Mon 2021-11-29 15:40:34 PST; 5s ago
+ Main PID: 1469910 (condor_master)
+   Status: "Problems: SCHEDD=STOPPED"
+    Tasks: 4 (limit: 4194303)
+   Memory: 8.2M
+   CGroup: /system.slice/condor.service
+           ├─1469910 /usr/sbin/condor_master -f
+           ├─1469948 condor_procd -A /var/run/condor/procd_pipe -L /var/log/con>
+           ├─1469949 condor_shared_port
+           └─1469951 condor_schedd
+
+Nov 29 15:40:34 nsgosg.sdsc.edu systemd[1]: Started Condor Distributed High-Thr>
+
+Attempt to submit jobs to OSG ...
+
+[mkandes@nsgosg ~]$ condor_submit bash_pi.htcondor 
+Submitting job(s)........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+1000 job(s) submitted to cluster 72.
+[mkandes@nsgosg ~]$ condor_q
+
+
+-- Schedd: nsgosg.sdsc.edu : <132.249.20.215:9618?... @ 11/29/21 15:42:19
+OWNER   BATCH_NAME    SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+mkandes ID: 72      11/29 15:42      _      _   1000   1000 72.0-999
+
+Total for query: 1000 jobs; 0 completed, 0 removed, 1000 idle, 0 running, 0 held, 0 suspended 
+Total for mkandes: 1000 jobs; 0 completed, 0 removed, 1000 idle, 0 running, 0 held, 0 suspended 
+Total for all users: 1000 jobs; 0 completed, 0 removed, 1000 idle, 0 running, 0 held, 0 suspended
+
+[mkandes@nsgosg ~]$
+
+
+[mkandes@nsgosg nsgosg-submit]$ condor_q
+
+-- Failed to fetch ads from: <132.249.20.215:9618?addrs=132.249.20.215-9618&alias=nsgosg.sdsc.edu&noUDP&sock=schedd_1469910_939c> : nsgosg.sdsc.edu
+SECMAN:2007:Failed to end classad message.
+[mkandes@nsgosg nsgosg-submit]$ condor_q
+
+
+-- Schedd: nsgosg.sdsc.edu : <132.249.20.215:9618?... @ 11/29/21 15:45:04
+OWNER   BATCH_NAME    SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+mkandes ID: 72      11/29 15:42      _    787    213   1000 72.0-999
+
+Total for query: 1000 jobs; 0 completed, 0 removed, 213 idle, 787 running, 0 held, 0 suspended 
+Total for mkandes: 1000 jobs; 0 completed, 0 removed, 213 idle, 787 running, 0 held, 0 suspended 
+Total for all users: 1000 jobs; 0 completed, 0 removed, 213 idle, 787 running, 0 held, 0 suspended
+
+[mkandes@nsgosg nsgosg-submit]$
+
+To: root@nsgosg.sdsc.edu
+Message-Id: <20211129234035.91857603E503@nsgosg.sdsc.edu>
+Date: Mon, 29 Nov 2021 15:40:35 -0800 (PST)
+From: Owner of HTCondor Daemons <condor@nsgosg.sdsc.edu>
+
+This is an automated email from the Condor system
+on machine "nsgosg.sdsc.edu".  Do not reply.
+
+The schedd nsgosg.sdsc.edu restarted at 11/29/21 15:40:35.
+It attempted to reconnect to machines where its jobs may still be running.
+All reconnect attempts have finished.
+Here is a summary of the reconnect attempts:
+
+0 total jobs where reconnecting is possible
+0 reconnects are still being attempted
+0 reconnects weren't attempted because the lease expired before the schedd restarted
+0 reconnects failed
+0 reconnects were interrupted by job removal or other event
+0 reconnects succeeded
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+Maybe ran into low mem ... ?
+
+top - 15:46:11 up 40 days, 20:03,  2 users,  load average: 0.09, 0.09, 0.03
+Tasks: 1040 total,   1 running, 1039 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.2 us,  0.3 sy,  0.0 ni, 99.5 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :   3709.4 total,    317.2 free,   2104.5 used,   1287.6 buff/cache
+MiB Swap:   2120.0 total,   2120.0 free,      0.0 used.   1127.9 avail Mem
