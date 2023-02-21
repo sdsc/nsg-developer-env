@@ -348,3 +348,29 @@ Success. Logging you in...
 ...skipping...
 
 
+[mkandes@nsgosg ~]$ condor_submit bash_pi.htcondor 
+Submitting job(s)........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+1000 job(s) submitted to cluster 85.
+[mkandes@nsgosg ~]$ condor_q
+
+
+-- Schedd: nsgosg.sdsc.edu : <132.249.20.215:9618?... @ 02/21/23 11:57:09
+OWNER   BATCH_NAME    SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+mkandes ID: 85       2/21 11:56      _      _   1000   1000 85.0-999
+
+Total for query: 1000 jobs; 0 completed, 0 removed, 1000 idle, 0 running, 0 held, 0 suspended 
+Total for mkandes: 1000 jobs; 0 completed, 0 removed, 1000 idle, 0 running, 0 held, 0 suspended 
+Total for all users: 1000 jobs; 0 completed, 0 removed, 1000 idle, 0 running, 0 held, 0 suspended
+
+[mkandes@nsgosg ~]$ condor_q
+
+
+-- Schedd: nsgosg.sdsc.edu : <132.249.20.215:9618?... @ 02/21/23 11:59:03
+OWNER   BATCH_NAME    SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+mkandes ID: 85       2/21 11:56      _    258    742   1000 85.0-999
+
+Total for query: 1000 jobs; 0 completed, 0 removed, 742 idle, 258 running, 0 held, 0 suspended 
+Total for mkandes: 1000 jobs; 0 completed, 0 removed, 742 idle, 258 running, 0 held, 0 suspended 
+Total for all users: 1000 jobs; 0 completed, 0 removed, 742 idle, 258 running, 0 held, 0 suspended
+
+[mkandes@nsgosg ~]$
