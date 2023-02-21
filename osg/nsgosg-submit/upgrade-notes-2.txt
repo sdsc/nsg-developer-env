@@ -115,3 +115,12 @@ Success. Logging you in...
  Main PID: 1356 (code=exited, status=0/SUCCESS)
    Status: "All daemons are responding"
 [mkandes@nsgosg ~]$
+
+[mkandes@nsgosg ~]$ sudo systemctl stop gratia-probes-cron
+[mkandes@nsgosg ~]$ systemctl status gratia-probes-cron
+● gratia-probes-cron.service - SYSV: Enable specified gratia probes to run via >
+   Loaded: loaded (/etc/rc.d/init.d/gratia-probes-cron; generated)
+   Active: inactive (dead) since Tue 2023-02-21 11:37:22 PST; 6s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 1432206 ExecStop=/etc/rc.d/init.d/gratia-probes-cron stop (code=exit>
+[mkandes@nsgosg ~]$
