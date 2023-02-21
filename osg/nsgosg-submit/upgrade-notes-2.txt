@@ -64,4 +64,32 @@ upgrade_type = security
 [mkandes@nsgosg ~]$ condor_config_val -summary > saved_condor_config_before_upgrade.20230221
 [mkandes@nsgosg ~]$
 
+[mkandes@nsgosg ~]$ yum-config-manager --enable powertools
+Error: This command has to be run with superuser privileges (under the root user on most systems).
+[mkandes@nsgosg ~]$ sudo yum-config-manager --enable powertools
+[sudo] password for mkandes: 
+Sorry, try again.
+[sudo] password for mkandes: 
+Duo two-factor login for mkandes
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-7242
+ 2. SMS passcodes to XXX-XXX-7242
+
+Passcode or option (1-2): 1
+
+Please open Duo Mobile and check for Duo Push requests manually.
+Success. Logging you in...
+[mkandes@nsgosg ~]$ yum repolist enabled
+repo id                 repo name
+SDSC-AppStream          Rocky Linux 8 AppStream
+SDSC-BaseOS             Rocky Linux 8 BaseOS
+SDSC-extras             Rocky Linux 8 extras
+duosecurity             Duo Security Repository
+epel                    Extra Packages for Enterprise Linux 8 - x86_64
+osg                     OSG Software for Enterprise Linux 8 - x86_64
+powertools              Rocky Linux 8 - PowerTools
+[mkandes@nsgosg ~]$
+
 
