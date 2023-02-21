@@ -56,3 +56,12 @@ Please open Duo Mobile and check for Duo Push requests manually.
 Success. Logging you in...
 44 files removed
 [mkandes@nsgosg ~]$
+
+[mkandes@nsgosg ~]$ cat /etc/dnf/automatic.conf
+upgrade_type = security
+[mkandes@nsgosg ~]$
+
+[mkandes@nsgosg ~]$ condor_config_val -summary > saved_condor_config_before_upgrade.20230221
+[mkandes@nsgosg ~]$
+
+
