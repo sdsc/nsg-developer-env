@@ -4,3 +4,4 @@ Starting installation and configuration of OSDF Origin on nsgosg.sdsc.edu. Follo
 
 https://osg-htc.org/docs/data/stashcache/install-origin
 https://osg-htc.org/docs/security/host-certs/incommon
+https://cert-manager.com/customer/InCommon/ssl
