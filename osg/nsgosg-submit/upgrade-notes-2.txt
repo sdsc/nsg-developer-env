@@ -256,3 +256,63 @@ Upgraded:
 
 Complete!
 [mkandes@nsgosg ~]$
+
+No need to upgrade/update HTCondor at this time. It looks like OSG has not migrated to HTCondor v10 yet.
+
+[mkandes@nsgosg ~]$ yum info condor
+Rocky Linux 8 - PowerTools                      9.1 MB/s | 2.6 MB     00:00    
+Installed Packages
+Name         : condor
+Version      : 9.0.17
+Release      : 1.1.osg36.el8
+Architecture : x86_64
+Size         : 21 M
+Source       : condor-9.0.17-1.1.osg36.el8.src.rpm
+Repository   : @System
+From repo    : osg
+Summary      : HTCondor: High Throughput Computing
+URL          : http://www.cs.wisc.edu/condor/
+License      : ASL 2.0
+Description  : HTCondor is a specialized workload management system for
+             : compute-intensive jobs. Like other full-featured batch systems,
+             : HTCondor provides a job queueing mechanism, scheduling policy,
+             : priority scheme, resource monitoring, and resource management.
+             : Users submit their serial or parallel jobs to HTCondor, HTCondor
+             : places them into a queue, chooses when and where to run the jobs
+             : based upon a policy, carefully monitors their progress, and
+             : ultimately informs the user upon completion.
+[mkandes@nsgosg ~]$ yum --enablerepo=osg-upcoming,osg-testing --showduplicates list condor
+OSG Software for Enterprise Linux 8 - Testing - 260 kB/s | 240 kB     00:00    
+Installed Packages
+condor.x86_64                9.0.17-1.1.osg36.el8                   @osg        
+Available Packages
+condor.x86_64                9.0.0-1.5.osg36.el8                    osg         
+condor.x86_64                9.0.1-1.2.osg36.el8                    osg         
+condor.x86_64                9.0.2-1.1.osg36.el8                    osg         
+condor.x86_64                9.0.4-1.1.osg36.el8                    osg         
+condor.x86_64                9.0.5-1.osg36.el8                      osg         
+condor.x86_64                9.0.6-1.osg36.el8                      osg         
+condor.x86_64                9.0.7-1.osg36.el8                      osg         
+condor.x86_64                9.0.8-1.osg36.el8                      osg         
+condor.x86_64                9.0.9-1.osg36.el8                      osg         
+condor.x86_64                9.0.10-1.osg36.el8                     osg         
+condor.x86_64                9.0.11-1.osg36.el8                     osg         
+condor.x86_64                9.0.12-1.1.osg36.el8                   osg         
+condor.x86_64                9.0.13-1.1.osg36.el8                   osg         
+condor.x86_64                9.0.15-1.1.osg36.el8                   osg         
+condor.x86_64                9.0.16-1.1.osg36.el8                   osg         
+condor.x86_64                9.0.17-1.1.osg36.el8                   osg         
+condor.x86_64                9.1.0-1.2.osg36up.el8                  osg-upcoming
+condor.x86_64                9.1.2-1.1.osg36up.el8                  osg-upcoming
+condor.x86_64                9.2.0-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.3.0-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.4.0-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.6.0-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.7.0-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.8.1-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.9.1-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.10.1-1.osg36up.el8                   osg-upcoming
+condor.x86_64                9.11.0-1.osg36up.el8                   osg-upcoming
+condor.x86_64                9.12.0-1.1.osg36up.el8                 osg-upcoming
+condor.x86_64                10.0.1-1.osg36.el8                     osg-testing 
+[mkandes@nsgosg ~]$
