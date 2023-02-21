@@ -124,6 +124,15 @@ Success. Logging you in...
      Docs: man:systemd-sysv-generator(8)
   Process: 1432206 ExecStop=/etc/rc.d/init.d/gratia-probes-cron stop (code=exit>
 [mkandes@nsgosg ~]$
+[mkandes@nsgosg ~]$ sudo systemctl disable gratia-probes-cron
+gratia-probes-cron.service is not a native service, redirecting to systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install disable gratia-probes-cron
+[mkandes@nsgosg ~]$ systemctl status gratia-probes-cron
+● gratia-probes-cron.service - SYSV: Enable specified gratia probes to run via >
+   Loaded: loaded (/etc/rc.d/init.d/gratia-probes-cron; generated)
+   Active: inactive (dead)
+     Docs: man:systemd-sysv-generator(8)
+[mkandes@nsgosg ~]$
 
 [mkandes@nsgosg ~]$ sudo yum update
 Rocky Linux 8 - PowerTools                      3.3 MB/s | 2.6 MB     00:00    
