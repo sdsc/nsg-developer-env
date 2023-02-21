@@ -316,3 +316,35 @@ condor.x86_64                9.11.0-1.osg36up.el8                   osg-upcoming
 condor.x86_64                9.12.0-1.1.osg36up.el8                 osg-upcoming
 condor.x86_64                10.0.1-1.osg36.el8                     osg-testing 
 [mkandes@nsgosg ~]$
+
+[mkandes@nsgosg ~]$ sudo systemctl restart condor
+[sudo] password for mkandes: 
+Duo two-factor login for mkandes
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-7242
+ 2. SMS passcodes to XXX-XXX-7242
+
+Passcode or option (1-2): 1
+
+Please open Duo Mobile and check for Duo Push requests manually.
+Success. Logging you in...
+[mkandes@nsgosg ~]$ systemctl status condor
+● condor.service - Condor Distributed High-Throughput-Computing
+   Loaded: loaded (/usr/lib/systemd/system/condor.service; enabled; vendor pres>
+  Drop-In: /usr/lib/systemd/system/condor.service.d
+           └─osg-env.conf
+   Active: active (running) since Tue 2023-02-21 11:56:08 PST; 11s ago
+ Main PID: 1447766 (condor_master)
+   Status: "Problems: SCHEDD=STOPPED"
+    Tasks: 4 (limit: 4194303)
+   Memory: 9.2M
+   CGroup: /system.slice/condor.service
+           ├─1447766 /usr/sbin/condor_master -f
+           ├─1447803 condor_procd -A /var/run/condor/procd_pipe -L /var/log/con>
+           ├─1447804 condor_shared_port
+           └─1447805 condor_schedd
+...skipping...
+
+
