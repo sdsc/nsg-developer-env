@@ -1,7 +1,67 @@
-2023/02/21
+2023/02/22
 
 Starting installation and configuration of OSDF Origin on nsgosg.sdsc.edu. Following these instructions ...
 
 https://osg-htc.org/docs/data/stashcache/install-origin
 https://osg-htc.org/docs/security/host-certs/incommon
+https://blink.ucsd.edu/technology/security/services/certificates/incommon.html
 https://cert-manager.com/customer/InCommon/ssl
+
+mkandes@hardtack:~$ ssh nsg
+Last login: Tue Feb 21 09:39:27 2023 from 208.58.214.56
+[mkandes@nsgosg ~]$ sudo yum install osg-pki-tools
+[sudo] password for mkandes: 
+Duo two-factor login for mkandes
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-7242
+ 2. SMS passcodes to XXX-XXX-7242
+
+Passcode or option (1-2): 1
+
+Please open Duo Mobile and check for Duo Push requests manually.
+Success. Logging you in...
+Last metadata expiration check: 0:07:31 ago on Wed 22 Feb 2023 07:25:51 AM PST.
+Dependencies resolved.
+================================================================================
+ Package                Architecture Version                   Repository  Size
+================================================================================
+Installing:
+ osg-pki-tools          noarch       3.5.2-1.osg36.el8         osg         38 k
+Installing dependencies:
+ python3-m2crypto       x86_64       0.35.2-5.el8              epel       303 k
+
+Transaction Summary
+================================================================================
+Install  2 Packages
+
+Total download size: 341 k
+Installed size: 1.5 M
+Is this ok [y/N]: Y
+Downloading Packages:
+(1/2): osg-pki-tools-3.5.2-1.osg36.el8.noarch.r  81 kB/s |  38 kB     00:00    
+(2/2): python3-m2crypto-0.35.2-5.el8.x86_64.rpm 565 kB/s | 303 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           341 kB/s | 341 kB     00:01     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : python3-m2crypto-0.35.2-5.el8.x86_64                   1/2 
+  Installing       : osg-pki-tools-3.5.2-1.osg36.el8.noarch                 2/2 
+  Running scriptlet: osg-pki-tools-3.5.2-1.osg36.el8.noarch                 2/2 
+  Verifying        : osg-pki-tools-3.5.2-1.osg36.el8.noarch                 1/2 
+  Verifying        : python3-m2crypto-0.35.2-5.el8.x86_64                   2/2 
+
+Installed:
+  osg-pki-tools-3.5.2-1.osg36.el8.noarch  python3-m2crypto-0.35.2-5.el8.x86_64 
+
+Complete!
+[mkandes@nsgosg ~]$
+
+[mkandes@nsgosg ~]$ osg-cert-request --hostname nsgosg.sdsc.edu --country US --state California --locality 'La Jolla' --organization 'University of California, San Diego'
+Writing CSR for nsgosg.sdsc.edu...
+[mkandes@nsgosg ~]$
