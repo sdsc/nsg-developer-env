@@ -106,4 +106,140 @@ Success. Logging you in...
 
 Update existing resource for OSG: https://osg-htc.org/docs/common/registration/#modifying-existing-resources
 
+[mkandes@nsgosg ~]$ sudo yum install stash-origin
+Last metadata expiration check: 1:56:50 ago on Tue 28 Feb 2023 11:17:43 AM PST.
+Dependencies resolved.
+================================================================================
+ Package              Arch     Version                      Repository     Size
+================================================================================
+Installing:
+ stash-origin         x86_64   3.3.0-1.osg36.el8            osg            24 k
+Installing dependencies:
+ expect               x86_64   5.45.4-5.el8                 SDSC-BaseOS   265 k
+ libmacaroons         x86_64   0.3.0-6.el8                  epel           33 k
+ libsodium            x86_64   1.0.18-2.el8                 epel          162 k
+ osg-xrootd           noarch   3.6-18.osg36.el8             osg            16 k
+ python3-xrootd       x86_64   1:5.5.1-1.4.osg36.el8        osg           128 k
+ tcl                  x86_64   1:8.6.8-2.el8                SDSC-BaseOS   1.1 M
+ vo-client            noarch   130-1.osg36.el8              osg            39 k
+ voms-clients-cpp     x86_64   2.1.0-0.14.rc2.5.osg36.el8   osg           182 k
+ xcache               x86_64   3.3.0-1.osg36.el8            osg            32 k
+ xrootd               x86_64   1:5.5.1-1.4.osg36.el8        osg            15 k
+ xrootd-client        x86_64   1:5.5.1-1.4.osg36.el8        osg           281 k
+ xrootd-client-libs   x86_64   1:5.5.1-1.4.osg36.el8        osg           778 k
+ xrootd-libs          x86_64   1:5.5.1-1.4.osg36.el8        osg           735 k
+ xrootd-scitokens     x86_64   1:5.5.1-1.4.osg36.el8        osg            60 k
+ xrootd-selinux       noarch   1:5.5.1-1.4.osg36.el8        osg            24 k
+ xrootd-server        x86_64   1:5.5.1-1.4.osg36.el8        osg           385 k
+ xrootd-server-libs   x86_64   1:5.5.1-1.4.osg36.el8        osg           826 k
+ xrootd-voms          x86_64   1:5.5.1-1.4.osg36.el8        osg            47 k
 
+Transaction Summary
+================================================================================
+Install  19 Packages
+
+Total download size: 5.0 M
+Installed size: 16 M
+Is this ok [y/N]: y
+Downloading Packages:
+(1/19): expect-5.45.4-5.el8.x86_64.rpm          4.9 MB/s | 265 kB     00:00    
+(2/19): tcl-8.6.8-2.el8.x86_64.rpm              8.6 MB/s | 1.1 MB     00:00    
+(3/19): osg-xrootd-3.6-18.osg36.el8.noarch.rpm   46 kB/s |  16 kB     00:00    
+(4/19): xcache-3.3.0-1.osg36.el8.x86_64.rpm      96 kB/s |  32 kB     00:00    
+(5/19): stash-origin-3.3.0-1.osg36.el8.x86_64.r  88 kB/s |  24 kB     00:00    
+(6/19): xrootd-voms-5.5.1-1.4.osg36.el8.x86_64. 290 kB/s |  47 kB     00:00    
+(7/19): voms-clients-cpp-2.1.0-0.14.rc2.5.osg36 846 kB/s | 182 kB     00:00    
+(8/19): xrootd-server-libs-5.5.1-1.4.osg36.el8. 2.4 MB/s | 826 kB     00:00    
+(9/19): python3-xrootd-5.5.1-1.4.osg36.el8.x86_ 1.1 MB/s | 128 kB     00:00    
+(10/19): xrootd-libs-5.5.1-1.4.osg36.el8.x86_64 3.3 MB/s | 735 kB     00:00    
+(11/19): xrootd-client-libs-5.5.1-1.4.osg36.el8 2.7 MB/s | 778 kB     00:00    
+(12/19): vo-client-130-1.osg36.el8.noarch.rpm   354 kB/s |  39 kB     00:00    
+(13/19): xrootd-selinux-5.5.1-1.4.osg36.el8.noa 226 kB/s |  24 kB     00:00    
+(14/19): xrootd-5.5.1-1.4.osg36.el8.x86_64.rpm  137 kB/s |  15 kB     00:00    
+(15/19): xrootd-scitokens-5.5.1-1.4.osg36.el8.x 537 kB/s |  60 kB     00:00    
+(16/19): xrootd-client-5.5.1-1.4.osg36.el8.x86_ 1.6 MB/s | 281 kB     00:00    
+(17/19): xrootd-server-5.5.1-1.4.osg36.el8.x86_ 3.3 MB/s | 385 kB     00:00    
+(18/19): libmacaroons-0.3.0-6.el8.x86_64.rpm    127 kB/s |  33 kB     00:00    
+(19/19): libsodium-1.0.18-2.el8.x86_64.rpm      406 kB/s | 162 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           2.6 MB/s | 5.0 MB     00:01     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : xrootd-client-libs-1:5.5.1-1.4.osg36.el8.x86_64       1/19 
+  Running scriptlet: xrootd-client-libs-1:5.5.1-1.4.osg36.el8.x86_64       1/19 
+  Installing       : xrootd-libs-1:5.5.1-1.4.osg36.el8.x86_64              2/19 
+  Running scriptlet: xrootd-libs-1:5.5.1-1.4.osg36.el8.x86_64              2/19 
+  Installing       : vo-client-130-1.osg36.el8.noarch                      3/19 
+  Installing       : xrootd-voms-1:5.5.1-1.4.osg36.el8.x86_64              4/19 
+  Installing       : python3-xrootd-1:5.5.1-1.4.osg36.el8.x86_64           5/19 
+  Installing       : xrootd-client-1:5.5.1-1.4.osg36.el8.x86_64            6/19 
+  Installing       : libsodium-1.0.18-2.el8.x86_64                         7/19 
+  Installing       : libmacaroons-0.3.0-6.el8.x86_64                       8/19 
+  Installing       : xrootd-server-libs-1:5.5.1-1.4.osg36.el8.x86_64       9/19 
+  Running scriptlet: xrootd-server-libs-1:5.5.1-1.4.osg36.el8.x86_64       9/19 
+  Installing       : xrootd-selinux-1:5.5.1-1.4.osg36.el8.noarch          10/19 
+  Running scriptlet: xrootd-selinux-1:5.5.1-1.4.osg36.el8.noarch          10/19 
+  Running scriptlet: voms-clients-cpp-2.1.0-0.14.rc2.5.osg36.el8.x86_64   11/19 
+  Installing       : voms-clients-cpp-2.1.0-0.14.rc2.5.osg36.el8.x86_64   11/19 
+  Running scriptlet: voms-clients-cpp-2.1.0-0.14.rc2.5.osg36.el8.x86_64   11/19 
+  Installing       : tcl-1:8.6.8-2.el8.x86_64                             12/19 
+  Running scriptlet: tcl-1:8.6.8-2.el8.x86_64                             12/19 
+  Installing       : expect-5.45.4-5.el8.x86_64                           13/19 
+  Running scriptlet: xrootd-server-1:5.5.1-1.4.osg36.el8.x86_64           14/19 
+  Installing       : xrootd-server-1:5.5.1-1.4.osg36.el8.x86_64           14/19 
+  Running scriptlet: xrootd-server-1:5.5.1-1.4.osg36.el8.x86_64           14/19 
+  Installing       : xrootd-1:5.5.1-1.4.osg36.el8.x86_64                  15/19 
+  Installing       : osg-xrootd-3.6-18.osg36.el8.noarch                   16/19 
+  Running scriptlet: osg-xrootd-3.6-18.osg36.el8.noarch                   16/19 
+  Installing       : xrootd-scitokens-1:5.5.1-1.4.osg36.el8.x86_64        17/19 
+  Installing       : xcache-3.3.0-1.osg36.el8.x86_64                      18/19 
+  Running scriptlet: xcache-3.3.0-1.osg36.el8.x86_64                      18/19 
+  Installing       : stash-origin-3.3.0-1.osg36.el8.x86_64                19/19 
+  Running scriptlet: stash-origin-3.3.0-1.osg36.el8.x86_64                19/19 
+  Verifying        : expect-5.45.4-5.el8.x86_64                            1/19 
+  Verifying        : tcl-1:8.6.8-2.el8.x86_64                              2/19 
+  Verifying        : osg-xrootd-3.6-18.osg36.el8.noarch                    3/19 
+  Verifying        : xcache-3.3.0-1.osg36.el8.x86_64                       4/19 
+  Verifying        : stash-origin-3.3.0-1.osg36.el8.x86_64                 5/19 
+  Verifying        : xrootd-server-libs-1:5.5.1-1.4.osg36.el8.x86_64       6/19 
+  Verifying        : voms-clients-cpp-2.1.0-0.14.rc2.5.osg36.el8.x86_64    7/19 
+  Verifying        : xrootd-voms-1:5.5.1-1.4.osg36.el8.x86_64              8/19 
+  Verifying        : xrootd-libs-1:5.5.1-1.4.osg36.el8.x86_64              9/19 
+  Verifying        : xrootd-client-libs-1:5.5.1-1.4.osg36.el8.x86_64      10/19 
+  Verifying        : python3-xrootd-1:5.5.1-1.4.osg36.el8.x86_64          11/19 
+  Verifying        : vo-client-130-1.osg36.el8.noarch                     12/19 
+  Verifying        : xrootd-selinux-1:5.5.1-1.4.osg36.el8.noarch          13/19 
+  Verifying        : xrootd-1:5.5.1-1.4.osg36.el8.x86_64                  14/19 
+  Verifying        : xrootd-scitokens-1:5.5.1-1.4.osg36.el8.x86_64        15/19 
+  Verifying        : xrootd-client-1:5.5.1-1.4.osg36.el8.x86_64           16/19 
+  Verifying        : xrootd-server-1:5.5.1-1.4.osg36.el8.x86_64           17/19 
+  Verifying        : libmacaroons-0.3.0-6.el8.x86_64                      18/19 
+  Verifying        : libsodium-1.0.18-2.el8.x86_64                        19/19 
+
+Installed:
+  expect-5.45.4-5.el8.x86_64                                                    
+  libmacaroons-0.3.0-6.el8.x86_64                                               
+  libsodium-1.0.18-2.el8.x86_64                                                 
+  osg-xrootd-3.6-18.osg36.el8.noarch                                            
+  python3-xrootd-1:5.5.1-1.4.osg36.el8.x86_64                                   
+  stash-origin-3.3.0-1.osg36.el8.x86_64                                         
+  tcl-1:8.6.8-2.el8.x86_64                                                      
+  vo-client-130-1.osg36.el8.noarch                                              
+  voms-clients-cpp-2.1.0-0.14.rc2.5.osg36.el8.x86_64                            
+  xcache-3.3.0-1.osg36.el8.x86_64                                               
+  xrootd-1:5.5.1-1.4.osg36.el8.x86_64                                           
+  xrootd-client-1:5.5.1-1.4.osg36.el8.x86_64                                    
+  xrootd-client-libs-1:5.5.1-1.4.osg36.el8.x86_64                               
+  xrootd-libs-1:5.5.1-1.4.osg36.el8.x86_64                                      
+  xrootd-scitokens-1:5.5.1-1.4.osg36.el8.x86_64                                 
+  xrootd-selinux-1:5.5.1-1.4.osg36.el8.noarch                                   
+  xrootd-server-1:5.5.1-1.4.osg36.el8.x86_64                                    
+  xrootd-server-libs-1:5.5.1-1.4.osg36.el8.x86_64                               
+  xrootd-voms-1:5.5.1-1.4.osg36.el8.x86_64                                      
+
+Complete!
+[mkandes@nsgosg ~]$
