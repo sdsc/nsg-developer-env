@@ -15,8 +15,8 @@ Duo two-factor login for mkandes
 
 Enter a passcode or select one of the following options:
 
- 1. Duo Push to XXX-XXX-7242
- 2. SMS passcodes to XXX-XXX-7242
+ 1. Duo Push to XXX-XXX-XXXX
+ 2. SMS passcodes to XXX-XXX-XXXX
 
 Passcode or option (1-2): 1
 
@@ -64,4 +64,42 @@ Complete!
 
 [mkandes@nsgosg ~]$ osg-cert-request --hostname nsgosg.sdsc.edu --country US --state California --locality 'La Jolla' --organization 'University of California, San Diego'
 Writing CSR for nsgosg.sdsc.edu...
+[mkandes@nsgosg ~]$
+
+2023/02/28
+
+https://osg-htc.org/docs/security/host-certs/overview/
+https://osg-htc.org/docs/security/host-certs/incommon/
+
+[mkandes@nsgosg ~]$ openssl x509 -in nsgosg.sdsc.edu-cert.pem -subject -issuer -dates -noout
+subject=DC = org, DC = incommon, C = US, ST = California, O = "University of California, San Diego", CN = nsgosg.sdsc.edu
+issuer=C = US, O = Internet2, OU = InCommon, CN = InCommon IGTF Server CA
+notBefore=Feb 22 00:00:00 2023 GMT
+notAfter=Dec 31 23:59:59 2023 GMT
+[mkandes@nsgosg ~]$
+
+[mkandes@nsgosg ~]$ sudo cp nsgosg.sdsc.edu-cert.pem /etc/grid-security/hostcert.pem
+[sudo] password for mkandes: 
+Duo two-factor login for mkandes
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-XXXX
+ 2. SMS passcodes to XXX-XXX-XXXX
+
+Passcode or option (1-2): 1
+
+Please open Duo Mobile and check for Duo Push requests manually.
+Success. Logging you in...
+[mkandes@nsgosg ~]$ sudo chmod 444 /etc/grid-security/hostcert.pem
+[mkandes@nsgosg ~]$ ls -lahtr /etc/grid-security/hostcert.pem 
+-r--r--r--. 1 root root 2.3K Feb 28 09:42 /etc/grid-security/hostcert.pem
+[mkandes@nsgosg ~]$ chmod a+r nsgosg.sdsc.edu-key.pem 
+[mkandes@nsgosg ~]$ sudo cp nsgosg.sdsc.edu-key.pem /etc/grid-security/hostkey.pem
+[mkandes@nsgosg ~]$ chmod go-r nsgosg.sdsc.edu-key.pem 
+[mkandes@nsgosg ~]$ ls -lahtr nsgosg.sdsc.edu-key.pem 
+-rw-------. 1 mkandes sdsc 1.7K Feb 22 07:56 nsgosg.sdsc.edu-key.pem
+[mkandes@nsgosg ~]$ sudo chmod 400 /etc/grid-security/hostkey.pem
+[mkandes@nsgosg ~]$ ls -lahtr /etc/grid-security/hostkey.pem
+-r--------. 1 root root 1.7K Feb 28 09:48 /etc/grid-security/hostkey.pem
 [mkandes@nsgosg ~]$
