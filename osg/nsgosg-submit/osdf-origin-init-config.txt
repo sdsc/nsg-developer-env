@@ -103,3 +103,7 @@ Success. Logging you in...
 [mkandes@nsgosg ~]$ ls -lahtr /etc/grid-security/hostkey.pem
 -r--------. 1 root root 1.7K Feb 28 09:48 /etc/grid-security/hostkey.pem
 [mkandes@nsgosg ~]$
+
+Update existing resource for OSG: https://osg-htc.org/docs/common/registration/#modifying-existing-resources
+
+
