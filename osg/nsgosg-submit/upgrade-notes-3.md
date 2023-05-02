@@ -65,3 +65,8 @@ Success. Logging you in...
 [mkandes@nsgosg ~]$
 ```
 
+```
+[mkandes@nsgosg ~]$ sudo yum-config-manager --enable powertools
+[mkandes@nsgosg ~]$
+```
+
