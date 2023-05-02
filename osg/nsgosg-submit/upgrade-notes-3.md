@@ -255,3 +255,95 @@ condor.x86_64                10.0.3-1.osg36.el8                     osg-testing
 condor.x86_64                10.4.0-1.osg36up.el8                   osg-upcoming
 [mkandes@nsgosg ~]$
 ```
+
+```
+[mkandes@nsgosg ~]$ sudo yum upgrade --enablerepo=osg-upcoming condor
+[sudo] password for mkandes: 
+Duo two-factor login for mkandes
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-7242
+ 2. SMS passcodes to XXX-XXX-7242
+
+Passcode or option (1-2): 1
+
+Please open Duo Mobile and check for Duo Push requests manually.
+Success. Logging you in...
+OSG Software for Enterprise Linux 8 - Upcoming  287 kB/s | 279 kB     00:00    
+Dependencies resolved.
+================================================================================
+ Package                Arch      Version                 Repository       Size
+================================================================================
+Upgrading:
+ condor                 x86_64    10.4.0-1.osg36up.el8    osg-upcoming    8.3 M
+ condor-classads        x86_64    10.4.0-1.osg36up.el8    osg-upcoming    342 k
+ condor-procd           x86_64    10.4.0-1.osg36up.el8    osg-upcoming    179 k
+ python3-condor         x86_64    10.4.0-1.osg36up.el8    osg-upcoming    832 k
+Installing dependencies:
+ condor-blahp           x86_64    10.4.0-1.osg36up.el8    osg-upcoming    391 k
+     replacing  blahp.x86_64 2.2.1-1.osg36.el8
+ condor-stash-plugin    x86_64    6.10.0-1.osg36.el8      osg             2.2 M
+
+Transaction Summary
+================================================================================
+Install  2 Packages
+Upgrade  4 Packages
+
+Total download size: 12 M
+Is this ok [y/N]: y
+Downloading Packages:
+                    186% [=====================================] 1.4 kB/s | 496 (1/6): condor-procd-10.4.0-1.osg36up.el8.x86_64 393 kB/s | 179 kB     00:00    
+(2/6): condor-blahp-10.4.0-1.osg36up.el8.x86_64 775 kB/s | 391 kB     00:00    
+(3/6): condor-stash-plugin-6.10.0-1.osg36.el8.x 3.2 MB/s | 2.2 MB     00:00    
+(4/6): python3-condor-10.4.0-1.osg36up.el8.x86_ 3.4 MB/s | 832 kB     00:00    
+(5/6): condor-classads-10.4.0-1.osg36up.el8.x86 2.9 MB/s | 342 kB     00:00    
+(6/6): condor-10.4.0-1.osg36up.el8.x86_64.rpm    20 MB/s | 8.3 MB     00:00    
+--------------------------------------------------------------------------------
+Total                                            10 MB/s |  12 MB     00:01     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                                                                              1/1 
+  Running scriptlet: condor-classads-10.4.0-1.osg36up.el8.x86_64                                                                                                  1/1 
+  Upgrading        : condor-classads-10.4.0-1.osg36up.el8.x86_64                                                                                                 1/11 
+  Upgrading        : condor-procd-10.4.0-1.osg36up.el8.x86_64                                                                                                    2/11 
+  Installing       : condor-blahp-10.4.0-1.osg36up.el8.x86_64                                                                                                    3/11 
+  Upgrading        : python3-condor-10.4.0-1.osg36up.el8.x86_64                                                                                                  4/11 
+  Running scriptlet: condor-10.4.0-1.osg36up.el8.x86_64                                                                                                          5/11 
+  Upgrading        : condor-10.4.0-1.osg36up.el8.x86_64                                                                                                          5/11 
+  Running scriptlet: condor-10.4.0-1.osg36up.el8.x86_64                                                                                                          5/11 
+Boolean condor_domain_can_network_connect is not defined
+
+  Installing       : condor-stash-plugin-6.10.0-1.osg36.el8.x86_64                                                                                               6/11 
+  Running scriptlet: condor-9.0.17-1.1.osg36.el8.x86_64                                                                                                          7/11 
+  Cleanup          : condor-9.0.17-1.1.osg36.el8.x86_64                                                                                                          7/11 
+  Running scriptlet: condor-9.0.17-1.1.osg36.el8.x86_64                                                                                                          7/11 
+  Running scriptlet: blahp-2.2.1-1.osg36.el8.x86_64                                                                                                              8/11 
+  Obsoleting       : blahp-2.2.1-1.osg36.el8.x86_64                                                                                                              8/11 
+  Cleanup          : python3-condor-9.0.17-1.1.osg36.el8.x86_64                                                                                                  9/11 
+  Cleanup          : condor-classads-9.0.17-1.1.osg36.el8.x86_64                                                                                                10/11 
+  Cleanup          : condor-procd-9.0.17-1.1.osg36.el8.x86_64                                                                                                   11/11 
+  Running scriptlet: condor-procd-9.0.17-1.1.osg36.el8.x86_64                                                                                                   11/11 
+  Verifying        : condor-stash-plugin-6.10.0-1.osg36.el8.x86_64                                                                                               1/11 
+  Verifying        : condor-blahp-10.4.0-1.osg36up.el8.x86_64                                                                                                    2/11 
+  Verifying        : blahp-2.2.1-1.osg36.el8.x86_64                                                                                                              3/11 
+  Verifying        : condor-procd-10.4.0-1.osg36up.el8.x86_64                                                                                                    4/11 
+  Verifying        : condor-procd-9.0.17-1.1.osg36.el8.x86_64                                                                                                    5/11 
+  Verifying        : condor-10.4.0-1.osg36up.el8.x86_64                                                                                                          6/11 
+  Verifying        : condor-9.0.17-1.1.osg36.el8.x86_64                                                                                                          7/11 
+  Verifying        : python3-condor-10.4.0-1.osg36up.el8.x86_64                                                                                                  8/11 
+  Verifying        : python3-condor-9.0.17-1.1.osg36.el8.x86_64                                                                                                  9/11 
+  Verifying        : condor-classads-10.4.0-1.osg36up.el8.x86_64                                                                                                10/11 
+  Verifying        : condor-classads-9.0.17-1.1.osg36.el8.x86_64                                                                                                11/11 
+
+Upgraded:
+  condor-10.4.0-1.osg36up.el8.x86_64 condor-classads-10.4.0-1.osg36up.el8.x86_64 condor-procd-10.4.0-1.osg36up.el8.x86_64 python3-condor-10.4.0-1.osg36up.el8.x86_64
+Installed:
+  condor-blahp-10.4.0-1.osg36up.el8.x86_64                                        condor-stash-plugin-6.10.0-1.osg36.el8.x86_64                                       
+
+Complete!
+[mkandes@nsgosg ~]$
+```
