@@ -20,3 +20,24 @@ epel                    Extra Packages for Enterprise Linux 8 - x86_64
 osg                     OSG Software for Enterprise Linux 8 - x86_64
 [mkandes@nsgosg ~]$
 ```
+
+```
+[mkandes@nsgosg ~]$ yum info osg-release
+Last metadata expiration check: 0:28:59 ago on Tue 02 May 2023 11:08:44 AM PDT.
+Installed Packages
+Name         : osg-release
+Version      : 3.6
+Release      : 11.osg36.el8
+Architecture : noarch
+Size         : 15 k
+Source       : osg-release-3.6-11.osg36.el8.src.rpm
+Repository   : @System
+From repo    : osg
+Summary      : OSG Software for Enterprise Linux repository configuration
+URL          : https://repo.opensciencegrid.org/
+License      : GPL
+Description  : This package contains the OSG Software for Enterprise Linux
+             : repository configuration for yum.
+
+[mkandes@nsgosg ~]$
+```
