@@ -60,3 +60,8 @@ Success. Logging you in...
 [mkandes@nsgosg ~]$
 ```
 
+```
+[mkandes@nsgosg ~]$ condor_config_val -summary > saved_condor_config_before_upgrade.20230502
+[mkandes@nsgosg ~]$
+```
+
