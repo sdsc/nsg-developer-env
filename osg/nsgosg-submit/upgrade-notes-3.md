@@ -372,3 +372,18 @@ $CondorVersion: 10.4.0 2023-04-07 PackageID: 10.4.0-1 $
 $CondorPlatform: X86_64-Rocky_8.7 $
 [mkandes@nsgosg ~]$
 ```
+
+```
+[mkandes@nsgosg ~]$ sudo systemctl restart gratia-probes-cron
+[mkandes@nsgosg ~]$ sudo systemctl status gratia-probes-cron
+● gratia-probes-cron.service - SYSV: Enable specified gratia probes to run via cron. b>
+   Loaded: loaded (/etc/rc.d/init.d/gratia-probes-cron; generated)
+   Active: active (exited) since Tue 2023-05-02 11:55:03 PDT; 37s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 514730 ExecStart=/etc/rc.d/init.d/gratia-probes-cron start (code=exited, st>
+
+May 02 11:55:03 nsgosg.sdsc.edu systemd[1]: Starting SYSV: Enable specified gratia pro>
+May 02 11:55:03 nsgosg.sdsc.edu gratia-probes-cron[514730]: Enabling gratia probes cro>
+May 02 11:55:03 nsgosg.sdsc.edu systemd[1]: Started SYSV: Enable specified gratia prob>
+[mkandes@nsgosg ~]$
+```
