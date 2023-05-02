@@ -216,3 +216,42 @@ Description  : HTCondor is a specialized workload management system for
 
 [mkandes@nsgosg ~]$
 ```
+
+```
+[mkandes@nsgosg ~]$ yum --enablerepo=osg-upcoming,osg-testing --showduplicates list condor
+OSG Software for Enterprise Linux 8 - Testing - 267 kB/s | 239 kB     00:00    
+Installed Packages
+condor.x86_64                9.0.17-1.1.osg36.el8                   @osg        
+Available Packages
+condor.x86_64                9.0.0-1.5.osg36.el8                    osg         
+condor.x86_64                9.0.1-1.2.osg36.el8                    osg         
+condor.x86_64                9.0.2-1.1.osg36.el8                    osg         
+condor.x86_64                9.0.4-1.1.osg36.el8                    osg         
+condor.x86_64                9.0.5-1.osg36.el8                      osg         
+condor.x86_64                9.0.6-1.osg36.el8                      osg         
+condor.x86_64                9.0.7-1.osg36.el8                      osg         
+condor.x86_64                9.0.8-1.osg36.el8                      osg         
+condor.x86_64                9.0.9-1.osg36.el8                      osg         
+condor.x86_64                9.0.10-1.osg36.el8                     osg         
+condor.x86_64                9.0.11-1.osg36.el8                     osg         
+condor.x86_64                9.0.12-1.1.osg36.el8                   osg         
+condor.x86_64                9.0.13-1.1.osg36.el8                   osg         
+condor.x86_64                9.0.15-1.1.osg36.el8                   osg         
+condor.x86_64                9.0.16-1.1.osg36.el8                   osg         
+condor.x86_64                9.0.17-1.1.osg36.el8                   osg         
+condor.x86_64                9.1.0-1.2.osg36up.el8                  osg-upcoming
+condor.x86_64                9.1.2-1.1.osg36up.el8                  osg-upcoming
+condor.x86_64                9.2.0-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.3.0-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.4.0-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.6.0-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.7.0-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.8.1-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.9.1-1.osg36up.el8                    osg-upcoming
+condor.x86_64                9.10.1-1.osg36up.el8                   osg-upcoming
+condor.x86_64                9.11.0-1.osg36up.el8                   osg-upcoming
+condor.x86_64                9.12.0-1.1.osg36up.el8                 osg-upcoming
+condor.x86_64                10.0.3-1.osg36.el8                     osg-testing 
+condor.x86_64                10.4.0-1.osg36up.el8                   osg-upcoming
+[mkandes@nsgosg ~]$
+```
