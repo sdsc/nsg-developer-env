@@ -70,3 +70,22 @@ Success. Logging you in...
 [mkandes@nsgosg ~]$
 ```
 
+```
+[mkandes@nsgosg ~]$ sudo systemctl stop condor
+[mkandes@nsgosg ~]$ sudo systemctl status condor
+● condor.service - Condor Distributed High-Throughput-Computing
+   Loaded: loaded (/usr/lib/systemd/system/condor.service; enabled; vendor pres>
+  Drop-In: /usr/lib/systemd/system/condor.service.d
+           └─osg-env.conf
+   Active: inactive (dead) since Tue 2023-05-02 11:43:04 PDT; 10s ago
+  Process: 498351 ExecStart=/usr/sbin/condor_master -f (code=exited, status=0/S>
+ Main PID: 498351 (code=exited, status=0/SUCCESS)
+   Status: "All daemons are responding"
+
+May 02 10:56:27 nsgosg.sdsc.edu systemd[1]: Started Condor Distributed High-Thr>
+May 02 11:43:03 nsgosg.sdsc.edu systemd[1]: Stopping Condor Distributed High-Th>
+May 02 11:43:04 nsgosg.sdsc.edu systemd[1]: condor.service: Succeeded.
+May 02 11:43:04 nsgosg.sdsc.edu systemd[1]: Stopped Condor Distributed High-Thr>
+[mkandes@nsgosg ~]$
+```
+
