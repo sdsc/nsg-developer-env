@@ -142,3 +142,77 @@ Upgraded:
 Complete!
 [mkandes@nsgosg ~]$
 ```
+
+```
+[mkandes@nsgosg ~]$ yum info condor
+Rocky Linux 8 - PowerTools                      3.4 MB/s | 2.8 MB     00:00    
+Installed Packages
+Name         : condor
+Version      : 9.0.17
+Release      : 1.1.osg36.el8
+Architecture : x86_64
+Size         : 21 M
+Source       : condor-9.0.17-1.1.osg36.el8.src.rpm
+Repository   : @System
+From repo    : osg
+Summary      : HTCondor: High Throughput Computing
+URL          : http://www.cs.wisc.edu/condor/
+License      : ASL 2.0
+Description  : HTCondor is a specialized workload management system for
+             : compute-intensive jobs. Like other full-featured batch systems, HTCondor
+             : provides a job queueing mechanism, scheduling policy, priority scheme,
+             : resource monitoring, and resource management. Users submit their
+             : serial or parallel jobs to HTCondor, HTCondor places them into a queue,
+             : chooses when and where to run the jobs based upon a policy, carefully
+             : monitors their progress, and ultimately informs the user upon
+             : completion.
+
+[mkandes@nsgosg ~]$
+```
+
+```
+[mkandes@nsgosg ~]$ yum info --enablerepo=osg-upcoming condor
+Last metadata expiration check: 0:01:06 ago on Tue 02 May 2023 11:46:59 AM PDT.
+Installed Packages
+Name         : condor
+Version      : 9.0.17
+Release      : 1.1.osg36.el8
+Architecture : x86_64
+Size         : 21 M
+Source       : condor-9.0.17-1.1.osg36.el8.src.rpm
+Repository   : @System
+From repo    : osg
+Summary      : HTCondor: High Throughput Computing
+URL          : http://www.cs.wisc.edu/condor/
+License      : ASL 2.0
+Description  : HTCondor is a specialized workload management system for
+             : compute-intensive jobs. Like other full-featured batch systems,
+             : HTCondor provides a job queueing mechanism, scheduling policy,
+             : priority scheme, resource monitoring, and resource management.
+             : Users submit their serial or parallel jobs to HTCondor, HTCondor
+             : places them into a queue, chooses when and where to run the jobs
+             : based upon a policy, carefully monitors their progress, and
+             : ultimately informs the user upon completion.
+
+Available Packages
+Name         : condor
+Version      : 10.4.0
+Release      : 1.osg36up.el8
+Architecture : x86_64
+Size         : 8.3 M
+Source       : condor-10.4.0-1.osg36up.el8.src.rpm
+Repository   : osg-upcoming
+Summary      : HTCondor: High Throughput Computing
+URL          : https://www.cs.wisc.edu/htcondor/
+License      : ASL 2.0
+Description  : HTCondor is a specialized workload management system for
+             : compute-intensive jobs. Like other full-featured batch systems,
+             : HTCondor provides a job queueing mechanism, scheduling policy,
+             : priority scheme, resource monitoring, and resource management.
+             : Users submit their serial or parallel jobs to HTCondor, HTCondor
+             : places them into a queue, chooses when and where to run the jobs
+             : based upon a policy, carefully monitors their progress, and
+             : ultimately informs the user upon completion.
+
+[mkandes@nsgosg ~]$
+```
