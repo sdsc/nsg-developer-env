@@ -98,3 +98,47 @@ May 02 11:43:04 nsgosg.sdsc.edu systemd[1]: Stopped Condor Distributed High-Thr>
      Docs: man:systemd-sysv-generator(8)
 [mkandes@nsgosg ~]$
 ```
+
+```
+[mkandes@nsgosg ~]$ sudo yum update
+Rocky Linux 8 AppStream                          69 MB/s |  11 MB     00:00    
+Rocky Linux 8 BaseOS                             80 MB/s | 6.1 MB     00:00    
+Rocky Linux 8 extras                            502 kB/s |  14 kB     00:00    
+OSG Software for Enterprise Linux 8 - x86_64    1.7 MB/s | 1.8 MB     00:01    
+Rocky Linux 8 - PowerTools                      3.4 MB/s | 2.8 MB     00:00    
+Duo Security Repository                          28 kB/s | 2.0 kB     00:00    
+Extra Packages for Enterprise Linux 8 - x86_64  2.3 MB/s |  14 MB     00:05    
+Dependencies resolved.
+================================================================================
+ Package               Arch        Version               Repository        Size
+================================================================================
+Upgrading:
+ emacs-filesystem      noarch      1:26.1-7.el8_7.1      SDSC-BaseOS       69 k
+
+Transaction Summary
+================================================================================
+Upgrade  1 Package
+
+Total download size: 69 k
+Is this ok [y/N]: y
+Downloading Packages:
+emacs-filesystem-26.1-7.el8_7.1.noarch.rpm      2.7 MB/s |  69 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           2.3 MB/s |  69 kB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Upgrading        : emacs-filesystem-1:26.1-7.el8_7.1.noarch               1/2 
+  Cleanup          : emacs-filesystem-1:26.1-7.el8.noarch                   2/2 
+  Verifying        : emacs-filesystem-1:26.1-7.el8_7.1.noarch               1/2 
+  Verifying        : emacs-filesystem-1:26.1-7.el8.noarch                   2/2 
+
+Upgraded:
+  emacs-filesystem-1:26.1-7.el8_7.1.noarch                                      
+
+Complete!
+[mkandes@nsgosg ~]$
+```
