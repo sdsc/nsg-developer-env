@@ -41,3 +41,22 @@ Description  : This package contains the OSG Software for Enterprise Linux
 
 [mkandes@nsgosg ~]$
 ```
+
+```
+[mkandes@nsgosg ~]$ sudo yum clean all --enablerepo=*
+[sudo] password for mkandes: 
+Duo two-factor login for mkandes
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-7242
+ 2. SMS passcodes to XXX-XXX-7242
+
+Passcode or option (1-2): 1
+
+Please open Duo Mobile and check for Duo Push requests manually.
+Success. Logging you in...
+44 files removed
+[mkandes@nsgosg ~]$
+```
+
