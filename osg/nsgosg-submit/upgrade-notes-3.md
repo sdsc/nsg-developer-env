@@ -347,3 +347,28 @@ Installed:
 Complete!
 [mkandes@nsgosg ~]$
 ```
+
+```
+[mkandes@nsgosg ~]$ sudo systemctl restart condor
+[mkandes@nsgosg ~]$ sudo systemctl status condor
+● condor.service - Condor Distributed High-Throughput-Computing
+   Loaded: loaded (/usr/lib/systemd/system/condor.service; enabled; vendor pres>
+  Drop-In: /usr/lib/systemd/system/condor.service.d
+           └─osg-env.conf
+   Active: active (running) since Tue 2023-05-02 11:52:55 PDT; 1min 10s ago
+ Main PID: 514645 (condor_master)
+   Status: "All daemons are responding"
+    Tasks: 4 (limit: 4194303)
+   Memory: 10.6M
+   CGroup: /system.slice/condor.service
+           ├─514645 /usr/sbin/condor_master -f
+           ├─514683 condor_procd -A /var/run/condor/procd_pipe -L /var/log/cond>
+           ├─514684 condor_shared_port
+           └─514685 condor_schedd
+
+May 02 11:52:55 nsgosg.sdsc.edu systemd[1]: Started Condor Distributed High-Thr>
+[mkandes@nsgosg ~]$ condor_q -version
+$CondorVersion: 10.4.0 2023-04-07 PackageID: 10.4.0-1 $
+$CondorPlatform: X86_64-Rocky_8.7 $
+[mkandes@nsgosg ~]$
+```
