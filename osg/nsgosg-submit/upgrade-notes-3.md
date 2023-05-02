@@ -89,3 +89,12 @@ May 02 11:43:04 nsgosg.sdsc.edu systemd[1]: Stopped Condor Distributed High-Thr>
 [mkandes@nsgosg ~]$
 ```
 
+```
+[mkandes@nsgosg ~]$ sudo systemctl stop gratia-probes-cron
+[mkandes@nsgosg ~]$ sudo systemctl status gratia-probes-cron
+● gratia-probes-cron.service - SYSV: Enable specified gratia probes to run via >
+   Loaded: loaded (/etc/rc.d/init.d/gratia-probes-cron; generated)
+   Active: inactive (dead)
+     Docs: man:systemd-sysv-generator(8)
+[mkandes@nsgosg ~]$
+```
