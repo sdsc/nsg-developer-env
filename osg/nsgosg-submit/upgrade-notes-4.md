@@ -1109,3 +1109,333 @@ xrootd-tcp-stats.x86_64                                           1.0.0-1.osg36.
 xrootd-tcp-stats-debugsource.x86_64                               1.0.0-1.osg36.el8                                          osg            
 [mkandes@nsgosg ~]$
 ```
+
+Before uninstalling all OSG-related packages, let's make sure all related services are shutdown.
+
+```
+[mkandes@nsgosg ~]$ sudo systemctl status gratia-probes-cron
+[sudo] password for mkandes: 
+Duo two-factor login for mkandes
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-7242
+ 2. SMS passcodes to XXX-XXX-7242
+
+Passcode or option (1-2): 1
+
+Please open Duo Mobile and check for Duo Push requests manually.
+Please open Duo Mobile and check for Duo Push requests manually.
+Success. Logging you in...
+● gratia-probes-cron.service - SYSV: Enable specified gratia probes to run via cron. based on fetch-crl-cron script (Steve Traylen <steve.traylen@cer>
+   Loaded: loaded (/etc/rc.d/init.d/gratia-probes-cron; generated)
+   Active: inactive (dead)
+     Docs: man:systemd-sysv-generator(8)
+```
+
+```
+[mkandes@nsgosg ~]$ sudo systemctl stop condor
+[mkandes@nsgosg ~]$ sudo systemctl status condor
+● condor.service - Condor Distributed High-Throughput-Computing
+   Loaded: loaded (/usr/lib/systemd/system/condor.service; enabled; vendor preset: disabled)
+  Drop-In: /usr/lib/systemd/system/condor.service.d
+           └─osg-env.conf
+   Active: inactive (dead) since Thu 2023-08-17 14:56:42 PDT; 3s ago
+  Process: 75328 ExecStart=/usr/sbin/condor_master -f (code=exited, status=0/SUCCESS)
+ Main PID: 75328 (code=exited, status=0/SUCCESS)
+   Status: "All daemons are responding"
+
+Aug 17 11:49:21 nsgosg.sdsc.edu systemd[1]: condor.service: Succeeded.
+Aug 17 11:49:21 nsgosg.sdsc.edu systemd[1]: Stopped Condor Distributed High-Throughput-Computing.
+Aug 17 11:49:21 nsgosg.sdsc.edu systemd[1]: Started Condor Distributed High-Throughput-Computing.
+Aug 17 14:56:41 nsgosg.sdsc.edu systemd[1]: Stopping Condor Distributed High-Throughput-Computing...
+Aug 17 14:56:42 nsgosg.sdsc.edu systemd[1]: condor.service: Succeeded.
+Aug 17 14:56:42 nsgosg.sdsc.edu systemd[1]: Stopped Condor Distributed High-Throughput-Computing.
+[mkandes@nsgosg ~]$
+```
+
+Now removing OSG packages ...
+
+```
+[mkandes@nsgosg ~]$ sudo dnf repository-packages osg remove
+Dependencies resolved.
+======================================================================================================================================================
+ Package                               Architecture         Version                                               Repository                     Size
+======================================================================================================================================================
+Removing:
+ condor-stash-plugin                   x86_64               6.12.1-1.osg36.el8                                    @osg                          6.2 M
+ gratia-probe-common                   noarch               2.8.4-1.osg36.el8                                     @osg                          651 k
+ gratia-probe-condor-ap                noarch               2.8.4-1.osg36.el8                                     @osg                          5.8 k
+ igtf-ca-certs                         noarch               1.122-1.osg36.el8                                     @osg                          364 k
+ osg-flock                             noarch               1.9-2.osg36.el8                                       @osg                          1.2 k
+ osg-pki-tools                         noarch               3.5.2-1.osg36.el8                                     @osg                           66 k
+ osg-release                           noarch               3.6-11.osg36.el8                                      @osg                           15 k
+ osg-xrootd                            noarch               3.6-20.osg36.el8                                      @osg                          7.0 k
+ python3-xrootd                        x86_64               1:5.5.5-1.2.osg36.el8                                 @osg                          494 k
+ stash-origin                          x86_64               3.5.0-2.osg36.el8                                     @osg                           12 k
+ vo-client                             noarch               131-1.osg36.el8                                       @osg                           16 k
+ voms                                  x86_64               2.1.0-0.14.rc2.6.osg36.el8                            @osg                          440 k
+ voms-clients-cpp                      x86_64               2.1.0-0.14.rc2.6.osg36.el8                            @osg                          651 k
+ xcache                                x86_64               3.5.0-2.osg36.el8                                     @osg                           32 k
+ xrootd                                x86_64               1:5.5.5-1.2.osg36.el8                                 @osg                            0  
+ xrootd-client                         x86_64               1:5.5.5-1.2.osg36.el8                                 @osg                          964 k
+ xrootd-client-libs                    x86_64               1:5.5.5-1.2.osg36.el8                                 @osg                          2.8 M
+ xrootd-libs                           x86_64               1:5.5.5-1.2.osg36.el8                                 @osg                          2.1 M
+ xrootd-scitokens                      x86_64               1:5.5.5-1.2.osg36.el8                                 @osg                          117 k
+ xrootd-selinux                        noarch               1:5.5.5-1.2.osg36.el8                                 @osg                           82 k
+ xrootd-server                         x86_64               1:5.5.5-1.2.osg36.el8                                 @osg                          1.2 M
+ xrootd-server-libs                    x86_64               1:5.5.5-1.2.osg36.el8                                 @osg                          2.4 M
+ xrootd-voms                           x86_64               1:5.5.5-1.2.osg36.el8                                 @osg                           85 k
+Removing dependent packages:
+ condor                                x86_64               10.4.0-1.osg36up.el8                                  @osg-upcoming                  25 M
+Removing unused dependencies:
+ condor-blahp                          x86_64               10.4.0-1.osg36up.el8                                  @osg-upcoming                 1.4 M
+ condor-classads                       x86_64               10.4.0-1.osg36up.el8                                  @osg-upcoming                 805 k
+ condor-procd                          x86_64               10.4.0-1.osg36up.el8                                  @osg-upcoming                 307 k
+ expect                                x86_64               5.45.4-5.el8                                          @SDSC-BaseOS                  569 k
+ fetch-crl                             noarch               3.0.22-1.el8                                          @epel                         137 k
+ libcgroup                             x86_64               0.41-19.el8                                           @baseos                       134 k
+ libicu                                x86_64               60.3-2.el8_1                                          @baseos                        31 M
+ libmacaroons                          x86_64               0.3.0-6.el8                                           @epel                          64 k
+ libsodium                             x86_64               1.0.18-2.el8                                          @epel                         399 k
+ mailcap                               noarch               2.1.48-3.el8                                          @baseos                        71 k
+ munge-libs                            x86_64               0.5.13-2.el8                                          @appstream                     41 k
+ net-tools                             x86_64               2.0-0.52.20160912git.el8                              @baseos                       942 k
+ perl-Data-Dump                        noarch               1.23-7.module+el8.6.0+965+850557f9                    @SDSC-AppStream                50 k
+ perl-Digest-HMAC                      noarch               1.03-17.module+el8.6.0+965+850557f9                   @SDSC-AppStream                11 k
+ perl-File-Listing                     noarch               6.04-17.module+el8.6.0+965+850557f9                   @SDSC-AppStream                16 k
+ perl-HTML-Parser                      x86_64               3.72-15.module+el8.6.0+965+850557f9                   @SDSC-AppStream               223 k
+ perl-HTML-Tagset                      noarch               3.20-34.module+el8.6.0+965+850557f9                   @SDSC-AppStream                19 k
+ perl-HTTP-Cookies                     noarch               6.04-2.module+el8.6.0+965+850557f9                    @SDSC-AppStream                68 k
+ perl-HTTP-Date                        noarch               6.02-19.module+el8.6.0+965+850557f9                   @SDSC-AppStream                19 k
+ perl-HTTP-Message                     noarch               6.18-1.module+el8.6.0+965+850557f9                    @SDSC-AppStream               204 k
+ perl-HTTP-Negotiate                   noarch               6.01-19.module+el8.6.0+965+850557f9                   @SDSC-AppStream                28 k
+ perl-IO-HTML                          noarch               1.001-11.module+el8.6.0+965+850557f9                  @SDSC-AppStream                42 k
+ perl-LWP-MediaTypes                   noarch               6.02-15.module+el8.6.0+965+850557f9                   @SDSC-AppStream                61 k
+ perl-LWP-Protocol-https               noarch               6.07-4.module+el8.6.0+965+850557f9                    @SDSC-AppStream                12 k
+ perl-NTLM                             noarch               1.09-17.module+el8.6.0+965+850557f9                   @SDSC-AppStream                31 k
+ perl-Net-HTTP                         noarch               6.17-2.module+el8.6.0+965+850557f9                    @SDSC-AppStream                75 k
+ perl-TimeDate                         noarch               1:2.30-15.module+el8.6.0+965+850557f9                 @SDSC-AppStream                94 k
+ perl-Try-Tiny                         noarch               0.30-7.module+el8.6.0+965+850557f9                    @SDSC-AppStream                65 k
+ perl-WWW-RobotRules                   noarch               6.02-18.module+el8.6.0+965+850557f9                   @SDSC-AppStream                25 k
+ perl-libwww-perl                      noarch               6.34-1.module+el8.6.0+965+850557f9                    @SDSC-AppStream               505 k
+ postfix                               x86_64               2:3.5.8-4.el8                                         @SDSC-BaseOS                  4.3 M
+ python3-chardet                       noarch               3.0.4-7.el8                                           @baseos                       904 k
+ python3-condor                        x86_64               10.4.0-1.osg36up.el8                                  @osg-upcoming                 3.4 M
+ python3-idna                          noarch               2.5-5.el8                                             @baseos                       509 k
+ python3-m2crypto                      x86_64               0.35.2-5.el8                                          @epel                         1.4 M
+ python3-pysocks                       noarch               1.6.8-3.el8                                           @baseos                        75 k
+ python3-requests                      noarch               2.20.0-2.1.el8_1                                      @baseos                       369 k
+ python3-urllib3                       noarch               1.24.2-5.el8                                          @baseos                       606 k
+ scitokens-cpp                         x86_64               1.0.2-1.el8                                           @epel                         414 k
+ tcl                                   x86_64               1:8.6.8-2.el8                                         @SDSC-BaseOS                  4.4 M
+
+Transaction Summary
+======================================================================================================================================================
+Remove  64 Packages
+
+Freed space: 97 M
+Is this ok [y/N]:y
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                                                              1/1 
+  Running scriptlet: stash-origin-3.5.0-2.osg36.el8.x86_64                                                                                        1/1 
+  Running scriptlet: stash-origin-3.5.0-2.osg36.el8.x86_64                                                                                       1/64 
+  Erasing          : stash-origin-3.5.0-2.osg36.el8.x86_64                                                                                       1/64 
+  Running scriptlet: stash-origin-3.5.0-2.osg36.el8.x86_64                                                                                       1/64 
+  Running scriptlet: xcache-3.5.0-2.osg36.el8.x86_64                                                                                             2/64 
+  Erasing          : xcache-3.5.0-2.osg36.el8.x86_64                                                                                             2/64 
+  Running scriptlet: xcache-3.5.0-2.osg36.el8.x86_64                                                                                             2/64 
+  Erasing          : osg-xrootd-3.6-20.osg36.el8.noarch                                                                                          3/64 
+warning: /etc/xrootd/config.d/10-common-site-local.cfg saved as /etc/xrootd/config.d/10-common-site-local.cfg.rpmsave
+
+  Running scriptlet: fetch-crl-3.0.22-1.el8.noarch                                                                                               4/64 
+  Erasing          : fetch-crl-3.0.22-1.el8.noarch                                                                                               4/64 
+  Running scriptlet: fetch-crl-3.0.22-1.el8.noarch                                                                                               4/64 
+  Erasing          : perl-LWP-Protocol-https-6.07-4.module+el8.6.0+965+850557f9.noarch                                                           5/64 
+  Erasing          : perl-libwww-perl-6.34-1.module+el8.6.0+965+850557f9.noarch                                                                  6/64 
+  Erasing          : perl-HTTP-Cookies-6.04-2.module+el8.6.0+965+850557f9.noarch                                                                 7/64 
+  Erasing          : xrootd-1:5.5.5-1.2.osg36.el8.x86_64                                                                                         8/64 
+  Erasing          : osg-flock-1.9-2.osg36.el8.noarch                                                                                            9/64 
+  Erasing          : gratia-probe-condor-ap-2.8.4-1.osg36.el8.noarch                                                                            10/64 
+warning: /etc/gratia/condor-ap/ProbeConfig saved as /etc/gratia/condor-ap/ProbeConfig.rpmsave
+
+  Erasing          : perl-NTLM-1.09-17.module+el8.6.0+965+850557f9.noarch                                                                       11/64 
+  Erasing          : perl-File-Listing-6.04-17.module+el8.6.0+965+850557f9.noarch                                                               12/64 
+  Erasing          : perl-HTTP-Negotiate-6.01-19.module+el8.6.0+965+850557f9.noarch                                                             13/64 
+  Erasing          : vo-client-131-1.osg36.el8.noarch                                                                                           14/64 
+  Erasing          : osg-pki-tools-3.5.2-1.osg36.el8.noarch                                                                                     15/64 
+  Erasing          : igtf-ca-certs-1.122-1.osg36.el8.noarch                                                                                     16/64 
+  Erasing          : perl-Digest-HMAC-1.03-17.module+el8.6.0+965+850557f9.noarch                                                                17/64 
+  Erasing          : gratia-probe-common-2.8.4-1.osg36.el8.noarch                                                                               18/64 
+  Erasing          : xrootd-selinux-1:5.5.5-1.2.osg36.el8.noarch                                                                                19/64 
+  Running scriptlet: xrootd-selinux-1:5.5.5-1.2.osg36.el8.noarch                                                                                19/64 
+  Erasing          : perl-Data-Dump-1.23-7.module+el8.6.0+965+850557f9.noarch                                                                   20/64 
+  Erasing          : perl-Net-HTTP-6.17-2.module+el8.6.0+965+850557f9.noarch                                                                    21/64 
+  Erasing          : perl-Try-Tiny-0.30-7.module+el8.6.0+965+850557f9.noarch                                                                    22/64 
+  Erasing          : perl-WWW-RobotRules-6.02-18.module+el8.6.0+965+850557f9.noarch                                                             23/64 
+  Erasing          : osg-release-3.6-11.osg36.el8.noarch                                                                                        24/64 
+  Erasing          : python3-condor-10.4.0-1.osg36up.el8.x86_64                                                                                 25/64 
+  Running scriptlet: condor-10.4.0-1.osg36up.el8.x86_64                                                                                         26/64 
+  Erasing          : condor-10.4.0-1.osg36up.el8.x86_64                                                                                         26/64 
+warning: /etc/condor/config.d/00-htcondor-9.0.config saved as /etc/condor/config.d/00-htcondor-9.0.config.rpmsave
+
+  Running scriptlet: condor-10.4.0-1.osg36up.el8.x86_64                                                                                         26/64 
+  Erasing          : condor-procd-10.4.0-1.osg36up.el8.x86_64                                                                                   27/64 
+  Erasing          : xrootd-client-1:5.5.5-1.2.osg36.el8.x86_64                                                                                 28/64 
+  Erasing          : xrootd-scitokens-1:5.5.5-1.2.osg36.el8.x86_64                                                                              29/64 
+  Erasing          : python3-requests-2.20.0-2.1.el8_1.noarch                                                                                   30/64 
+  Running scriptlet: xrootd-server-1:5.5.5-1.2.osg36.el8.x86_64                                                                                 31/64 
+  Erasing          : xrootd-server-1:5.5.5-1.2.osg36.el8.x86_64                                                                                 31/64 
+  Running scriptlet: xrootd-server-1:5.5.5-1.2.osg36.el8.x86_64                                                                                 31/64 
+  Erasing          : xrootd-server-libs-1:5.5.5-1.2.osg36.el8.x86_64                                                                            32/64 
+  Running scriptlet: xrootd-server-libs-1:5.5.5-1.2.osg36.el8.x86_64                                                                            32/64 
+  Running scriptlet: postfix-2:3.5.8-4.el8.x86_64                                                                                               33/64 
+  Erasing          : postfix-2:3.5.8-4.el8.x86_64                                                                                               33/64 
+warning: /etc/postfix/main.cf saved as /etc/postfix/main.cf.rpmsave
+
+  Running scriptlet: postfix-2:3.5.8-4.el8.x86_64                                                                                               33/64 
+  Erasing          : xrootd-voms-1:5.5.5-1.2.osg36.el8.x86_64                                                                                   34/64 
+  Erasing          : python3-xrootd-1:5.5.5-1.2.osg36.el8.x86_64                                                                                35/64 
+  Erasing          : xrootd-client-libs-1:5.5.5-1.2.osg36.el8.x86_64                                                                            36/64 
+  Running scriptlet: xrootd-client-libs-1:5.5.5-1.2.osg36.el8.x86_64                                                                            36/64 
+  Erasing          : perl-HTML-Parser-3.72-15.module+el8.6.0+965+850557f9.x86_64                                                                37/64 
+  Erasing          : perl-HTTP-Message-6.18-1.module+el8.6.0+965+850557f9.noarch                                                                38/64 
+  Erasing          : voms-clients-cpp-2.1.0-0.14.rc2.6.osg36.el8.x86_64                                                                         39/64 
+  Running scriptlet: voms-clients-cpp-2.1.0-0.14.rc2.6.osg36.el8.x86_64                                                                         39/64 
+  Erasing          : perl-HTTP-Date-6.02-19.module+el8.6.0+965+850557f9.noarch                                                                  40/64 
+  Erasing          : perl-LWP-MediaTypes-6.02-15.module+el8.6.0+965+850557f9.noarch                                                             41/64 
+  Erasing          : python3-urllib3-1.24.2-5.el8.noarch                                                                                        42/64 
+  Erasing          : python3-pysocks-1.6.8-3.el8.noarch                                                                                         43/64 
+  Erasing          : mailcap-2.1.48-3.el8.noarch                                                                                                44/64 
+  Erasing          : perl-TimeDate-1:2.30-15.module+el8.6.0+965+850557f9.noarch                                                                 45/64 
+  Erasing          : perl-IO-HTML-1.001-11.module+el8.6.0+965+850557f9.noarch                                                                   46/64 
+  Erasing          : perl-HTML-Tagset-3.20-34.module+el8.6.0+965+850557f9.noarch                                                                47/64 
+  Erasing          : python3-chardet-3.0.4-7.el8.noarch                                                                                         48/64 
+  Erasing          : python3-idna-2.5-5.el8.noarch                                                                                              49/64 
+  Erasing          : condor-stash-plugin-6.12.1-1.osg36.el8.x86_64                                                                              50/64 
+  Erasing          : libmacaroons-0.3.0-6.el8.x86_64                                                                                            51/64 
+  Erasing          : expect-5.45.4-5.el8.x86_64                                                                                                 52/64 
+  Erasing          : tcl-1:8.6.8-2.el8.x86_64                                                                                                   53/64 
+  Running scriptlet: tcl-1:8.6.8-2.el8.x86_64                                                                                                   53/64 
+  Erasing          : libsodium-1.0.18-2.el8.x86_64                                                                                              54/64 
+  Erasing          : voms-2.1.0-0.14.rc2.6.osg36.el8.x86_64                                                                                     55/64 
+  Erasing          : xrootd-libs-1:5.5.5-1.2.osg36.el8.x86_64                                                                                   56/64 
+  Running scriptlet: xrootd-libs-1:5.5.5-1.2.osg36.el8.x86_64                                                                                   56/64 
+  Erasing          : libicu-60.3-2.el8_1.x86_64                                                                                                 57/64 
+  Running scriptlet: libicu-60.3-2.el8_1.x86_64                                                                                                 57/64 
+  Erasing          : scitokens-cpp-1.0.2-1.el8.x86_64                                                                                           58/64 
+  Erasing          : libcgroup-0.41-19.el8.x86_64                                                                                               59/64 
+  Running scriptlet: libcgroup-0.41-19.el8.x86_64                                                                                               59/64 
+  Erasing          : condor-blahp-10.4.0-1.osg36up.el8.x86_64                                                                                   60/64 
+  Erasing          : condor-classads-10.4.0-1.osg36up.el8.x86_64                                                                                61/64 
+  Erasing          : munge-libs-0.5.13-2.el8.x86_64                                                                                             62/64 
+  Erasing          : net-tools-2.0-0.52.20160912git.el8.x86_64                                                                                  63/64 
+  Running scriptlet: net-tools-2.0-0.52.20160912git.el8.x86_64                                                                                  63/64 
+  Erasing          : python3-m2crypto-0.35.2-5.el8.x86_64                                                                                       64/64 
+  Running scriptlet: python3-m2crypto-0.35.2-5.el8.x86_64                                                                                       64/64 
+  Verifying        : condor-10.4.0-1.osg36up.el8.x86_64                                                                                          1/64 
+  Verifying        : condor-blahp-10.4.0-1.osg36up.el8.x86_64                                                                                    2/64 
+  Verifying        : condor-classads-10.4.0-1.osg36up.el8.x86_64                                                                                 3/64 
+  Verifying        : condor-procd-10.4.0-1.osg36up.el8.x86_64                                                                                    4/64 
+  Verifying        : condor-stash-plugin-6.12.1-1.osg36.el8.x86_64                                                                               5/64 
+  Verifying        : expect-5.45.4-5.el8.x86_64                                                                                                  6/64 
+  Verifying        : fetch-crl-3.0.22-1.el8.noarch                                                                                               7/64 
+  Verifying        : gratia-probe-common-2.8.4-1.osg36.el8.noarch                                                                                8/64 
+  Verifying        : gratia-probe-condor-ap-2.8.4-1.osg36.el8.noarch                                                                             9/64 
+  Verifying        : igtf-ca-certs-1.122-1.osg36.el8.noarch                                                                                     10/64 
+  Verifying        : libcgroup-0.41-19.el8.x86_64                                                                                               11/64 
+  Verifying        : libicu-60.3-2.el8_1.x86_64                                                                                                 12/64 
+  Verifying        : libmacaroons-0.3.0-6.el8.x86_64                                                                                            13/64 
+  Verifying        : libsodium-1.0.18-2.el8.x86_64                                                                                              14/64 
+  Verifying        : mailcap-2.1.48-3.el8.noarch                                                                                                15/64 
+  Verifying        : munge-libs-0.5.13-2.el8.x86_64                                                                                             16/64 
+  Verifying        : net-tools-2.0-0.52.20160912git.el8.x86_64                                                                                  17/64 
+  Verifying        : osg-flock-1.9-2.osg36.el8.noarch                                                                                           18/64 
+  Verifying        : osg-pki-tools-3.5.2-1.osg36.el8.noarch                                                                                     19/64 
+  Verifying        : osg-release-3.6-11.osg36.el8.noarch                                                                                        20/64 
+  Verifying        : osg-xrootd-3.6-20.osg36.el8.noarch                                                                                         21/64 
+  Verifying        : perl-Data-Dump-1.23-7.module+el8.6.0+965+850557f9.noarch                                                                   22/64 
+  Verifying        : perl-Digest-HMAC-1.03-17.module+el8.6.0+965+850557f9.noarch                                                                23/64 
+  Verifying        : perl-File-Listing-6.04-17.module+el8.6.0+965+850557f9.noarch                                                               24/64 
+  Verifying        : perl-HTML-Parser-3.72-15.module+el8.6.0+965+850557f9.x86_64                                                                25/64 
+  Verifying        : perl-HTML-Tagset-3.20-34.module+el8.6.0+965+850557f9.noarch                                                                26/64 
+  Verifying        : perl-HTTP-Cookies-6.04-2.module+el8.6.0+965+850557f9.noarch                                                                27/64 
+  Verifying        : perl-HTTP-Date-6.02-19.module+el8.6.0+965+850557f9.noarch                                                                  28/64 
+  Verifying        : perl-HTTP-Message-6.18-1.module+el8.6.0+965+850557f9.noarch                                                                29/64 
+  Verifying        : perl-HTTP-Negotiate-6.01-19.module+el8.6.0+965+850557f9.noarch                                                             30/64 
+  Verifying        : perl-IO-HTML-1.001-11.module+el8.6.0+965+850557f9.noarch                                                                   31/64 
+  Verifying        : perl-LWP-MediaTypes-6.02-15.module+el8.6.0+965+850557f9.noarch                                                             32/64 
+  Verifying        : perl-LWP-Protocol-https-6.07-4.module+el8.6.0+965+850557f9.noarch                                                          33/64 
+  Verifying        : perl-NTLM-1.09-17.module+el8.6.0+965+850557f9.noarch                                                                       34/64 
+  Verifying        : perl-Net-HTTP-6.17-2.module+el8.6.0+965+850557f9.noarch                                                                    35/64 
+  Verifying        : perl-TimeDate-1:2.30-15.module+el8.6.0+965+850557f9.noarch                                                                 36/64 
+  Verifying        : perl-Try-Tiny-0.30-7.module+el8.6.0+965+850557f9.noarch                                                                    37/64 
+  Verifying        : perl-WWW-RobotRules-6.02-18.module+el8.6.0+965+850557f9.noarch                                                             38/64 
+  Verifying        : perl-libwww-perl-6.34-1.module+el8.6.0+965+850557f9.noarch                                                                 39/64 
+  Verifying        : postfix-2:3.5.8-4.el8.x86_64                                                                                               40/64 
+  Verifying        : python3-chardet-3.0.4-7.el8.noarch                                                                                         41/64 
+  Verifying        : python3-condor-10.4.0-1.osg36up.el8.x86_64                                                                                 42/64 
+  Verifying        : python3-idna-2.5-5.el8.noarch                                                                                              43/64 
+  Verifying        : python3-m2crypto-0.35.2-5.el8.x86_64                                                                                       44/64 
+  Verifying        : python3-pysocks-1.6.8-3.el8.noarch                                                                                         45/64 
+  Verifying        : python3-requests-2.20.0-2.1.el8_1.noarch                                                                                   46/64 
+  Verifying        : python3-urllib3-1.24.2-5.el8.noarch                                                                                        47/64 
+  Verifying        : python3-xrootd-1:5.5.5-1.2.osg36.el8.x86_64                                                                                48/64 
+  Verifying        : scitokens-cpp-1.0.2-1.el8.x86_64                                                                                           49/64 
+  Verifying        : stash-origin-3.5.0-2.osg36.el8.x86_64                                                                                      50/64 
+  Verifying        : tcl-1:8.6.8-2.el8.x86_64                                                                                                   51/64 
+  Verifying        : vo-client-131-1.osg36.el8.noarch                                                                                           52/64 
+  Verifying        : voms-2.1.0-0.14.rc2.6.osg36.el8.x86_64                                                                                     53/64 
+  Verifying        : voms-clients-cpp-2.1.0-0.14.rc2.6.osg36.el8.x86_64                                                                         54/64 
+  Verifying        : xcache-3.5.0-2.osg36.el8.x86_64                                                                                            55/64 
+  Verifying        : xrootd-1:5.5.5-1.2.osg36.el8.x86_64                                                                                        56/64 
+  Verifying        : xrootd-client-1:5.5.5-1.2.osg36.el8.x86_64                                                                                 57/64 
+  Verifying        : xrootd-client-libs-1:5.5.5-1.2.osg36.el8.x86_64                                                                            58/64 
+  Verifying        : xrootd-libs-1:5.5.5-1.2.osg36.el8.x86_64                                                                                   59/64 
+  Verifying        : xrootd-scitokens-1:5.5.5-1.2.osg36.el8.x86_64                                                                              60/64 
+  Verifying        : xrootd-selinux-1:5.5.5-1.2.osg36.el8.noarch                                                                                61/64 
+  Verifying        : xrootd-server-1:5.5.5-1.2.osg36.el8.x86_64                                                                                 62/64 
+  Verifying        : xrootd-server-libs-1:5.5.5-1.2.osg36.el8.x86_64                                                                            63/64 
+  Verifying        : xrootd-voms-1:5.5.5-1.2.osg36.el8.x86_64                                                                                   64/64 
+
+Removed:
+  condor-10.4.0-1.osg36up.el8.x86_64                                          condor-blahp-10.4.0-1.osg36up.el8.x86_64                                
+  condor-classads-10.4.0-1.osg36up.el8.x86_64                                 condor-procd-10.4.0-1.osg36up.el8.x86_64                                
+  condor-stash-plugin-6.12.1-1.osg36.el8.x86_64                               expect-5.45.4-5.el8.x86_64                                              
+  fetch-crl-3.0.22-1.el8.noarch                                               gratia-probe-common-2.8.4-1.osg36.el8.noarch                            
+  gratia-probe-condor-ap-2.8.4-1.osg36.el8.noarch                             igtf-ca-certs-1.122-1.osg36.el8.noarch                                  
+  libcgroup-0.41-19.el8.x86_64                                                libicu-60.3-2.el8_1.x86_64                                              
+  libmacaroons-0.3.0-6.el8.x86_64                                             libsodium-1.0.18-2.el8.x86_64                                           
+  mailcap-2.1.48-3.el8.noarch                                                 munge-libs-0.5.13-2.el8.x86_64                                          
+  net-tools-2.0-0.52.20160912git.el8.x86_64                                   osg-flock-1.9-2.osg36.el8.noarch                                        
+  osg-pki-tools-3.5.2-1.osg36.el8.noarch                                      osg-release-3.6-11.osg36.el8.noarch                                     
+  osg-xrootd-3.6-20.osg36.el8.noarch                                          perl-Data-Dump-1.23-7.module+el8.6.0+965+850557f9.noarch                
+  perl-Digest-HMAC-1.03-17.module+el8.6.0+965+850557f9.noarch                 perl-File-Listing-6.04-17.module+el8.6.0+965+850557f9.noarch            
+  perl-HTML-Parser-3.72-15.module+el8.6.0+965+850557f9.x86_64                 perl-HTML-Tagset-3.20-34.module+el8.6.0+965+850557f9.noarch             
+  perl-HTTP-Cookies-6.04-2.module+el8.6.0+965+850557f9.noarch                 perl-HTTP-Date-6.02-19.module+el8.6.0+965+850557f9.noarch               
+  perl-HTTP-Message-6.18-1.module+el8.6.0+965+850557f9.noarch                 perl-HTTP-Negotiate-6.01-19.module+el8.6.0+965+850557f9.noarch          
+  perl-IO-HTML-1.001-11.module+el8.6.0+965+850557f9.noarch                    perl-LWP-MediaTypes-6.02-15.module+el8.6.0+965+850557f9.noarch          
+  perl-LWP-Protocol-https-6.07-4.module+el8.6.0+965+850557f9.noarch           perl-NTLM-1.09-17.module+el8.6.0+965+850557f9.noarch                    
+  perl-Net-HTTP-6.17-2.module+el8.6.0+965+850557f9.noarch                     perl-TimeDate-1:2.30-15.module+el8.6.0+965+850557f9.noarch              
+  perl-Try-Tiny-0.30-7.module+el8.6.0+965+850557f9.noarch                     perl-WWW-RobotRules-6.02-18.module+el8.6.0+965+850557f9.noarch          
+  perl-libwww-perl-6.34-1.module+el8.6.0+965+850557f9.noarch                  postfix-2:3.5.8-4.el8.x86_64                                            
+  python3-chardet-3.0.4-7.el8.noarch                                          python3-condor-10.4.0-1.osg36up.el8.x86_64                              
+  python3-idna-2.5-5.el8.noarch                                               python3-m2crypto-0.35.2-5.el8.x86_64                                    
+  python3-pysocks-1.6.8-3.el8.noarch                                          python3-requests-2.20.0-2.1.el8_1.noarch                                
+  python3-urllib3-1.24.2-5.el8.noarch                                         python3-xrootd-1:5.5.5-1.2.osg36.el8.x86_64                             
+  scitokens-cpp-1.0.2-1.el8.x86_64                                            stash-origin-3.5.0-2.osg36.el8.x86_64                                   
+  tcl-1:8.6.8-2.el8.x86_64                                                    vo-client-131-1.osg36.el8.noarch                                        
+  voms-2.1.0-0.14.rc2.6.osg36.el8.x86_64                                      voms-clients-cpp-2.1.0-0.14.rc2.6.osg36.el8.x86_64                      
+  xcache-3.5.0-2.osg36.el8.x86_64                                             xrootd-1:5.5.5-1.2.osg36.el8.x86_64                                     
+  xrootd-client-1:5.5.5-1.2.osg36.el8.x86_64                                  xrootd-client-libs-1:5.5.5-1.2.osg36.el8.x86_64                         
+  xrootd-libs-1:5.5.5-1.2.osg36.el8.x86_64                                    xrootd-scitokens-1:5.5.5-1.2.osg36.el8.x86_64                           
+  xrootd-selinux-1:5.5.5-1.2.osg36.el8.noarch                                 xrootd-server-1:5.5.5-1.2.osg36.el8.x86_64                              
+  xrootd-server-libs-1:5.5.5-1.2.osg36.el8.x86_64                             xrootd-voms-1:5.5.5-1.2.osg36.el8.x86_64                                
+
+Complete!
+[mkandes@nsgosg ~]$
+```
