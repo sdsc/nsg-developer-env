@@ -788,4 +788,32 @@ drwx------. 2 root root  46 May  2 12:14 .
 [mkandes@nsgosg ~]$
 ```
 
-Still not a fix. 
+Still not a fix. Let's then try a fresh install with the latest version of HTCondor. Before we begin, let's make sure we have a copy of the tokens.
+
+```
+[mkandes@nsgosg ~]$ md5sum ospool.token 
+490ad3f9ab57f5d6e2e03937709abb0c  ospool.token
+[mkandes@nsgosg ~]$ sudo md5sum /etc/condor/tokens.d/ospool.token
+[sudo] password for mkandes: 
+Duo two-factor login for mkandes
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-7242
+ 2. SMS passcodes to XXX-XXX-7242
+
+Passcode or option (1-2): 1
+
+Please open Duo Mobile and check for Duo Push requests manually.
+Please open Duo Mobile and check for Duo Push requests manually.
+Success. Logging you in...
+490ad3f9ab57f5d6e2e03937709abb0c  /etc/condor/tokens.d/ospool.token
+[mkandes@nsgosg ~]$
+[mkandes@nsgosg ~]$ md5sum nsgosg.token 
+ca30187991677bf2d335bbffbbfc25f5  nsgosg.token
+[mkandes@nsgosg ~]$ sudo md5sum /etc/condor/tokens.d/nsgosg.token
+ca30187991677bf2d335bbffbbfc25f5  /etc/condor/tokens.d/nsgosg.token
+[mkandes@nsgosg ~]$
+```
+
+Other than that, I don't think we'll need any additional information about the current configuration saved. However, let's backup the `config.d` directory for comparison with the fresh install.
