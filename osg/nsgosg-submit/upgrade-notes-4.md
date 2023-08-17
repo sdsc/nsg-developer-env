@@ -736,3 +736,13 @@ After running `condor_q` command, this is the authentication error message creat
 08/17/23 11:20:29 DC_AUTHENTICATE: authentication of <132.249.20.215:13975> did not result in a valid mapped user name, which is required for this command (519 QUERY_JOB_ADS_WITH_AUTH), so aborting.
 08/17/23 11:20:29 DC_AUTHENTICATE: reason for authentication failure: AUTHENTICATE:1003:Failed to authenticate with any method
 ```
+
+Let's try changing the ownership of the ID tokens as suggested in the HTCondor Wiki link above.
+
+```
+Step 3: Directory permission changed in /etc/condor/tokens.d
+
+HTCondor now reads files in /etc/condor/tokens.d as root. If you have files in that directory, you should change their ownership, using the following command (run as root):
+
+   # chown -R root:root /etc/condor/tokens.d
+```
