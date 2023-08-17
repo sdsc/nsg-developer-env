@@ -1662,3 +1662,20 @@ Installed:
 Complete!
 [mkandes@nsgosg ~]$
 ```
+
+Reconfigured gratia probe and started its cron job. Re-added submit attrs config file and placed ospool.token back in place. Success!
+
+```
+[mkandes@nsgosg ~]$ condor_q
+
+
+-- Schedd: nsgosg.sdsc.edu : <132.249.20.215:9618?... @ 08/17/23 15:54:27
+OWNER   BATCH_NAME    SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+mkandes ID: 86       8/17 15:51      _    377    623   1000 86.0-999
+
+Total for query: 1000 jobs; 0 completed, 0 removed, 623 idle, 377 running, 0 held, 0 suspended 
+Total for mkandes: 1000 jobs; 0 completed, 0 removed, 623 idle, 377 running, 0 held, 0 suspended 
+Total for all users: 1000 jobs; 0 completed, 0 removed, 623 idle, 377 running, 0 held, 0 suspended
+
+[mkandes@nsgosg ~]$
+```
