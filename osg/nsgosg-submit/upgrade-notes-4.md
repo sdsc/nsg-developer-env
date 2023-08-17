@@ -275,7 +275,7 @@ Nmap done: 1 IP address (1 host up) scanned in 2.04 seconds
 mkandes@hardtack:~$
 ```
 
-The first issue at present is that `condor_q` command is unable to fetch classads from the submit host itself.
+The first issue at present is that `condor_q` command is unable to fetch job classads from the submit host itself.
 
 ```
 [mkandes@nsgosg ~]$  condor_q
