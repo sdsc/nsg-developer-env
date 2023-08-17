@@ -274,3 +274,30 @@ PORT     STATE    SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 2.04 seconds
 mkandes@hardtack:~$
 ```
+
+The first issue at present is that `condor_q` command is unable to fetch classads from the submit host itself.
+
+```
+[mkandes@nsgosg ~]$  condor_q
+
+-- Failed to fetch ads from: <132.249.20.215:9618?addrs=132.249.20.215-9618&alias=nsgosg.sdsc.edu&noUDP&sock=schedd_1423_a35b> : nsgosg.sdsc.edu
+AUTHENTICATE:1003:Failed to authenticate with any method
+[mkandes@nsgosg ~]$
+```
+
+While at the same time, we can fetch machine classads from the central managers using the `condor_status` command. 
+
+```
+[mkandes@nsgosg ~]$ condor_status | head -n 10
+Name                                                                  OpSys      Arch   State      Activity     LoadAv Mem     ActvtyTime
+
+slot1@glidein_23644_561893560@C09.cm.cluster                          LINUX      X86_64 Unclaimed  Idle          0.000  37376  0+14:32:05
+slot1_1@glidein_23644_561893560@C09.cm.cluster                        LINUX      X86_64 Claimed    Busy          1.000   4096  0+09:59:50
+slot1_2@glidein_23644_561893560@C09.cm.cluster                        LINUX      X86_64 Claimed    Busy          1.000   2560  0+00:03:25
+slot1_3@glidein_23644_561893560@C09.cm.cluster                        LINUX      X86_64 Claimed    Busy          1.000   4096  0+09:59:50
+slot1_4@glidein_23644_561893560@C09.cm.cluster                        LINUX      X86_64 Claimed    Busy          1.000   2560  0+00:03:17
+slot1_5@glidein_23644_561893560@C09.cm.cluster                        LINUX      X86_64 Claimed    Busy          1.000   4096  0+09:59:49
+slot1_6@glidein_23644_561893560@C09.cm.cluster                        LINUX      X86_64 Claimed    Busy          1.000   4096  0+09:59:49
+slot1_7@glidein_23644_561893560@C09.cm.cluster                        LINUX      X86_64 Claimed    Busy          1.000   2560  0+00:05:55
+[mkandes@nsgosg ~]$
+```
