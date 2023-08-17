@@ -568,3 +568,29 @@ Let's go ahead and restart condor with host-based security enabled and make a co
 08/17/23 11:02:47 DC_AUTHENTICATE: required authentication of 128.105.82.84 failed: AUTHENTICATE:1003:Failed to authenticate with any method|AUTHENTICATE:1004:Failed to authenticate using IDTOKENS|AUTHENTICATE:1004:Failed to authenticate using FS|FS:1004:Unable to lstat(/tmp/FS_XXXIK0PTa)
 08/17/23 11:03:10 DC_AUTHENTICATE: required authentication of 128.105.244.7 failed: AUTHENTICATE:1003:Failed to authenticate with any method|AUTHENTICATE:1004:Failed to authenticate using IDTOKENS|AUTHENTICATE:1004:Failed to authenticate using FS|FS:1004:Unable to lstat(/tmp/FS_XXXgv28H4)
 ```
+
+`/var/log/condor/ToolLog`
+
+```
+03/21/23 18:21:28 condor_write(): Socket closed when trying to write 376 bytes to <128.105.244.7:46262>, fd is 19
+03/21/23 18:21:28 Buf::write(): condor_write() failed
+03/21/23 18:21:28 condor_history: Failed to write final ad to client
+05/02/23 11:57:47 condor_write(): Socket closed when trying to write 376 bytes to <128.105.244.7:42001>, fd is 15
+05/02/23 11:57:48 Buf::write(): condor_write() failed
+05/02/23 11:57:48 condor_history: Failed to write final ad to client
+05/02/23 14:30:32 condor_write(): Socket closed when trying to write 376 bytes to <128.105.244.7:46203>, fd is 15
+05/02/23 14:30:32 Buf::write(): condor_write() failed
+05/02/23 14:30:32 condor_history: Failed to write final ad to client
+06/20/23 20:21:47 condor_write(): Socket closed when trying to write 376 bytes to <128.105.244.7:40272>, fd is 16
+06/20/23 20:21:47 Buf::write(): condor_write() failed
+06/20/23 20:21:47 condor_history: Failed to write final ad to client
+06/20/23 20:41:30 condor_write(): Socket closed when trying to write 376 bytes to <128.105.244.7:34217>, fd is 15
+06/20/23 20:41:30 Buf::write(): condor_write() failed
+06/20/23 20:41:30 condor_history: Failed to write final ad to client
+07/18/23 19:00:51 condor_write(): Socket closed when trying to write 376 bytes to <128.105.244.7:46187>, fd is 15
+07/18/23 19:00:51 Buf::write(): condor_write() failed
+07/18/23 19:00:51 condor_history: Failed to write final ad to client
+08/15/23 18:16:03 condor_write(): Socket closed when trying to write 376 bytes to <128.105.244.7:44770>, fd is 15
+08/15/23 18:16:03 Buf::write(): condor_write() failed
+08/15/23 18:16:03 condor_history: Failed to write final ad to client
+```
