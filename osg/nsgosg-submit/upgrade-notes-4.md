@@ -1439,3 +1439,13 @@ Removed:
 Complete!
 [mkandes@nsgosg ~]$
 ```
+
+Manually removed the following directories to clean up a bit further. 
+```
+1188  sudo rm -rf /etc/condor/
+ 1189  sudo rm -rf /etc/xrootd
+ 1190  sudo rm -rf /etc/gratia/
+ 1191  sudo rm -rf /etc/ganglia/
+ 1193  sudo rm -rf /var/log/condor/
+ 1194 sudo rm -rf /var/log/gratia
+```
