@@ -567,6 +567,12 @@ Let's go ahead and restart condor with host-based security enabled and make a co
 08/17/23 11:02:47 DC_AUTHENTICATE: required authentication of 128.105.82.84 failed: AUTHENTICATE:1003:Failed to authenticate with any method|AUTHENTICATE:1004:Failed to authenticate using IDTOKENS|AUTHENTICATE:1004:Failed to authenticate using FS|FS:1004:Unable to lstat(/tmp/FS_XXXnCLVP8)
 08/17/23 11:02:47 DC_AUTHENTICATE: required authentication of 128.105.82.84 failed: AUTHENTICATE:1003:Failed to authenticate with any method|AUTHENTICATE:1004:Failed to authenticate using IDTOKENS|AUTHENTICATE:1004:Failed to authenticate using FS|FS:1004:Unable to lstat(/tmp/FS_XXXIK0PTa)
 08/17/23 11:03:10 DC_AUTHENTICATE: required authentication of 128.105.244.7 failed: AUTHENTICATE:1003:Failed to authenticate with any method|AUTHENTICATE:1004:Failed to authenticate using IDTOKENS|AUTHENTICATE:1004:Failed to authenticate using FS|FS:1004:Unable to lstat(/tmp/FS_XXXgv28H4)
+08/17/23 11:12:12 DC_AUTHENTICATE: required authentication of 128.105.82.84 failed: AUTHENTICATE:1003:Failed to authenticate with any method|AUTHENTICATE:1004:Failed to authenticate using IDTOKENS|AUTHENTICATE:1004:Failed to authenticate using FS|FS:1004:Unable to lstat(/tmp/FS_XXXaw9ng1)
+08/17/23 11:12:46 condor_write(): Socket closed when trying to write 4112 bytes to collector cm-1.ospool.osg-htc.org, fd is 16
+08/17/23 11:12:46 Buf::write(): condor_write() failed
+08/17/23 11:12:46 condor_write(): Socket closed when trying to write 4112 bytes to collector cm-2.ospool.osg-htc.org, fd is 17
+08/17/23 11:12:46 Buf::write(): condor_write() failed
+08/17/23 11:12:47 DC_AUTHENTICATE: required authentication of 128.105.244.7 failed: AUTHENTICATE:1003:Failed to authenticate with any method|AUTHENTICATE:1004:Failed to authenticate using IDTOKENS|AUTHENTICATE:1004:Failed to authenticate using FS|FS:1004:Unable to lstat(/tmp/FS_XXXPRUZxy)
 ```
 
 `/var/log/condor/ToolLog`
