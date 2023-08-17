@@ -349,4 +349,41 @@ AUTHENTICATE:1003:Failed to authenticate with any method
 [mkandes@nsgosg config.d]$
 ```
 
-Next, let's try reverting to the older default security model prior to HTCondor v9.x. See https://htcondor-wiki.cs.wisc.edu/index.cgi/wiki?p=UpgradingFromEightNineToNineZero. This may help us determine if the issue is the new securrity policies enforced by default after the last upgrade of HTCondor. 
+Next, let's try reverting to the older default security model prior to HTCondor v9.x. See https://htcondor-wiki.cs.wisc.edu/index.cgi/wiki?p=UpgradingFromEightNineToNineZero. This may help us determine if the issue is the new securrity policies enforced by default after the last upgrade of HTCondor. Starting with ...
+```
+[mkandes@nsgosg config.d]$ grep ^use 00-htcondor-9.0.config 
+use security:recommended_v9_0
+[mkandes@nsgosg config.d]$
+```
+... and changing back to host-based authentication ...
+```
+[mkandes@nsgosg config.d]$ grep ^use 00-htcondor-9.0.config 
+use security:host_based
+```
+Still failing authentication.
+
+```
+[mkandes@nsgosg config.d]$ sudo systemctl restart condor
+[mkandes@nsgosg config.d]$ sudo systemctl status condor
+● condor.service - Condor Distributed High-Throughput-Computing
+   Loaded: loaded (/usr/lib/systemd/system/condor.service; enabled; vendor preset: disabled)
+  Drop-In: /usr/lib/systemd/system/condor.service.d
+           └─osg-env.conf
+   Active: active (running) since Thu 2023-08-17 10:09:14 PDT; 5s ago
+ Main PID: 73900 (condor_master)
+   Status: "All daemons are responding"
+    Tasks: 4 (limit: 4194303)
+   Memory: 8.7M
+   CGroup: /system.slice/condor.service
+           ├─73900 /usr/sbin/condor_master -f
+           ├─73940 condor_procd -A /var/run/condor/procd_pipe -L /var/log/condor/ProcLog -R 1000000 -S 60 -C 992
+           ├─73941 condor_shared_port
+           └─73942 condor_schedd
+
+Aug 17 10:09:14 nsgosg.sdsc.edu systemd[1]: Started Condor Distributed High-Throughput-Computing.
+[mkandes@nsgosg config.d]$ condor_q
+
+-- Failed to fetch ads from: <132.249.20.215:9618?addrs=132.249.20.215-9618&alias=nsgosg.sdsc.edu&noUDP&sock=schedd_73900_d4ec> : nsgosg.sdsc.edu
+AUTHENTICATE:1003:Failed to authenticate with any method
+[mkandes@nsgosg config.d]$
+```
