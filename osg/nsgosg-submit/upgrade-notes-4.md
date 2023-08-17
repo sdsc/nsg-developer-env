@@ -387,3 +387,15 @@ Aug 17 10:09:14 nsgosg.sdsc.edu systemd[1]: Started Condor Distributed High-Thro
 AUTHENTICATE:1003:Failed to authenticate with any method
 [mkandes@nsgosg config.d]$
 ```
+Well, this might explain why the pool password authentication is no working.
+
+```
+[mkandes@nsgosg config.d]$ sudo condor_check_password
+Key tests:
+FAIL      /etc/condor/passwords.d/POOL: Key is too short: 11 bytes
+
+There were 0 compatible keys and 1 keys with issues.
+
+HTCondor recommends passwords be longer than 12 characters.
+[mkandes@nsgosg config.d]$
+```
