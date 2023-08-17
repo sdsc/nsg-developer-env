@@ -817,3 +817,94 @@ ca30187991677bf2d335bbffbbfc25f5  /etc/condor/tokens.d/nsgosg.token
 ```
 
 Other than that, I don't think we'll need any additional information about the current configuration saved. However, let's backup the `config.d` directory for comparison with the fresh install.
+
+```
+[mkandes@nsgosg ~]$ condor_config_val -summary > saved_condor_config_before_upgrade.20230817
+[mkandes@nsgosg ~]$ sudo cp /etc/condor/
+condor_config                           known_hosts
+condor_ssh_to_job_sshd_config_template  passwords.d/
+config.d/                               tokens.d/
+ganglia.d/                              
+[mkandes@nsgosg ~]$ sudo cp -rp /etc/condor/config.d/  ./
+[sudo] password for mkandes: 
+Duo two-factor login for mkandes
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-7242
+ 2. SMS passcodes to XXX-XXX-7242
+
+Passcode or option (1-2): 1
+
+Please open Duo Mobile and check for Duo Push requests manually.
+Success. Logging you in...
+cp: cannot create directory './config.d': Permission denied
+[mkandes@nsgosg ~]$ sudo cp -rp /etc/condor/config.d/  /tmp
+[mkandes@nsgosg ~]$ ls -lahtr
+total 2.2M
+-rw-r--r--. 1 mkandes sdsc 3.4K Dec 18  2013 .login
+-rw-r--r--. 1 mkandes sdsc 2.9K Dec 18  2013 .cshrc
+-rw-------. 1 mkandes sdsc 119K May 11  2015 .mysql_history
+drwxr-xr-x. 4 root    root   37 Dec 10  2020 ..
+-rw-r--r--. 1 mkandes sdsc 1.5K Dec 15  2020 bash_pi.sh
+drwxr-sr-x. 6 mkandes sdsc    8 Nov 29  2021 nsg-developer-env
+-rw-r--r--. 1 mkandes sdsc   75 Nov 29  2021 .gitconfig
+drwx--S---. 3 mkandes sdsc    3 Nov 29  2021 .config
+drwxr-sr-x. 2 mkandes sdsc    5 Nov 29  2021 job_work_dir
+-rw-r--r--. 1 mkandes sdsc 3.2K Nov 29  2021 inputfile
+-rw-r--r--. 1 mkandes sdsc  503 Jun  7  2022 .bashrc
+drwx--S---. 2 mkandes sdsc    4 Jun 23  2022 .ssh
+-rw-r--r--. 1 mkandes sdsc  494 Aug  2  2022 bash_pi.htcondor
+-rw-r--r--. 1 mkandes sdsc 2.4K Feb 21 10:59 saved_condor_config_before_upgrade.20230221
+-rwxr-xr-x. 1 mkandes sdsc  42K Feb 21 11:59 .gwms-user-job-wrapper.sh
+-rw-------. 1 mkandes sdsc 1.7K Feb 22 07:56 nsgosg.sdsc.edu-key.pem
+-rw-------. 1 mkandes sdsc 1.1K Feb 22 07:56 nsgosg.sdsc.edu.req
+-rw-r--r--. 1 mkandes sdsc 2.3K Feb 22 13:09 nsgosg.sdsc.edu-cert.pem
+-rw-------. 1 mkandes sdsc   44 Feb 28 09:21 .lesshst
+-rw-r--r--. 1 mkandes sdsc  410 May  2 10:40 ospool.token
+-rw-r--r--. 1 mkandes sdsc 2.7K May  2 11:40 saved_condor_config_before_upgrade.20230502
+-rw-r--r--. 1 mkandes sdsc  236 May  2 12:13 nsgosg.token
+-rw-r--r--. 1 mkandes sdsc 4.1K May  2 14:14 condor_config
+-rw-r--r--. 1 mkandes sdsc   50 May  2 14:18 99-local.conf
+drwxr-sr-x. 2 mkandes sdsc    3 May  2 14:19 .condor
+-rw-------. 1 mkandes sdsc  28K Jul 28 11:00 .bash_history
+-rw-------. 1 mkandes sdsc  16K Aug 17 09:58 .viminfo
+drwxr-sr-x. 7 mkandes sdsc   29 Aug 17 12:39 .
+-rw-r--r--. 1 mkandes sdsc 3.1K Aug 17 12:39 saved_condor_config_before_upgrade.20230817
+[mkandes@nsgosg ~]$ sudo chown -R mkandes:sdsc /tmp/config.d/
+[mkandes@nsgosg ~]$ cp -rp /tmp/config.d/ ./
+[mkandes@nsgosg ~]$ ls -lahtr
+total 2.2M
+-rw-r--r--. 1 mkandes sdsc 3.4K Dec 18  2013 .login
+-rw-r--r--. 1 mkandes sdsc 2.9K Dec 18  2013 .cshrc
+-rw-------. 1 mkandes sdsc 119K May 11  2015 .mysql_history
+drwxr-xr-x. 4 root    root   37 Dec 10  2020 ..
+-rw-r--r--. 1 mkandes sdsc 1.5K Dec 15  2020 bash_pi.sh
+drwxr-sr-x. 6 mkandes sdsc    8 Nov 29  2021 nsg-developer-env
+-rw-r--r--. 1 mkandes sdsc   75 Nov 29  2021 .gitconfig
+drwx--S---. 3 mkandes sdsc    3 Nov 29  2021 .config
+drwxr-sr-x. 2 mkandes sdsc    5 Nov 29  2021 job_work_dir
+-rw-r--r--. 1 mkandes sdsc 3.2K Nov 29  2021 inputfile
+-rw-r--r--. 1 mkandes sdsc  503 Jun  7  2022 .bashrc
+drwx--S---. 2 mkandes sdsc    4 Jun 23  2022 .ssh
+-rw-r--r--. 1 mkandes sdsc  494 Aug  2  2022 bash_pi.htcondor
+-rw-r--r--. 1 mkandes sdsc 2.4K Feb 21 10:59 saved_condor_config_before_upgrade.20230221
+-rwxr-xr-x. 1 mkandes sdsc  42K Feb 21 11:59 .gwms-user-job-wrapper.sh
+-rw-------. 1 mkandes sdsc 1.7K Feb 22 07:56 nsgosg.sdsc.edu-key.pem
+-rw-------. 1 mkandes sdsc 1.1K Feb 22 07:56 nsgosg.sdsc.edu.req
+-rw-r--r--. 1 mkandes sdsc 2.3K Feb 22 13:09 nsgosg.sdsc.edu-cert.pem
+-rw-------. 1 mkandes sdsc   44 Feb 28 09:21 .lesshst
+-rw-r--r--. 1 mkandes sdsc  410 May  2 10:40 ospool.token
+-rw-r--r--. 1 mkandes sdsc 2.7K May  2 11:40 saved_condor_config_before_upgrade.20230502
+-rw-r--r--. 1 mkandes sdsc  236 May  2 12:13 nsgosg.token
+-rw-r--r--. 1 mkandes sdsc 4.1K May  2 14:14 condor_config
+-rw-r--r--. 1 mkandes sdsc   50 May  2 14:18 99-local.conf
+drwxr-sr-x. 2 mkandes sdsc    3 May  2 14:19 .condor
+-rw-------. 1 mkandes sdsc  28K Jul 28 11:00 .bash_history
+-rw-------. 1 mkandes sdsc  16K Aug 17 09:58 .viminfo
+drwxr-xr-x. 2 mkandes sdsc    9 Aug 17 11:15 config.d
+-rw-r--r--. 1 mkandes sdsc 3.1K Aug 17 12:39 saved_condor_config_before_upgrade.20230817
+drwxr-sr-x. 8 mkandes sdsc   30 Aug 17 12:41 .
+[mkandes@nsgosg ~]$
+```
+
