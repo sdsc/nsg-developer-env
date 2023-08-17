@@ -301,3 +301,24 @@ slot1_6@glidein_23644_561893560@C09.cm.cluster                        LINUX     
 slot1_7@glidein_23644_561893560@C09.cm.cluster                        LINUX      X86_64 Claimed    Busy          1.000   2560  0+00:05:55
 [mkandes@nsgosg ~]$
 ```
+First change to attempt a fix is to include the pool password authentication method in the security configuration. Starting from ...
+```
+[mkandes@nsgosg ~]$ cd /etc/condor/config.d/
+[mkandes@nsgosg config.d]$ grep -H SEC *
+01-xcache-reporter-auth.conf:SEC_CLIENT_AUTHENTICATION_METHODS = SSL
+80-osg-flocking.conf:SCHEDD.SEC_CLIENT_AUTHENTICATION = REQUIRED
+80-osg-flocking.conf:SCHEDD.SEC_CLIENT_ENCRYPTION = REQUIRED
+80-osg-flocking.conf:SCHEDD.SEC_DEFAULT_ENCRYPTION = REQUIRED
+99-local.conf:SEC_DEFAULT_AUTHENTICATION_METHODS = FS, IDTOKENS
+[mkandes@nsgosg config.d]$
+```
+... making change to ...
+```
+[mkandes@nsgosg config.d]$ grep -H SEC *
+01-xcache-reporter-auth.conf:SEC_CLIENT_AUTHENTICATION_METHODS = SSL
+80-osg-flocking.conf:SCHEDD.SEC_CLIENT_AUTHENTICATION = REQUIRED
+80-osg-flocking.conf:SCHEDD.SEC_CLIENT_ENCRYPTION = REQUIRED
+80-osg-flocking.conf:SCHEDD.SEC_DEFAULT_ENCRYPTION = REQUIRED
+99-local.conf:SEC_DEFAULT_AUTHENTICATION_METHODS = FS, PASSWORD, IDTOKENS
+[mkandes@nsgosg config.d]$
+```
