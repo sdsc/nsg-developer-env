@@ -730,3 +730,9 @@ Aug 17 11:16:43 nsgosg.sdsc.edu systemd[1]: Started Condor Distributed High-Thro
 08/17/23 11:16:44 TransferQueueManager upload 1m I/O load: 0 bytes/s  0.000 disk load  0.000 net load
 08/17/23 11:16:44 TransferQueueManager download 1m I/O load: 0 bytes/s  0.000 disk load  0.000 net load
 ```
+After running `condor_q` command, this is the authentication error message created in the SchedLog.
+
+```
+08/17/23 11:20:29 DC_AUTHENTICATE: authentication of <132.249.20.215:13975> did not result in a valid mapped user name, which is required for this command (519 QUERY_JOB_ADS_WITH_AUTH), so aborting.
+08/17/23 11:20:29 DC_AUTHENTICATE: reason for authentication failure: AUTHENTICATE:1003:Failed to authenticate with any method
+```
