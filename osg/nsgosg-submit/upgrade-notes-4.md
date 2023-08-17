@@ -478,3 +478,7 @@ ALLOW_WRITE_STARTD = $(ALLOW_WRITE) $(FLOCK_FROM)
  # expanded: nsgosg.sdsc.edu 132.249.20.215  
 [mkandes@nsgosg config.d]$
 ```
+
+Let's go ahead and restart condor with host-based security enabled and make a copy of the daemon logs. We'll then revert back to HTCondor v9.x security model and do the same.
+
+
