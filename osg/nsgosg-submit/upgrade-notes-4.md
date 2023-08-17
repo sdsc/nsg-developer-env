@@ -1449,3 +1449,75 @@ Manually removed the following directories to clean up a bit further.
  1193  sudo rm -rf /var/log/condor/
  1194 sudo rm -rf /var/log/gratia
 ```
+
+Reenable `extras` and `powertools` repos as sugggested here: https://osg-htc.org/docs/common/yum/#rocky-linux-8
+
+```
+[mkandes@nsgosg ~]$ sudo yum-config-manager --enable extras
+[sudo] password for mkandes: 
+Duo two-factor login for mkandes
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-7242
+ 2. SMS passcodes to XXX-XXX-7242
+
+Passcode or option (1-2): 1
+
+Please open Duo Mobile and check for Duo Push requests manually.
+Success. Logging you in...
+[mkandes@nsgosg ~]$ sudo yum-config-manager --enable powertools
+[mkandes@nsgosg ~]$ yum repolist extras
+repo id                                                         repo name                                                                      status
+extras                                                          Rocky Linux 8 - Extras                                                         enabled
+[mkandes@nsgosg ~]$ yum repolist powertools
+repo id                                                        repo name                                                                       status
+powertools                                                     Rocky Linux 8 - PowerTools                                                      enabled
+[mkandes@nsgosg ~]$
+```
+
+And then reinstalling the OSG repo.
+
+```
+[mkandes@nsgosg ~]$ sudo yum install https://repo.opensciencegrid.org/osg/3.6/osg-3.6-el8-release-latest.rpm
+Rocky Linux 8 AppStream                                                                                                88 MB/s |  11 MB     00:00    
+Rocky Linux 8 BaseOS                                                                                                   80 MB/s | 6.0 MB     00:00    
+Rocky Linux 8 extras                                                                                                  581 kB/s |  13 kB     00:00    
+Rocky Linux 8 - Extras                                                                                                 37 kB/s |  13 kB     00:00    
+Rocky Linux 8 - PowerTools                                                                                            2.7 MB/s | 2.7 MB     00:01    
+Duo Security Repository                                                                                                11 kB/s | 2.0 kB     00:00    
+Extra Packages for Enterprise Linux 8 - x86_64                                                                         13 MB/s |  16 MB     00:01    
+osg-3.6-el8-release-latest.rpm                                                                                         66 kB/s |  20 kB     00:00    
+Dependencies resolved.
+======================================================================================================================================================
+ Package                            Architecture                  Version                                   Repository                           Size
+======================================================================================================================================================
+Installing:
+ osg-release                        noarch                        3.6-11.osg36.el8                          @commandline                         20 k
+
+Transaction Summary
+======================================================================================================================================================
+Install  1 Package
+
+Total size: 20 k
+Installed size: 15 k
+Is this ok [y/N]: y
+Downloading Packages:
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                                                              1/1 
+  Installing       : osg-release-3.6-11.osg36.el8.noarch                                                                                          1/1 
+  Verifying        : osg-release-3.6-11.osg36.el8.noarch                                                                                          1/1 
+
+Installed:
+  osg-release-3.6-11.osg36.el8.noarch                                                                                                                 
+
+Complete!
+[mkandes@nsgosg ~]$ yum repolist osg
+repo id                                              repo name                                                                                 status
+osg                                                  OSG Software for Enterprise Linux 8 - x86_64                                              enabled
+[mkandes@nsgosg ~]$
+```
