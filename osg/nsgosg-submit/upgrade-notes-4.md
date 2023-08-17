@@ -456,3 +456,25 @@ The following snippet from the SchedLog is representative of the typical log mes
 08/16/23 21:01:29 IO: Incoming packet is larger than 1MB limit (requested size 17432576) : 03 01 0a 00 00
 08/16/23 21:01:29 DaemonCore: Can't receive command request from 132.249.119.214 (perhaps a timeout?)
 ```
+Hmmm.
+
+```
+[mkandes@nsgosg config.d]$ condor_check_config 
+obsolete ALLOW_WRITE_COLLECTOR ALLOW_WRITE_STARTD :
+    In 8.8 ALLOW_DAEMON_<name> would inherit from ALLOW_WRITE_<name>, but in 9.0 this no
+    longer happens.  You should use
+       condor_config_val -verbose -dump ALLOW_WRITE_
+    To find obsolete uses of ALLOW_WRITE and either delete them, or change them to ALLOW_DAEMON
+
+[mkandes@nsgosg config.d]$ condor_config_val -verbose -dump ALLOW_WRITE_
+# Configuration from machine: nsgosg.sdsc.edu
+
+# Parameters with names that match ALLOW_WRITE_:
+ALLOW_WRITE_COLLECTOR = $(ALLOW_WRITE) $(FLOCK_FROM)
+ # at: /etc/condor/config.d/00-htcondor-9.0.config, line 25, use SECURITY:HOST_BASED+6
+ # expanded: nsgosg.sdsc.edu 132.249.20.215  
+ALLOW_WRITE_STARTD = $(ALLOW_WRITE) $(FLOCK_FROM)
+ # at: /etc/condor/config.d/00-htcondor-9.0.config, line 25, use SECURITY:HOST_BASED+7
+ # expanded: nsgosg.sdsc.edu 132.249.20.215  
+[mkandes@nsgosg config.d]$
+```
