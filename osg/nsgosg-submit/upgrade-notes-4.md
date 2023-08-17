@@ -521,3 +521,50 @@ Let's go ahead and restart condor with host-based security enabled and make a co
 08/17/23 11:02:45 Started DaemonCore process "/usr/sbin/condor_schedd", pid and pgroup = 74755
 08/17/23 11:02:45 Daemons::StartAllDaemons all daemons were started
 ```
+
+`/var/log/condor/SchedLog`
+
+```
+08/17/23 11:02:45 ******************************************************
+08/17/23 11:02:45 ** condor_schedd (CONDOR_SCHEDD) STARTING UP
+08/17/23 11:02:45 ** /usr/sbin/condor_schedd
+08/17/23 11:02:45 ** SubsystemInfo: name=SCHEDD type=SCHEDD(4) class=DAEMON(1)
+08/17/23 11:02:45 ** Configuration: subsystem:SCHEDD local:<NONE> class:DAEMON
+08/17/23 11:02:45 ** $CondorVersion: 10.4.0 2023-04-07 PackageID: 10.4.0-1 $
+08/17/23 11:02:45 ** $CondorPlatform: X86_64-Rocky_8.7 $
+08/17/23 11:02:45 ** PID = 74755
+08/17/23 11:02:45 ** Log last touched 8/17 11:02:43
+08/17/23 11:02:45 ******************************************************
+08/17/23 11:02:45 Using config source: /etc/condor/condor_config
+08/17/23 11:02:45 Using local config sources: 
+08/17/23 11:02:45    /usr/share/condor/config.d/50-gratia-gwms.conf
+08/17/23 11:02:45    /etc/condor/config.d/00-htcondor-9.0.config
+08/17/23 11:02:45    /etc/condor/config.d/01-xcache-reporter-auth.conf
+08/17/23 11:02:45    /etc/condor/config.d/10-stash-plugin.conf
+08/17/23 11:02:45    /etc/condor/config.d/80-osg-flocking.conf
+08/17/23 11:02:45    /etc/condor/config.d/81-osg-flock-version.conf
+08/17/23 11:02:45    /etc/condor/config.d/95-nsg-submit-attrs.conf
+08/17/23 11:02:45    /etc/condor/config.d/99-local.conf
+08/17/23 11:02:45    /etc/condor/condor_config.local
+08/17/23 11:02:45 config Macros = 91, Sorted = 91, StringBytes = 3353, TablesBytes = 3380
+08/17/23 11:02:45 CLASSAD_CACHING is ENABLED
+08/17/23 11:02:45 Daemon Log is logging: D_ALWAYS D_ERROR D_STATUS D_AUDIT
+08/17/23 11:02:45 SharedPortEndpoint: waiting for connections to named socket schedd_74715_da9c
+08/17/23 11:02:45 DaemonCore: command socket at <132.249.20.215:9618?addrs=132.249.20.215-9618&alias=nsgosg.sdsc.edu&noUDP&sock=schedd_74715_da9c>
+08/17/23 11:02:45 DaemonCore: private command socket at <132.249.20.215:9618?addrs=132.249.20.215-9618&alias=nsgosg.sdsc.edu&noUDP&sock=schedd_74715_da9c>
+08/17/23 11:02:45 History file rotation is enabled.
+08/17/23 11:02:45   Maximum history file size is: 20971520 bytes
+08/17/23 11:02:45   Number of rotated history files is: 2
+08/17/23 11:02:45 Logging per-job history files to: /var/lib/condor/gratia/data
+08/17/23 11:02:45 CronJobList: Adding job 'GRATIA'
+08/17/23 11:02:45 CronJob: Initializing job 'GRATIA' (/usr/share/gratia/condor-ap/condor_meter)
+08/17/23 11:02:45 Reloading job factories
+08/17/23 11:02:45 Loaded 0 job factories, 0 were paused, 0 failed to load
+08/17/23 11:02:45 TransferQueueManager stats: active up=0/100 down=0/100; waiting up=0 down=0; wait time up=0s down=0s
+08/17/23 11:02:45 TransferQueueManager upload 1m I/O load: 0 bytes/s  0.000 disk load  0.000 net load
+08/17/23 11:02:45 TransferQueueManager download 1m I/O load: 0 bytes/s  0.000 disk load  0.000 net load
+08/17/23 11:02:47 DC_AUTHENTICATE: required authentication of 128.105.82.84 failed: AUTHENTICATE:1003:Failed to authenticate with any method|AUTHENTICATE:1004:Failed to authenticate using IDTOKENS|AUTHENTICATE:1004:Failed to authenticate using FS|FS:1004:Unable to lstat(/tmp/FS_XXXbONQUN)
+08/17/23 11:02:47 DC_AUTHENTICATE: required authentication of 128.105.82.84 failed: AUTHENTICATE:1003:Failed to authenticate with any method|AUTHENTICATE:1004:Failed to authenticate using IDTOKENS|AUTHENTICATE:1004:Failed to authenticate using FS|FS:1004:Unable to lstat(/tmp/FS_XXXnCLVP8)
+08/17/23 11:02:47 DC_AUTHENTICATE: required authentication of 128.105.82.84 failed: AUTHENTICATE:1003:Failed to authenticate with any method|AUTHENTICATE:1004:Failed to authenticate using IDTOKENS|AUTHENTICATE:1004:Failed to authenticate using FS|FS:1004:Unable to lstat(/tmp/FS_XXXIK0PTa)
+08/17/23 11:03:10 DC_AUTHENTICATE: required authentication of 128.105.244.7 failed: AUTHENTICATE:1003:Failed to authenticate with any method|AUTHENTICATE:1004:Failed to authenticate using IDTOKENS|AUTHENTICATE:1004:Failed to authenticate using FS|FS:1004:Unable to lstat(/tmp/FS_XXXgv28H4)
+```
