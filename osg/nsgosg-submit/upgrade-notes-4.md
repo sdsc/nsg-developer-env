@@ -520,6 +520,10 @@ Let's go ahead and restart condor with host-based security enabled and make a co
 08/17/23 11:02:45 Found /var/lock/condor/shared_port_ad.
 08/17/23 11:02:45 Started DaemonCore process "/usr/sbin/condor_schedd", pid and pgroup = 74755
 08/17/23 11:02:45 Daemons::StartAllDaemons all daemons were started
+08/17/23 11:12:50 condor_write(): Socket closed when trying to write 2232 bytes to collector cm-1.ospool.osg-htc.org, fd is 12
+08/17/23 11:12:50 Buf::write(): condor_write() failed
+08/17/23 11:12:50 condor_write(): Socket closed when trying to write 2232 bytes to collector cm-2.ospool.osg-htc.org, fd is 13
+08/17/23 11:12:50 Buf::write(): condor_write() failed
 ```
 
 `/var/log/condor/SchedLog`
