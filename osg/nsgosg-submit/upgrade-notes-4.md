@@ -787,3 +787,5 @@ drwxr-xr-x. 6 root root 160 May  2 11:52 ..
 drwx------. 2 root root  46 May  2 12:14 .
 [mkandes@nsgosg ~]$
 ```
+
+Still not a fix. 
