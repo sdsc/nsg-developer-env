@@ -1521,3 +1521,144 @@ repo id                                              repo name                  
 osg                                                  OSG Software for Enterprise Linux 8 - x86_64                                              enabled
 [mkandes@nsgosg ~]$
 ```
+
+And then reinstall `osg-flock` rpm.
+
+```
+[mkandes@nsgosg ~]$ sudo yum install osg-flock
+OSG Software for Enterprise Linux 8 - x86_64                                                                          1.5 MB/s | 2.3 MB     00:01    
+Dependencies resolved.
+======================================================================================================================================================
+ Package                                 Architecture            Version                                        Repository                       Size
+======================================================================================================================================================
+Installing:
+ osg-flock                               noarch                  1.9-2.osg36.el8                                osg                              11 k
+Installing dependencies:
+ condor                                  x86_64                  10.0.7-1.osg36.el8                             osg                             7.6 M
+ condor-blahp                            x86_64                  10.0.7-1.osg36.el8                             osg                             371 k
+ condor-classads                         x86_64                  10.0.7-1.osg36.el8                             osg                             308 k
+ condor-procd                            x86_64                  10.0.7-1.osg36.el8                             osg                             177 k
+ condor-stash-plugin                     x86_64                  6.12.1-1.osg36.el8                             osg                             2.2 M
+ gratia-probe-common                     noarch                  2.8.4-1.osg36.el8                              osg                             208 k
+ gratia-probe-condor-ap                  noarch                  2.8.4-1.osg36.el8                              osg                              35 k
+ libcgroup                               x86_64                  0.41-19.el8                                    SDSC-BaseOS                      69 k
+ libicu                                  x86_64                  60.3-2.el8_1                                   SDSC-BaseOS                     8.8 M
+ munge-libs                              x86_64                  0.5.13-2.el8                                   SDSC-AppStream                   29 k
+ net-tools                               x86_64                  2.0-0.52.20160912git.el8                       SDSC-BaseOS                     321 k
+ postfix                                 x86_64                  2:3.5.8-4.el8                                  SDSC-BaseOS                     1.5 M
+ python3-chardet                         noarch                  3.0.4-7.el8                                    SDSC-BaseOS                     194 k
+ python3-condor                          x86_64                  10.0.7-1.osg36.el8                             osg                             806 k
+ python3-idna                            noarch                  2.5-5.el8                                      SDSC-BaseOS                      96 k
+ python3-pysocks                         noarch                  1.6.8-3.el8                                    SDSC-BaseOS                      33 k
+ python3-requests                        noarch                  2.20.0-2.1.el8_1                               SDSC-BaseOS                     122 k
+ python3-urllib3                         noarch                  1.24.2-5.el8                                   SDSC-BaseOS                     176 k
+ scitokens-cpp                           x86_64                  1.0.2-1.el8                                    epel                            158 k
+ voms                                    x86_64                  2.1.0-0.14.rc2.6.osg36.el8                     osg                             167 k
+
+Transaction Summary
+======================================================================================================================================================
+Install  21 Packages
+
+Total download size: 23 M
+Installed size: 74 M
+Is this ok [y/N]:y
+Downloading Packages:
+(1/21): libcgroup-0.41-19.el8.x86_64.rpm                                                                              1.3 MB/s |  69 kB     00:00    
+(2/21): munge-libs-0.5.13-2.el8.x86_64.rpm                                                                            400 kB/s |  29 kB     00:00    
+(3/21): net-tools-2.0-0.52.20160912git.el8.x86_64.rpm                                                                  12 MB/s | 321 kB     00:00    
+(4/21): python3-chardet-3.0.4-7.el8.noarch.rpm                                                                        9.2 MB/s | 194 kB     00:00    
+(5/21): python3-idna-2.5-5.el8.noarch.rpm                                                                             6.7 MB/s |  96 kB     00:00    
+(6/21): postfix-3.5.8-4.el8.x86_64.rpm                                                                                 31 MB/s | 1.5 MB     00:00    
+(7/21): python3-pysocks-1.6.8-3.el8.noarch.rpm                                                                        2.9 MB/s |  33 kB     00:00    
+(8/21): python3-urllib3-1.24.2-5.el8.noarch.rpm                                                                        13 MB/s | 176 kB     00:00    
+(9/21): python3-requests-2.20.0-2.1.el8_1.noarch.rpm                                                                  6.1 MB/s | 122 kB     00:00    
+(10/21): libicu-60.3-2.el8_1.x86_64.rpm                                                                                39 MB/s | 8.8 MB     00:00    
+(11/21): osg-flock-1.9-2.osg36.el8.noarch.rpm                                                                          27 kB/s |  11 kB     00:00    
+(12/21): gratia-probe-condor-ap-2.8.4-1.osg36.el8.noarch.rpm                                                          161 kB/s |  35 kB     00:00    
+(13/21): voms-2.1.0-0.14.rc2.6.osg36.el8.x86_64.rpm                                                                   281 kB/s | 167 kB     00:00    
+(14/21): condor-classads-10.0.7-1.osg36.el8.x86_64.rpm                                                                1.4 MB/s | 308 kB     00:00    
+(15/21): condor-10.0.7-1.osg36.el8.x86_64.rpm                                                                         6.8 MB/s | 7.6 MB     00:01    
+(16/21): condor-stash-plugin-6.12.1-1.osg36.el8.x86_64.rpm                                                            4.2 MB/s | 2.2 MB     00:00    
+(17/21): condor-blahp-10.0.7-1.osg36.el8.x86_64.rpm                                                                   1.6 MB/s | 371 kB     00:00    
+(18/21): python3-condor-10.0.7-1.osg36.el8.x86_64.rpm                                                                 5.1 MB/s | 806 kB     00:00    
+(19/21): gratia-probe-common-2.8.4-1.osg36.el8.noarch.rpm                                                             1.3 MB/s | 208 kB     00:00    
+(20/21): condor-procd-10.0.7-1.osg36.el8.x86_64.rpm                                                                   1.2 MB/s | 177 kB     00:00    
+(21/21): scitokens-cpp-1.0.2-1.el8.x86_64.rpm                                                                         1.3 MB/s | 158 kB     00:00    
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                  11 MB/s |  23 MB     00:02     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                                                              1/1 
+  Installing       : condor-classads-10.0.7-1.osg36.el8.x86_64                                                                                   1/21 
+  Running scriptlet: libcgroup-0.41-19.el8.x86_64                                                                                                2/21 
+  Installing       : libcgroup-0.41-19.el8.x86_64                                                                                                2/21 
+  Running scriptlet: libcgroup-0.41-19.el8.x86_64                                                                                                2/21 
+  Installing       : condor-procd-10.0.7-1.osg36.el8.x86_64                                                                                      3/21 
+  Installing       : scitokens-cpp-1.0.2-1.el8.x86_64                                                                                            4/21 
+  Running scriptlet: gratia-probe-common-2.8.4-1.osg36.el8.noarch                                                                                5/21 
+  Installing       : gratia-probe-common-2.8.4-1.osg36.el8.noarch                                                                                5/21 
+  Installing       : voms-2.1.0-0.14.rc2.6.osg36.el8.x86_64                                                                                      6/21 
+  Installing       : python3-pysocks-1.6.8-3.el8.noarch                                                                                          7/21 
+  Installing       : python3-urllib3-1.24.2-5.el8.noarch                                                                                         8/21 
+  Installing       : python3-idna-2.5-5.el8.noarch                                                                                               9/21 
+  Installing       : python3-chardet-3.0.4-7.el8.noarch                                                                                         10/21 
+  Installing       : python3-requests-2.20.0-2.1.el8_1.noarch                                                                                   11/21 
+  Installing       : net-tools-2.0-0.52.20160912git.el8.x86_64                                                                                  12/21 
+  Running scriptlet: net-tools-2.0-0.52.20160912git.el8.x86_64                                                                                  12/21 
+  Installing       : libicu-60.3-2.el8_1.x86_64                                                                                                 13/21 
+  Running scriptlet: libicu-60.3-2.el8_1.x86_64                                                                                                 13/21 
+  Running scriptlet: postfix-2:3.5.8-4.el8.x86_64                                                                                               14/21 
+  Installing       : postfix-2:3.5.8-4.el8.x86_64                                                                                               14/21 
+  Running scriptlet: postfix-2:3.5.8-4.el8.x86_64                                                                                               14/21 
+  Installing       : munge-libs-0.5.13-2.el8.x86_64                                                                                             15/21 
+  Installing       : condor-stash-plugin-6.12.1-1.osg36.el8.x86_64                                                                              16/21 
+  Installing       : condor-blahp-10.0.7-1.osg36.el8.x86_64                                                                                     17/21 
+  Installing       : python3-condor-10.0.7-1.osg36.el8.x86_64                                                                                   18/21 
+  Running scriptlet: condor-10.0.7-1.osg36.el8.x86_64                                                                                           19/21 
+  Installing       : condor-10.0.7-1.osg36.el8.x86_64                                                                                           19/21 
+  Running scriptlet: condor-10.0.7-1.osg36.el8.x86_64                                                                                           19/21 
+Boolean condor_domain_can_network_connect is not defined
+
+  Installing       : gratia-probe-condor-ap-2.8.4-1.osg36.el8.noarch                                                                            20/21 
+  Running scriptlet: gratia-probe-condor-ap-2.8.4-1.osg36.el8.noarch                                                                            20/21 
+  Installing       : osg-flock-1.9-2.osg36.el8.noarch                                                                                           21/21 
+  Running scriptlet: osg-flock-1.9-2.osg36.el8.noarch                                                                                           21/21 
+  Running scriptlet: voms-2.1.0-0.14.rc2.6.osg36.el8.x86_64                                                                                     21/21 
+  Running scriptlet: osg-flock-1.9-2.osg36.el8.noarch                                                                                           21/21 
+  Verifying        : munge-libs-0.5.13-2.el8.x86_64                                                                                              1/21 
+  Verifying        : libcgroup-0.41-19.el8.x86_64                                                                                                2/21 
+  Verifying        : libicu-60.3-2.el8_1.x86_64                                                                                                  3/21 
+  Verifying        : net-tools-2.0-0.52.20160912git.el8.x86_64                                                                                   4/21 
+  Verifying        : postfix-2:3.5.8-4.el8.x86_64                                                                                                5/21 
+  Verifying        : python3-chardet-3.0.4-7.el8.noarch                                                                                          6/21 
+  Verifying        : python3-idna-2.5-5.el8.noarch                                                                                               7/21 
+  Verifying        : python3-pysocks-1.6.8-3.el8.noarch                                                                                          8/21 
+  Verifying        : python3-requests-2.20.0-2.1.el8_1.noarch                                                                                    9/21 
+  Verifying        : python3-urllib3-1.24.2-5.el8.noarch                                                                                        10/21 
+  Verifying        : osg-flock-1.9-2.osg36.el8.noarch                                                                                           11/21 
+  Verifying        : condor-10.0.7-1.osg36.el8.x86_64                                                                                           12/21 
+  Verifying        : voms-2.1.0-0.14.rc2.6.osg36.el8.x86_64                                                                                     13/21 
+  Verifying        : gratia-probe-condor-ap-2.8.4-1.osg36.el8.noarch                                                                            14/21 
+  Verifying        : condor-stash-plugin-6.12.1-1.osg36.el8.x86_64                                                                              15/21 
+  Verifying        : condor-classads-10.0.7-1.osg36.el8.x86_64                                                                                  16/21 
+  Verifying        : condor-blahp-10.0.7-1.osg36.el8.x86_64                                                                                     17/21 
+  Verifying        : python3-condor-10.0.7-1.osg36.el8.x86_64                                                                                   18/21 
+  Verifying        : gratia-probe-common-2.8.4-1.osg36.el8.noarch                                                                               19/21 
+  Verifying        : condor-procd-10.0.7-1.osg36.el8.x86_64                                                                                     20/21 
+  Verifying        : scitokens-cpp-1.0.2-1.el8.x86_64                                                                                           21/21 
+
+Installed:
+  condor-10.0.7-1.osg36.el8.x86_64                   condor-blahp-10.0.7-1.osg36.el8.x86_64           condor-classads-10.0.7-1.osg36.el8.x86_64      
+  condor-procd-10.0.7-1.osg36.el8.x86_64             condor-stash-plugin-6.12.1-1.osg36.el8.x86_64    gratia-probe-common-2.8.4-1.osg36.el8.noarch   
+  gratia-probe-condor-ap-2.8.4-1.osg36.el8.noarch    libcgroup-0.41-19.el8.x86_64                     libicu-60.3-2.el8_1.x86_64                     
+  munge-libs-0.5.13-2.el8.x86_64                     net-tools-2.0-0.52.20160912git.el8.x86_64        osg-flock-1.9-2.osg36.el8.noarch               
+  postfix-2:3.5.8-4.el8.x86_64                       python3-chardet-3.0.4-7.el8.noarch               python3-condor-10.0.7-1.osg36.el8.x86_64       
+  python3-idna-2.5-5.el8.noarch                      python3-pysocks-1.6.8-3.el8.noarch               python3-requests-2.20.0-2.1.el8_1.noarch       
+  python3-urllib3-1.24.2-5.el8.noarch                scitokens-cpp-1.0.2-1.el8.x86_64                 voms-2.1.0-0.14.rc2.6.osg36.el8.x86_64         
+
+Complete!
+[mkandes@nsgosg ~]$
+```
