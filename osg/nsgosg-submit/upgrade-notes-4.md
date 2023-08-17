@@ -908,3 +908,204 @@ drwxr-sr-x. 8 mkandes sdsc   30 Aug 17 12:41 .
 [mkandes@nsgosg ~]$
 ```
 
+Let's first take an inventory of the repos enabled and packages installed via OSG.
+
+```
+[mkandes@nsgosg ~]$ yum repolist
+repo id                                                    repo name
+SDSC-AppStream                                             Rocky Linux 8 AppStream
+SDSC-BaseOS                                                Rocky Linux 8 BaseOS
+SDSC-extras                                                Rocky Linux 8 extras
+duosecurity                                                Duo Security Repository
+epel                                                       Extra Packages for Enterprise Linux 8 - x86_64
+osg                                                        OSG Software for Enterprise Linux 8 - x86_64
+[mkandes@nsgosg ~]$
+```
+
+```
+[mkandes@nsgosg ~]$ yum list | grep osg
+condor.x86_64                                                     10.4.0-1.osg36up.el8                                       @osg-upcoming  
+condor-blahp.x86_64                                               10.4.0-1.osg36up.el8                                       @osg-upcoming  
+condor-classads.x86_64                                            10.4.0-1.osg36up.el8                                       @osg-upcoming  
+condor-procd.x86_64                                               10.4.0-1.osg36up.el8                                       @osg-upcoming  
+condor-stash-plugin.x86_64                                        6.12.1-1.osg36.el8                                         @osg           
+gratia-probe-common.noarch                                        2.8.4-1.osg36.el8                                          @osg           
+gratia-probe-condor-ap.noarch                                     2.8.4-1.osg36.el8                                          @osg           
+igtf-ca-certs.noarch                                              1.122-1.osg36.el8                                          @osg           
+osg-flock.noarch                                                  1.9-2.osg36.el8                                            @osg           
+osg-pki-tools.noarch                                              3.5.2-1.osg36.el8                                          @osg           
+osg-release.noarch                                                3.6-11.osg36.el8                                           @osg           
+osg-xrootd.noarch                                                 3.6-20.osg36.el8                                           @osg           
+python3-condor.x86_64                                             10.4.0-1.osg36up.el8                                       @osg-upcoming  
+python3-xrootd.x86_64                                             1:5.5.5-1.2.osg36.el8                                      @osg           
+stash-origin.x86_64                                               3.5.0-2.osg36.el8                                          @osg           
+vo-client.noarch                                                  131-1.osg36.el8                                            @osg           
+voms.x86_64                                                       2.1.0-0.14.rc2.6.osg36.el8                                 @osg           
+voms-clients-cpp.x86_64                                           2.1.0-0.14.rc2.6.osg36.el8                                 @osg           
+xcache.x86_64                                                     3.5.0-2.osg36.el8                                          @osg           
+xrootd.x86_64                                                     1:5.5.5-1.2.osg36.el8                                      @osg           
+xrootd-client.x86_64                                              1:5.5.5-1.2.osg36.el8                                      @osg           
+xrootd-client-libs.x86_64                                         1:5.5.5-1.2.osg36.el8                                      @osg           
+xrootd-libs.x86_64                                                1:5.5.5-1.2.osg36.el8                                      @osg           
+xrootd-scitokens.x86_64                                           1:5.5.5-1.2.osg36.el8                                      @osg           
+xrootd-selinux.noarch                                             1:5.5.5-1.2.osg36.el8                                      @osg           
+xrootd-server.x86_64                                              1:5.5.5-1.2.osg36.el8                                      @osg           
+xrootd-server-libs.x86_64                                         1:5.5.5-1.2.osg36.el8                                      @osg           
+xrootd-voms.x86_64                                                1:5.5.5-1.2.osg36.el8                                      @osg           
+atlas-xcache.x86_64                                               3.5.0-2.osg36.el8                                          osg            
+blahp.x86_64                                                      2.2.1-1.osg36.el8                                          osg            
+blahp-debugsource.x86_64                                          2.2.1-1.osg36.el8                                          osg            
+cigetcert.noarch                                                  1.21-1.osg36.el8                                           osg            
+cilogon-openid-ca-cert.noarch                                     1.1-5.osg36.el8                                            osg            
+cms-xcache.x86_64                                                 3.5.0-2.osg36.el8                                          osg            
+condor-all.x86_64                                                 10.0.7-1.osg36.el8                                         osg            
+condor-annex-ec2.x86_64                                           10.0.7-1.osg36.el8                                         osg            
+condor-bosco.x86_64                                               9.0.17-3.osg36.el8                                         osg            
+condor-classads-devel.x86_64                                      10.0.7-1.osg36.el8                                         osg            
+condor-credmon-oauth.x86_64                                       10.0.7-1.osg36.el8                                         osg            
+condor-credmon-vault.x86_64                                       10.0.7-1.osg36.el8                                         osg            
+condor-debugsource.x86_64                                         10.0.7-1.osg36.el8                                         osg            
+condor-devel.x86_64                                               10.0.7-1.osg36.el8                                         osg            
+condor-kbdd.x86_64                                                10.0.7-1.osg36.el8                                         osg            
+condor-test.x86_64                                                10.0.7-1.osg36.el8                                         osg            
+condor-upgrade-checks.x86_64                                      10.0.7-1.osg36.el8                                         osg            
+condor-vm-gahp.x86_64                                             10.0.7-1.osg36.el8                                         osg            
+cvmfs.x86_64                                                      2.10.1-1.2.osg36.el8                                       osg            
+cvmfs-config-osg.noarch                                           2.5-2.osg36.el8                                            osg            
+cvmfs-devel.x86_64                                                2.10.1-1.2.osg36.el8                                       osg            
+cvmfs-ducc.x86_64                                                 2.10.1-1.2.osg36.el8                                       osg            
+cvmfs-fuse3.x86_64                                                2.10.1-1.2.osg36.el8                                       osg            
+cvmfs-gateway.x86_64                                              2.10.1-1.2.osg36.el8                                       osg            
+cvmfs-libs.x86_64                                                 2.10.1-1.2.osg36.el8                                       osg            
+cvmfs-server.x86_64                                               2.10.1-1.2.osg36.el8                                       osg            
+cvmfs-shrinkwrap.x86_64                                           2.10.1-1.2.osg36.el8                                       osg            
+cvmfs-unittests.x86_64                                            2.10.1-1.2.osg36.el8                                       osg            
+cvmfs-x509-helper.x86_64                                          2.2-2.osg36.el8                                            osg            
+cvmfs-x509-helper-debugsource.x86_64                              2.2-2.osg36.el8                                            osg            
+frontier-squid.x86_64                                             11:5.9-1.1.osg36.el8                                       osg            
+glideinwms-common-tools.noarch                                    3.10.1-1.osg36.el8                                         osg            
+glideinwms-condor-common-config.noarch                            3.10.1-1.osg36.el8                                         osg            
+glideinwms-factory.noarch                                         3.10.1-1.osg36.el8                                         osg            
+glideinwms-factory-condor.noarch                                  3.10.1-1.osg36.el8                                         osg            
+glideinwms-factory-core.noarch                                    3.10.1-1.osg36.el8                                         osg            
+glideinwms-factory-httpd.noarch                                   3.10.1-1.osg36.el8                                         osg            
+glideinwms-glidecondor-tools.noarch                               3.10.1-1.osg36.el8                                         osg            
+glideinwms-libs.noarch                                            3.10.1-1.osg36.el8                                         osg            
+glideinwms-minimal-condor.noarch                                  3.10.1-1.osg36.el8                                         osg            
+glideinwms-usercollector.noarch                                   3.10.1-1.osg36.el8                                         osg            
+glideinwms-userschedd.noarch                                      3.10.1-1.osg36.el8                                         osg            
+glideinwms-vofrontend.noarch                                      3.10.1-1.osg36.el8                                         osg            
+glideinwms-vofrontend-core.noarch                                 3.10.1-1.osg36.el8                                         osg            
+glideinwms-vofrontend-glidein.noarch                              3.10.1-1.osg36.el8                                         osg            
+glideinwms-vofrontend-httpd.noarch                                3.10.1-1.osg36.el8                                         osg            
+glideinwms-vofrontend-libs.noarch                                 3.10.1-1.osg36.el8                                         osg            
+glideinwms-vofrontend-standalone.noarch                           3.10.1-1.osg36.el8                                         osg            
+gratia-probe-condor.noarch                                        2.8.4-1.osg36.el8                                          osg            
+gratia-probe-dcache-storagegroup.noarch                           2.8.4-1.osg36.el8                                          osg            
+gratia-probe-dcache-transfer.noarch                               2.8.4-1.osg36.el8                                          osg            
+gratia-probe-enstore-storage.noarch                               2.8.4-1.osg36.el8                                          osg            
+gratia-probe-enstore-tapedrive.noarch                             2.8.4-1.osg36.el8                                          osg            
+gratia-probe-enstore-transfer.noarch                              2.8.4-1.osg36.el8                                          osg            
+gratia-probe-htcondor-ce.noarch                                   2.8.4-1.osg36.el8                                          osg            
+gratia-probe-lsf.noarch                                           2.8.4-1.osg36.el8                                          osg            
+gratia-probe-onevm.noarch                                         2.8.4-1.osg36.el8                                          osg            
+gratia-probe-osg-pilot-container.noarch                           2.8.4-1.osg36.el8                                          osg            
+gratia-probe-pbs-lsf.noarch                                       2.8.4-1.osg36.el8                                          osg            
+gratia-probe-services.noarch                                      2.8.4-1.osg36.el8                                          osg            
+gratia-probe-sge.noarch                                           2.8.4-1.osg36.el8                                          osg            
+gratia-probe-slurm.noarch                                         2.8.4-1.osg36.el8                                          osg            
+gratia-probe-xrootd-transfer.noarch                               2.1.0-1.osg36.el8                                          osg            
+hosted-ce-tools.noarch                                            1.0-4.osg36.el8                                            osg            
+htcondor-ce.noarch                                                6.0.0-1.osg36.el8                                          osg            
+htcondor-ce-bosco.noarch                                          6.0.0-1.osg36.el8                                          osg            
+htcondor-ce-client.noarch                                         6.0.0-1.osg36.el8                                          osg            
+htcondor-ce-collector.noarch                                      6.0.0-1.osg36.el8                                          osg            
+htcondor-ce-condor.noarch                                         6.0.0-1.osg36.el8                                          osg            
+htcondor-ce-lsf.noarch                                            6.0.0-1.osg36.el8                                          osg            
+htcondor-ce-pbs.noarch                                            6.0.0-1.osg36.el8                                          osg            
+htcondor-ce-sge.noarch                                            6.0.0-1.osg36.el8                                          osg            
+htcondor-ce-slurm.noarch                                          6.0.0-1.osg36.el8                                          osg            
+htcondor-ce-view.noarch                                           6.0.0-1.osg36.el8                                          osg            
+htgettoken.x86_64                                                 1.18-1.osg36.el8                                           osg            
+htvault-config.x86_64                                             1.15-1.osg36.el8                                           osg            
+javascriptrrd.noarch                                              1.1.1-1.1.osg36.el8                                        osg            
+liboidc-agent-devel.x86_64                                        4.2.4-1.1.osg36.el8                                        osg            
+liboidc-agent4.x86_64                                             4.2.4-1.1.osg36.el8                                        osg            
+minicondor.x86_64                                                 10.0.7-1.osg36.el8                                         osg            
+oidc-agent.x86_64                                                 4.2.4-1.1.osg36.el8                                        osg            
+oidc-agent-cli.x86_64                                             4.2.4-1.1.osg36.el8                                        osg            
+oidc-agent-debugsource.x86_64                                     4.2.4-1.1.osg36.el8                                        osg            
+oidc-agent-desktop.x86_64                                         4.2.4-1.1.osg36.el8                                        osg            
+osg-ca-certs.noarch                                               1.113-1.osg36.el8                                          osg            
+osg-ca-certs-updater.noarch                                       2.0-1.1.osg36.el8                                          osg            
+osg-ca-scripts.noarch                                             1.2.4-2.osg36.el8                                          osg            
+osg-ce.x86_64                                                     3.6-6.osg36.el8                                            osg            
+osg-ce-attributes-generator.noarch                                4.1.1-1.osg36.el8                                          osg            
+osg-ce-bosco.x86_64                                               3.6-6.osg36.el8                                            osg            
+osg-ce-condor.x86_64                                              3.6-6.osg36.el8                                            osg            
+osg-ce-lsf.x86_64                                                 3.6-6.osg36.el8                                            osg            
+osg-ce-pbs.x86_64                                                 3.6-6.osg36.el8                                            osg            
+osg-ce-sge.x86_64                                                 3.6-6.osg36.el8                                            osg            
+osg-ce-slurm.x86_64                                               3.6-6.osg36.el8                                            osg            
+osg-configure.noarch                                              4.1.1-1.osg36.el8                                          osg            
+osg-configure-bosco.noarch                                        4.1.1-1.osg36.el8                                          osg            
+osg-configure-ce.noarch                                           4.1.1-1.osg36.el8                                          osg            
+osg-configure-cluster.noarch                                      4.1.1-1.osg36.el8                                          osg            
+osg-configure-condor.noarch                                       4.1.1-1.osg36.el8                                          osg            
+osg-configure-gateway.noarch                                      4.1.1-1.osg36.el8                                          osg            
+osg-configure-gip.noarch                                          4.1.1-1.osg36.el8                                          osg            
+osg-configure-gratia.noarch                                       4.1.1-1.osg36.el8                                          osg            
+osg-configure-infoservices.noarch                                 4.1.1-1.osg36.el8                                          osg            
+osg-configure-libs.noarch                                         4.1.1-1.osg36.el8                                          osg            
+osg-configure-lsf.noarch                                          4.1.1-1.osg36.el8                                          osg            
+osg-configure-misc.noarch                                         4.1.1-1.osg36.el8                                          osg            
+osg-configure-pbs.noarch                                          4.1.1-1.osg36.el8                                          osg            
+osg-configure-rsv.noarch                                          4.1.1-1.osg36.el8                                          osg            
+osg-configure-sge.noarch                                          4.1.1-1.osg36.el8                                          osg            
+osg-configure-siteinfo.noarch                                     4.1.1-1.osg36.el8                                          osg            
+osg-configure-slurm.noarch                                        4.1.1-1.osg36.el8                                          osg            
+osg-configure-squid.noarch                                        4.1.1-1.osg36.el8                                          osg            
+osg-configure-tests.noarch                                        4.1.1-1.osg36.el8                                          osg            
+osg-oasis.noarch                                                  19-3.osg36.el8                                             osg            
+osg-scitokens-mapfile.x86_64                                      12-1.osg36.el8                                             osg            
+osg-system-profiler.noarch                                        1.6.0-2.osg36.el8                                          osg            
+osg-system-profiler-viewer.noarch                                 1.6.0-2.osg36.el8                                          osg            
+osg-token-renewer.noarch                                          0.8.3-2.osg36.el8                                          osg            
+osg-update-data.noarch                                            1.4.1-1.osg36.el8                                          osg            
+osg-update-vos.noarch                                             1.4.1-1.osg36.el8                                          osg            
+osg-wn-client.noarch                                              3.6-5.osg36.el8                                            osg            
+osg-xrootd-standalone.noarch                                      3.6-20.osg36.el8                                           osg            
+pegasus.x86_64                                                    5.0.1-1.1.osg36.el8                                        osg            
+pegasus-debugsource.x86_64                                        5.0.1-1.1.osg36.el8                                        osg            
+python3-scitokens.noarch                                          1.7.4-1.osg36.el8                                          osg            
+python3-scitokens-credmon.noarch                                  0.8.1-1.3.osg36.el8                                        osg            
+stash-cache.x86_64                                                3.5.0-2.osg36.el8                                          osg            
+stashcache-client.noarch                                          6.1.0-1.osg36.el8                                          osg            
+stashcp.x86_64                                                    6.12.1-1.osg36.el8                                         osg            
+vault.x86_64                                                      1.13.2-1.osg36.el8                                         osg            
+vo-client-dcache.noarch                                           131-1.osg36.el8                                            osg            
+vo-client-lcmaps-voms.noarch                                      131-1.osg36.el8                                            osg            
+voms-debugsource.x86_64                                           2.1.0-0.14.rc2.6.osg36.el8                                 osg            
+voms-devel.x86_64                                                 2.1.0-0.14.rc2.6.osg36.el8                                 osg            
+voms-doc.noarch                                                   2.1.0-0.14.rc2.6.osg36.el8                                 osg            
+voms-server.x86_64                                                2.1.0-0.14.rc2.6.osg36.el8                                 osg            
+xcache-consistency-check.x86_64                                   3.5.0-2.osg36.el8                                          osg            
+xcache-redirector.x86_64                                          3.5.0-2.osg36.el8                                          osg            
+xrdcl-http.x86_64                                                 1:5.5.5-1.2.osg36.el8                                      osg            
+xrootd-client-compat.x86_64                                       1:5.5.5-1.2.osg36.el8                                      osg            
+xrootd-client-devel.x86_64                                        1:5.5.5-1.2.osg36.el8                                      osg            
+xrootd-debugsource.x86_64                                         1:5.5.5-1.2.osg36.el8                                      osg            
+xrootd-devel.x86_64                                               1:5.5.5-1.2.osg36.el8                                      osg            
+xrootd-doc.noarch                                                 1:5.5.5-1.2.osg36.el8                                      osg            
+xrootd-fuse.x86_64                                                1:5.5.5-1.2.osg36.el8                                      osg            
+xrootd-lcmaps.x86_64                                              99-1.osg36.el8                                             osg            
+xrootd-monitoring-shoveler.x86_64                                 1.1.2-1.osg36.el8                                          osg            
+xrootd-multiuser.x86_64                                           2.1.3-1.3.osg36.el8                                        osg            
+xrootd-multiuser-debugsource.x86_64                               2.1.3-1.3.osg36.el8                                        osg            
+xrootd-private-devel.x86_64                                       1:5.5.5-1.2.osg36.el8                                      osg            
+xrootd-server-compat.x86_64                                       1:5.5.5-1.2.osg36.el8                                      osg            
+xrootd-server-devel.x86_64                                        1:5.5.5-1.2.osg36.el8                                      osg            
+xrootd-tcp-stats.x86_64                                           1.0.0-1.osg36.el8                                          osg            
+xrootd-tcp-stats-debugsource.x86_64                               1.0.0-1.osg36.el8                                          osg            
+[mkandes@nsgosg ~]$
+```
