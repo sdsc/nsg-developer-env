@@ -214,7 +214,7 @@ The following is the previous history that covered my last debugging session wit
 
 ```
 
-Let's start by checking the current OS again. 
+Let's start by checking the current operating system version again. 
 
 ```
 [mkandes@nsgosg ~]$ cat /etc/os-release 
@@ -236,4 +236,41 @@ ROCKY_SUPPORT_PRODUCT_VERSION="8.8"
 REDHAT_SUPPORT_PRODUCT="Rocky Linux"
 REDHAT_SUPPORT_PRODUCT_VERSION="8.8"
 [mkandes@nsgosg ~]$
+```
+
+Then verify the central managers in our configuration are still active.
+
+```
+mkandes@hardtack:~$ nmap -Pn cm-1.ospool.osg-htc.org
+Starting Nmap 7.80 ( https://nmap.org ) at 2023-08-17 09:42 PDT
+Nmap scan report for cm-1.ospool.osg-htc.org (128.104.103.187)
+Host is up (0.33s latency).
+rDNS record for 128.104.103.187: psc-bridges2-ce2.svc.opensciencegrid.org
+Not shown: 997 filtered ports
+PORT     STATE SERVICE
+80/tcp   open  http
+8000/tcp open  http-alt
+9618/tcp open  condor
+
+Nmap done: 1 IP address (1 host up) scanned in 42.08 seconds
+mkandes@hardtack:~$ nmap -Pn cm-2.ospool.osg-htc.org
+Starting Nmap 7.80 ( https://nmap.org ) at 2023-08-17 09:43 PDT
+Nmap scan report for cm-2.ospool.osg-htc.org (192.170.231.10)
+Host is up (0.059s latency).
+Not shown: 989 closed ports
+PORT     STATE    SERVICE
+22/tcp   open     ssh
+80/tcp   open     http
+111/tcp  open     rpcbind
+179/tcp  open     bgp
+646/tcp  filtered ldp
+6839/tcp open     unknown
+6881/tcp open     bittorrent-tracker
+6901/tcp open     jetstream
+8000/tcp open     http-alt
+9100/tcp open     jetdirect
+9618/tcp open     condor
+
+Nmap done: 1 IP address (1 host up) scanned in 2.04 seconds
+mkandes@hardtack:~$
 ```
