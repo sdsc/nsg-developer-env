@@ -481,4 +481,43 @@ ALLOW_WRITE_STARTD = $(ALLOW_WRITE) $(FLOCK_FROM)
 
 Let's go ahead and restart condor with host-based security enabled and make a copy of the daemon logs. We'll then revert back to HTCondor v9.x security model and do the same.
 
+`/var/log/condor/MasterLog`
 
+```
+08/17/23 11:02:43 ******************************************************
+08/17/23 11:02:43 ** condor_master (CONDOR_MASTER) STARTING UP
+08/17/23 11:02:43 ** /usr/sbin/condor_master
+08/17/23 11:02:43 ** SubsystemInfo: name=MASTER type=MASTER(1) class=DAEMON(1)
+08/17/23 11:02:43 ** Configuration: subsystem:MASTER local:<NONE> class:DAEMON
+08/17/23 11:02:43 ** $CondorVersion: 10.4.0 2023-04-07 PackageID: 10.4.0-1 $
+08/17/23 11:02:43 ** $CondorPlatform: X86_64-Rocky_8.7 $
+08/17/23 11:02:43 ** PID = 74715
+08/17/23 11:02:43 ** Log last touched 8/17 11:02:43
+08/17/23 11:02:43 ******************************************************
+08/17/23 11:02:43 Using config source: /etc/condor/condor_config
+08/17/23 11:02:43 Using local config sources: 
+08/17/23 11:02:43    /usr/share/condor/config.d/50-gratia-gwms.conf
+08/17/23 11:02:43    /etc/condor/config.d/00-htcondor-9.0.config
+08/17/23 11:02:43    /etc/condor/config.d/01-xcache-reporter-auth.conf
+08/17/23 11:02:43    /etc/condor/config.d/10-stash-plugin.conf
+08/17/23 11:02:43    /etc/condor/config.d/80-osg-flocking.conf
+08/17/23 11:02:43    /etc/condor/config.d/81-osg-flock-version.conf
+08/17/23 11:02:43    /etc/condor/config.d/95-nsg-submit-attrs.conf
+08/17/23 11:02:43    /etc/condor/config.d/99-local.conf
+08/17/23 11:02:43    /etc/condor/condor_config.local
+08/17/23 11:02:43 config Macros = 90, Sorted = 90, StringBytes = 3306, TablesBytes = 3344
+08/17/23 11:02:43 CLASSAD_CACHING is OFF
+08/17/23 11:02:43 Daemon Log is logging: D_ALWAYS D_ERROR D_STATUS
+08/17/23 11:02:44 SharedPortEndpoint: waiting for connections to named socket master_74715_da9c
+08/17/23 11:02:44 SharedPortEndpoint: failed to open /var/lock/condor/shared_port_ad: No such file or directory
+08/17/23 11:02:44 SharedPortEndpoint: did not successfully find SharedPortServer address. Will retry in 60s.
+08/17/23 11:02:44 DaemonCore: private command socket at <132.249.20.215:0?alias=nsgosg.sdsc.edu&sock=master_74715_da9c>
+08/17/23 11:02:45 Adding SHARED_PORT to DAEMON_LIST, because USE_SHARED_PORT=true (to disable this, set AUTO_INCLUDE_SHARED_PORT_IN_DAEMON_LIST=False)
+08/17/23 11:02:45 Master restart (GRACEFUL) is watching /usr/sbin/condor_master (mtime:1680877544)
+08/17/23 11:02:45 Starting shared port with port: 9618
+08/17/23 11:02:45 Started DaemonCore process "/usr/libexec/condor/condor_shared_port", pid and pgroup = 74754
+08/17/23 11:02:45 Waiting for /var/lock/condor/shared_port_ad to appear.
+08/17/23 11:02:45 Found /var/lock/condor/shared_port_ad.
+08/17/23 11:02:45 Started DaemonCore process "/usr/sbin/condor_schedd", pid and pgroup = 74755
+08/17/23 11:02:45 Daemons::StartAllDaemons all daemons were started
+```
