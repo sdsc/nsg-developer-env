@@ -415,3 +415,44 @@ OK        /etc/condor/tokens.d/nsgosg.token
 There were 1 compatible keys and 0 keys with issues.
 [mkandes@nsgosg config.d]$
 ```
+
+The following snippet from the SchedLog is representative of the typical log messages observed over the past month prior to starting up this debugging work again today.
+
+```
+08/16/23 20:53:14 condor_write(): Socket closed when trying to write 4112 bytes to collector cm-1.ospool.osg-htc.org, fd is 13
+08/16/23 20:53:14 Buf::write(): condor_write() failed
+08/16/23 20:53:14 condor_write(): Socket closed when trying to write 4112 bytes to collector cm-2.ospool.osg-htc.org, fd is 15
+08/16/23 20:53:14 Buf::write(): condor_write() failed
+08/16/23 20:54:23 Number of Active Workers 0
+08/16/23 20:55:55 Number of Active Workers 0
+08/16/23 20:55:55 Number of Active Workers 0
+08/16/23 20:55:55 Number of Active Workers 0
+08/16/23 21:00:42 condor_read(): Socket closed abnormally when trying to read 5 bytes from  in non-blocking mode, errno=104 Connection reset by peer
+08/16/23 21:00:42 DaemonCore: Can't receive command request from  (perhaps a timeout?)
+08/16/23 21:00:42 Received a superuser command
+08/16/23 21:00:42 condor_read(): Socket closed abnormally when trying to read 5 bytes from <132.249.119.214:49074> in non-blocking mode, errno=104 Connection reset by peer
+08/16/23 21:00:42 DaemonCore: Can't receive command request from 132.249.119.214 (perhaps a timeout?)
+08/16/23 21:00:59 Received a superuser command
+08/16/23 21:00:59 DaemonCore: Can't receive command request from 132.249.119.214 (perhaps a timeout?)
+08/16/23 21:01:14 IO: Incoming packet header unrecognized : 47 45 54 20 2f
+08/16/23 21:01:14 DaemonCore: Can't receive command request from 132.249.119.214 (perhaps a timeout?)
+08/16/23 21:01:14 Received a superuser command
+08/16/23 21:01:14 IO: Incoming packet header unrecognized : 47 45 54 20 2f
+08/16/23 21:01:14 DaemonCore: Can't receive command request from 132.249.119.214 (perhaps a timeout?)
+08/16/23 21:01:14 IO: Incoming packet header unrecognized : 49 00 00 00 66
+08/16/23 21:01:14 DaemonCore: Can't receive command request from 132.249.119.214 (perhaps a timeout?)
+08/16/23 21:01:15 Received a superuser command
+08/16/23 21:01:15 IO: Incoming packet header unrecognized : 49 00 00 00 66
+08/16/23 21:01:15 DaemonCore: Can't receive command request from 132.249.119.214 (perhaps a timeout?)
+08/16/23 21:01:15 IO: Incoming packet header unrecognized : 48 45 4c 50 0d
+08/16/23 21:01:15 DaemonCore: Can't receive command request from 132.249.119.214 (perhaps a timeout?)
+08/16/23 21:01:15 Received a superuser command
+08/16/23 21:01:15 IO: Incoming packet header unrecognized : 48 45 4c 50 0d
+08/16/23 21:01:15 DaemonCore: Can't receive command request from 132.249.119.214 (perhaps a timeout?)
+08/16/23 21:01:29 condor_read(): Socket closed abnormally when trying to read 16323 bytes from <132.249.119.214:46874> in non-blocking mode, errno=104 Connection reset by peer
+08/16/23 21:01:29 Buf::read(): condor_read() failed
+08/16/23 21:01:29 IO: Packet read failed: read -2 of 16323
+08/16/23 21:01:29 DaemonCore: Can't receive command request from 132.249.119.214 (perhaps a timeout?)
+08/16/23 21:01:29 IO: Incoming packet is larger than 1MB limit (requested size 17432576) : 03 01 0a 00 00
+08/16/23 21:01:29 DaemonCore: Can't receive command request from 132.249.119.214 (perhaps a timeout?)
+```
