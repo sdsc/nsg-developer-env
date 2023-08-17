@@ -746,3 +746,44 @@ HTCondor now reads files in /etc/condor/tokens.d as root. If you have files in t
 
    # chown -R root:root /etc/condor/tokens.d
 ```
+
+```
+[mkandes@nsgosg ~]$ sudo ls -lahtr /etc/condor/tokens.d
+[sudo] password for mkandes: 
+Duo two-factor login for mkandes
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-7242
+ 2. SMS passcodes to XXX-XXX-7242
+
+Passcode or option (1-2): 1
+
+Please open Duo Mobile and check for Duo Push requests manually.
+Success. Logging you in...
+total 8.0K
+-rw-------. 1 condor condor 410 May  2 10:52 ospool.token
+drwxr-xr-x. 6 root   root   160 May  2 11:52 ..
+-rw-------. 1 condor condor 236 May  2 12:14 nsgosg.token
+drwx------. 2 root   root    46 May  2 12:14 .
+[mkandes@nsgosg ~]$ sudo chown -R root:root /etc/condor/tokens.d
+[sudo] password for mkandes: 
+Duo two-factor login for mkandes
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-7242
+ 2. SMS passcodes to XXX-XXX-7242
+
+Passcode or option (1-2): 1
+
+Please open Duo Mobile and check for Duo Push requests manually.
+Success. Logging you in...
+[mkandes@nsgosg ~]$ sudo ls -lahtr /etc/condor/tokens.d
+total 8.0K
+-rw-------. 1 root root 410 May  2 10:52 ospool.token
+drwxr-xr-x. 6 root root 160 May  2 11:52 ..
+-rw-------. 1 root root 236 May  2 12:14 nsgosg.token
+drwx------. 2 root root  46 May  2 12:14 .
+[mkandes@nsgosg ~]$
+```
