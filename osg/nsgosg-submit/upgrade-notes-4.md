@@ -322,3 +322,29 @@ First change to attempt a fix is to include the pool password authentication met
 99-local.conf:SEC_DEFAULT_AUTHENTICATION_METHODS = FS, PASSWORD, IDTOKENS
 [mkandes@nsgosg config.d]$
 ```
+Authentication still failing.
+```
+[mkandes@nsgosg config.d]$ sudo systemctl restart condor
+[mkandes@nsgosg config.d]$ sudo systemctl status condor
+● condor.service - Condor Distributed High-Throughput-Computing
+   Loaded: loaded (/usr/lib/systemd/system/condor.service; enabled; vendor preset: disabled)
+  Drop-In: /usr/lib/systemd/system/condor.service.d
+           └─osg-env.conf
+   Active: active (running) since Thu 2023-08-17 10:01:30 PDT; 2s ago
+ Main PID: 73762 (condor_master)
+   Status: "All daemons are responding"
+    Tasks: 4 (limit: 4194303)
+   Memory: 8.7M
+   CGroup: /system.slice/condor.service
+           ├─73762 /usr/sbin/condor_master -f
+           ├─73802 condor_procd -A /var/run/condor/procd_pipe -L /var/log/condor/ProcLog -R 1000000 -S 60 -C 992
+           ├─73803 condor_shared_port
+           └─73804 condor_schedd
+
+Aug 17 10:01:30 nsgosg.sdsc.edu systemd[1]: Started Condor Distributed High-Throughput-Computing.
+[mkandes@nsgosg config.d]$ condor_q
+
+-- Failed to fetch ads from: <132.249.20.215:9618?addrs=132.249.20.215-9618&alias=nsgosg.sdsc.edu&noUDP&sock=schedd_73762_2cda> : nsgosg.sdsc.edu
+AUTHENTICATE:1003:Failed to authenticate with any method
+[mkandes@nsgosg config.d]$
+```
