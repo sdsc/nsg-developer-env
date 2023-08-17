@@ -348,3 +348,5 @@ Aug 17 10:01:30 nsgosg.sdsc.edu systemd[1]: Started Condor Distributed High-Thro
 AUTHENTICATE:1003:Failed to authenticate with any method
 [mkandes@nsgosg config.d]$
 ```
+
+Next, let's try reverting to the older default security model prior to HTCondor v9.x. See https://htcondor-wiki.cs.wisc.edu/index.cgi/wiki?p=UpgradingFromEightNineToNineZero. This may help us determine if the issue is the new securrity policies enforced by default after the last upgrade of HTCondor. 
