@@ -604,3 +604,129 @@ Let's go ahead and restart condor with host-based security enabled and make a co
 08/15/23 18:16:03 Buf::write(): condor_write() failed
 08/15/23 18:16:03 condor_history: Failed to write final ad to client
 ```
+
+Moving back to v9.x security model.
+
+```
+[mkandes@nsgosg ~]$ cd /etc/condor/config.d/
+[mkandes@nsgosg config.d]$ sudo vi 00-htcondor-9.0.config 
+[sudo] password for mkandes: 
+Duo two-factor login for mkandes
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-7242
+ 2. SMS passcodes to XXX-XXX-7242
+
+Passcode or option (1-2): 1
+
+Please open Duo Mobile and check for Duo Push requests manually.
+Success. Logging you in...
+[mkandes@nsgosg config.d]$ grep ^use 00-htcondor-9.0.config 
+use security:recommended_v9_0
+[mkandes@nsgosg config.d]$
+```
+
+```
+[mkandes@nsgosg config.d]$ sudo systemctl status condor
+● condor.service - Condor Distributed High-Throughput-Computing
+   Loaded: loaded (/usr/lib/systemd/system/condor.service; enabled; vendor preset: disabled)
+  Drop-In: /usr/lib/systemd/system/condor.service.d
+           └─osg-env.conf
+   Active: active (running) since Thu 2023-08-17 11:16:43 PDT; 28s ago
+ Main PID: 74932 (condor_master)
+   Status: "All daemons are responding"
+    Tasks: 4 (limit: 4194303)
+   Memory: 9.9M
+   CGroup: /system.slice/condor.service
+           ├─74932 /usr/sbin/condor_master -f
+           ├─74972 condor_procd -A /var/run/condor/procd_pipe -L /var/log/condor/ProcLog -R 1000000 -S 60>
+           ├─74973 condor_shared_port
+           └─74974 condor_schedd
+
+Aug 17 11:16:43 nsgosg.sdsc.edu systemd[1]: Started Condor Distributed High-Throughput-Computing.
+```
+
+`/var/log/condor/MasterLog`
+
+```
+08/17/23 11:16:43 ******************************************************
+08/17/23 11:16:43 ** condor_master (CONDOR_MASTER) STARTING UP
+08/17/23 11:16:43 ** /usr/sbin/condor_master
+08/17/23 11:16:43 ** SubsystemInfo: name=MASTER type=MASTER(1) class=DAEMON(1)
+08/17/23 11:16:43 ** Configuration: subsystem:MASTER local:<NONE> class:DAEMON
+08/17/23 11:16:43 ** $CondorVersion: 10.4.0 2023-04-07 PackageID: 10.4.0-1 $
+08/17/23 11:16:43 ** $CondorPlatform: X86_64-Rocky_8.7 $
+08/17/23 11:16:43 ** PID = 74932
+08/17/23 11:16:43 ** Log last touched 8/17 11:16:43
+08/17/23 11:16:43 ******************************************************
+08/17/23 11:16:43 Using config source: /etc/condor/condor_config
+08/17/23 11:16:43 Using local config sources: 
+08/17/23 11:16:43    /usr/share/condor/config.d/50-gratia-gwms.conf
+08/17/23 11:16:43    /etc/condor/config.d/00-htcondor-9.0.config
+08/17/23 11:16:43    /etc/condor/config.d/01-xcache-reporter-auth.conf
+08/17/23 11:16:43    /etc/condor/config.d/10-stash-plugin.conf
+08/17/23 11:16:43    /etc/condor/config.d/80-osg-flocking.conf
+08/17/23 11:16:43    /etc/condor/config.d/81-osg-flock-version.conf
+08/17/23 11:16:43    /etc/condor/config.d/95-nsg-submit-attrs.conf
+08/17/23 11:16:43    /etc/condor/config.d/99-local.conf
+08/17/23 11:16:43    /etc/condor/condor_config.local
+08/17/23 11:16:43 config Macros = 91, Sorted = 91, StringBytes = 3173, TablesBytes = 3380
+08/17/23 11:16:43 CLASSAD_CACHING is OFF
+08/17/23 11:16:43 Daemon Log is logging: D_ALWAYS D_ERROR D_STATUS
+08/17/23 11:16:44 SharedPortEndpoint: waiting for connections to named socket master_74932_b2a9
+08/17/23 11:16:44 SharedPortEndpoint: failed to open /var/lock/condor/shared_port_ad: No such file or directory
+08/17/23 11:16:44 SharedPortEndpoint: did not successfully find SharedPortServer address. Will retry in 60s.
+08/17/23 11:16:44 DaemonCore: private command socket at <132.249.20.215:0?alias=nsgosg.sdsc.edu&sock=master_74932_b2a9>
+08/17/23 11:16:44 Adding SHARED_PORT to DAEMON_LIST, because USE_SHARED_PORT=true (to disable this, set AUTO_INCLUDE_SHARED_PORT_IN_DAEMON_LIST=False)
+08/17/23 11:16:44 Master restart (GRACEFUL) is watching /usr/sbin/condor_master (mtime:1680877544)
+08/17/23 11:16:44 Starting shared port with port: 9618
+08/17/23 11:16:44 Started DaemonCore process "/usr/libexec/condor/condor_shared_port", pid and pgroup = 74973
+08/17/23 11:16:44 Waiting for /var/lock/condor/shared_port_ad to appear.
+08/17/23 11:16:44 Found /var/lock/condor/shared_port_ad.
+08/17/23 11:16:44 Started DaemonCore process "/usr/sbin/condor_schedd", pid and pgroup = 74974
+08/17/23 11:16:44 Daemons::StartAllDaemons all daemons were started
+```
+
+`/var/log/condor/SchedLog`
+
+```
+08/17/23 11:16:44 ******************************************************
+08/17/23 11:16:44 ** condor_schedd (CONDOR_SCHEDD) STARTING UP
+08/17/23 11:16:44 ** /usr/sbin/condor_schedd
+08/17/23 11:16:44 ** SubsystemInfo: name=SCHEDD type=SCHEDD(4) class=DAEMON(1)
+08/17/23 11:16:44 ** Configuration: subsystem:SCHEDD local:<NONE> class:DAEMON
+08/17/23 11:16:44 ** $CondorVersion: 10.4.0 2023-04-07 PackageID: 10.4.0-1 $
+08/17/23 11:16:44 ** $CondorPlatform: X86_64-Rocky_8.7 $
+08/17/23 11:16:44 ** PID = 74974
+08/17/23 11:16:44 ** Log last touched 8/17 11:16:43
+08/17/23 11:16:44 ******************************************************
+08/17/23 11:16:44 Using config source: /etc/condor/condor_config
+08/17/23 11:16:44 Using local config sources: 
+08/17/23 11:16:44    /usr/share/condor/config.d/50-gratia-gwms.conf
+08/17/23 11:16:44    /etc/condor/config.d/00-htcondor-9.0.config
+08/17/23 11:16:44    /etc/condor/config.d/01-xcache-reporter-auth.conf
+08/17/23 11:16:44    /etc/condor/config.d/10-stash-plugin.conf
+08/17/23 11:16:44    /etc/condor/config.d/80-osg-flocking.conf
+08/17/23 11:16:44    /etc/condor/config.d/81-osg-flock-version.conf
+08/17/23 11:16:44    /etc/condor/config.d/95-nsg-submit-attrs.conf
+08/17/23 11:16:44    /etc/condor/config.d/99-local.conf
+08/17/23 11:16:44    /etc/condor/condor_config.local
+08/17/23 11:16:44 config Macros = 92, Sorted = 92, StringBytes = 3219, TablesBytes = 3416
+08/17/23 11:16:44 CLASSAD_CACHING is ENABLED
+08/17/23 11:16:44 Daemon Log is logging: D_ALWAYS D_ERROR D_STATUS D_AUDIT
+08/17/23 11:16:44 SharedPortEndpoint: waiting for connections to named socket schedd_74932_b2a9
+08/17/23 11:16:44 DaemonCore: command socket at <132.249.20.215:9618?addrs=132.249.20.215-9618&alias=nsgosg.sdsc.edu&noUDP&sock=schedd_74932_b2a9>
+08/17/23 11:16:44 DaemonCore: private command socket at <132.249.20.215:9618?addrs=132.249.20.215-9618&alias=nsgosg.sdsc.edu&noUDP&sock=schedd_74932_b2a9>
+08/17/23 11:16:44 History file rotation is enabled.
+08/17/23 11:16:44   Maximum history file size is: 20971520 bytes
+08/17/23 11:16:44   Number of rotated history files is: 2
+08/17/23 11:16:44 Logging per-job history files to: /var/lib/condor/gratia/data
+08/17/23 11:16:44 CronJobList: Adding job 'GRATIA'
+08/17/23 11:16:44 CronJob: Initializing job 'GRATIA' (/usr/share/gratia/condor-ap/condor_meter)
+08/17/23 11:16:44 Reloading job factories
+08/17/23 11:16:44 Loaded 0 job factories, 0 were paused, 0 failed to load
+08/17/23 11:16:44 TransferQueueManager stats: active up=0/100 down=0/100; waiting up=0 down=0; wait time up=0s down=0s
+08/17/23 11:16:44 TransferQueueManager upload 1m I/O load: 0 bytes/s  0.000 disk load  0.000 net load
+08/17/23 11:16:44 TransferQueueManager download 1m I/O load: 0 bytes/s  0.000 disk load  0.000 net load
+```
