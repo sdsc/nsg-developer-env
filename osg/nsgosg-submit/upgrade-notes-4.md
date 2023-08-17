@@ -1679,3 +1679,12 @@ Total for all users: 1000 jobs; 0 completed, 0 removed, 623 idle, 377 running, 0
 
 [mkandes@nsgosg ~]$
 ```
+
+Maybe there's something wrong with newer versions of HTCondor?
+
+```
+[mkandes@nsgosg ~]$ condor_version
+$CondorVersion: 10.0.7 2023-07-28 PackageID: 10.0.7-1 $
+$CondorPlatform: X86_64-Rocky_8.8 $
+[mkandes@nsgosg ~]$
+```
