@@ -111,3 +111,17 @@ tmpfs                                   364M     0  364M   0% /run/user/501506
 qs-nsg.sdsc.edu:/nsg-osdf                91T   47T   45T  51% /mnt/osdf
 [mkandes@nsgosg ~]$
 ```
+
+Okay! Looks good.
+
+```
+[mkandes@nsgosg ~]$ sudo ls -lahtr /mnt/osdf/NSG/PUBLIC
+total 16K
+drwxr-xr-x. 4 xrootd 986 1.0K Jun  9 11:37 ..
+-rw-r--r--. 1 xrootd 986   39 Jun  9 11:41 test-file.txt
+drwxr-xr-x. 2 xrootd 986 1.0K Jun  9 14:21 .
+-rw-r--r--. 1 xrootd 986   39 Jun  9 14:21 test-file-nsg.txt
+[mkandes@nsgosg ~]$
+```
+
+Let's try staging in the ILSVRC2012 dataset ...
