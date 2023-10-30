@@ -125,3 +125,17 @@ drwxr-xr-x. 2 xrootd 986 1.0K Jun  9 14:21 .
 ```
 
 Let's try staging in the ILSVRC2012 dataset ...
+
+2023/10/30
+
+I was unable to stage in the data last week due to permissions issues on the newly mounted `/mnt/osdf/NSG/PUBLIC` directory from the origin. To get around this issue, I'll try and create a new group with GID 986 and then add myself to the group. Please note, however, for whatever reason, this GID 986 does not appear to be the default GID for xrootd.
+
+```
+[mkandes@nsgosg ~]$ cat /etc/passwd | grep xrootd
+xrootd:x:990:296:XRootD runtime user:/var/spool/xrootd:/sbin/nologin
+[mkandes@nsgosg ~]$
+[mkandes@nsgosg ~]$ getent group | grep xrootd
+xrootd:*:296:
+xrootd:x:296:
+[mkandes@nsgosg ~]$
+```
