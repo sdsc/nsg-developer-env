@@ -1,4 +1,4 @@
-2023/10/25
+#2023/10/25
 
 Following Danny Saba's instructions for mounting the nfs share from sdsc rds osdf origin server. Start by checking OS version again, then installing NFS client (and tools) on the nsgosg host.
 
@@ -126,7 +126,7 @@ drwxr-xr-x. 2 xrootd 986 1.0K Jun  9 14:21 .
 
 Let's try staging in the ILSVRC2012 dataset ...
 
-2023/10/30
+#2023/10/30
 
 I was unable to stage in the data last week due to permissions issues on the newly mounted `/mnt/osdf/NSG/PUBLIC` directory from the origin. To get around this issue, I'll try and create a new group with GID 986 and then add myself to the group. Please note, however, for whatever reason, this GID 986 does not appear to be the default GID for xrootd.
 
