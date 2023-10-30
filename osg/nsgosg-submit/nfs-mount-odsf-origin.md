@@ -139,3 +139,23 @@ xrootd:*:296:
 xrootd:x:296:
 [mkandes@nsgosg ~]$
 ```
+
+Creating `nsgosdf` group.
+
+```
+[mkandes@nsgosg ~]$ getent group | grep 986
+[mkandes@nsgosg ~]$ sudo groupadd -g 986 nsgosdf
+[mkandes@nsgosg ~]$ getent group | grep 986
+nsgosdf:x:986:
+[mkandes@nsgosg ~]$
+```
+
+Adding my user to the group ...
+
+```
+[mkandes@nsgosg ~]$ sudo usermod --append --groups nsgosdf mkandes
+Sorry, user mkandes is not allowed to execute '/sbin/usermod --append --groups nsgosdf mkandes' as root on nsgosg.sdsc.edu.
+[mkandes@nsgosg ~]$
+```
+
+Blocked! Ask RDS to modify group affiliation?
