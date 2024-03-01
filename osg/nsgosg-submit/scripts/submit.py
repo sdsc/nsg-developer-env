@@ -138,8 +138,6 @@ def main(argv=None):
 
     if (tooltype == "bash"):
 
-        rfile.writelines(("module purge\n",))
-        rfile.writelines(("module list\n",))
         rfile.writelines(("printenv\n",))
         rfile.writelines(("lscpu\n",))
         fname, interp, args = cmdline[0].split(" ", 2)
@@ -147,8 +145,6 @@ def main(argv=None):
 
     elif (tooltype == "freesurf"):
  
-        rfile.writelines(("module purge\n",))
-        rfile.writelines(("module list\n",))
         rfile.writelines(("printenv\n"))
         rfile.writelines(("lscpu\n",))
         rfile.writelines((". /opt/setup.sh\n",)) # Setup osgvo-neuroimaging environment
@@ -160,97 +156,18 @@ def main(argv=None):
 
     elif (tooltype == "python"):
 
-        if (scheduler_properties['pythonversion'] == "2.7.15"):
-
-            rfile.writelines(("module purge\n",))
-            rfile.writelines(("module load python/2.7.15\n",))
-            rfile.writelines(("module load py-argparse/1.4.0-py2.7\n",))
-            rfile.writelines(("module load py-asn1crypto/0.22.0-py2.7\n",))
-            rfile.writelines(("module load py-bottleneck/1.2.1-py2.7\n",))
-            rfile.writelines(("module load py-cffi/1.11.5-py2.7\n",))
-            rfile.writelines(("module load py-cryptography/2.3.1-py2.7\n",))
-            rfile.writelines(("module load py-cycler/0.10.0-py2.7\n",))
-            rfile.writelines(("module load py-cython/0.29-py2.7\n",))
-            rfile.writelines(("module load py-dateutil/2.5.2-py2.7\n",))
-            rfile.writelines(("module load py-enum34/1.1.6-py2.7\n",))
-            rfile.writelines(("module load py-functools32/3.2.3-2-py2.7\n",))
-            rfile.writelines(("module load py-h5py/2.8.0-py2.7\n",))
-            rfile.writelines(("module load py-idna/2.5-py2.7\n",))
-            rfile.writelines(("module load py-ipaddress/1.0.18-py2.7\n",))
-            rfile.writelines(("module load py-kiwisolver/1.0.1-py2.7\n",))
-            rfile.writelines(("module load py-lit/0.5.0-py2.7\n",))
-            rfile.writelines(("module load py-mako/1.0.4-py2.7\n",))
-            rfile.writelines(("module load py-markupsafe/1.0-py2.7\n",))
-            rfile.writelines(("module load py-matplotlib/2.2.3-py2.7\n",))
-            rfile.writelines(("module load py-nose/1.3.7-py2.7\n",))
-            rfile.writelines(("module load py-numexpr/2.6.5-py2.7\n",))
-            rfile.writelines(("module load py-numpy/1.15.2-py2.7\n",))
-            rfile.writelines(("module load py-pandas/0.23.4-py2.7\n",))
-            rfile.writelines(("module load py-paramiko/2.1.2-py2.7\n",))
-            rfile.writelines(("module load py-pillow/5.1.0-py2.7\n",))
-            rfile.writelines(("module load py-pkgconfig/1.2.2-py2.7\n",))
-            rfile.writelines(("module load py-pyasn1/0.2.3-py2.7\n",))
-            rfile.writelines(("module load py-pycparser/2.18-py2.7\n",))
-            rfile.writelines(("module load py-pyparsing/2.2.0-py2.7\n",))
-            rfile.writelines(("module load py-pytz/2017.2-py2.7\n",))
-            rfile.writelines(("module load py-scikit-learn/0.20.0-py2.7\n",))
-            rfile.writelines(("module load py-scipy/1.1.0-py2.7\n",))
-            rfile.writelines(("module load py-setuptools/40.4.3-py2.7\n",))
-            rfile.writelines(("module load py-six/1.11.0-py2.7\n",))
-            rfile.writelines(("module load py-subprocess32/3.2.7-py2.7\n",))
-            rfile.writelines(("module load pybullet/2.3.5-py2.7\n",))
-            rfile.writelines(("module list\n",))
-            rfile.writelines(("printenv\n",))
-            rfile.writelines(("lscpu\n",))
-            fname, interp, args = cmdline[0].split(" ", 2)
-            rfile.writelines(("time -p python %s %s" % (hocfile,args), "\n"))
-
-        elif (scheduler_properties['pythonversion'] == "3.7.0"):
-
-            rfile.writelines(("module purge\n",))
-            rfile.writelines(("module load python/3.7.0\n",))
-            rfile.writelines(("module load py-asn1crypto/0.22.0-py3.7\n",))
-            rfile.writelines(("module load py-bottleneck/1.2.1-py3.7\n",))
-            rfile.writelines(("module load py-cffi/1.11.5-py3.7\n",))
-            rfile.writelines(("module load py-cryptography/1.8.1-py3.7\n",))
-            rfile.writelines(("module load py-cryptography/2.3.1-py3.7\n",))
-            rfile.writelines(("module load py-cycler/0.10.0-py3.7\n",))
-            rfile.writelines(("module load py-cython/0.29-py3.7\n",))
-            rfile.writelines(("module load py-dateutil/2.5.2-py3.7\n",))
-            rfile.writelines(("module load py-idna/2.5-py3.7\n",))
-            rfile.writelines(("module load py-kiwisolver/1.0.1-py3.7\n",))
-            rfile.writelines(("module load py-matplotlib/3.0.0-py3.7\n",))
-            rfile.writelines(("module load py-numexpr/2.6.5-py3.7\n",))
-            rfile.writelines(("module load py-numpy/1.15.2-py3.7\n",))
-            rfile.writelines(("module load py-pandas/0.23.4-py3.7\n",))
-            rfile.writelines(("module load py-paramiko/2.1.2-py3.7\n",))
-            rfile.writelines(("module load py-pillow/5.1.0-py3.7\n",))
-            rfile.writelines(("module load py-pyasn1/0.2.3-py3.7\n",))
-            rfile.writelines(("module load py-pycparser/2.18-py3.7\n",))
-            rfile.writelines(("module load py-pyparsing/2.2.0-py3.7\n",))
-            rfile.writelines(("module load py-pytz/2017.2-py3.7\n",))
-            rfile.writelines(("module load py-scikit-learn/0.20.0-py3.7\n",))
-            rfile.writelines(("module load py-scipy/1.1.0-py3.7\n",))
-            rfile.writelines(("module load py-setuptools/40.4.3-py3.7\n",))
-            rfile.writelines(("module load py-six/1.11.0-py3.7\n",))
-            rfile.writelines(("module list\n",))
-            rfile.writelines(("printenv\n",))
-            rfile.writelines(("lscpu\n",))
-            fname, interp, args = cmdline[0].split(" ", 2)
-            rfile.writelines(("time -p python3 %s %s" % (hocfile,args), "\n"))
-
-        else:
-
-            rfile.writelines(("module purge\n",))
-            rfile.writelines(("module list\n",))
-            rfile.writelines(("printenv\n",))
-            rfile.writelines(("lscpu\n",))
-            rfile.writelines(("time -p python3 %s %s" % (hocfile,args), "\n"))
+        # OSG is no longer using modules, and the Python environment
+        # comes either from the container image, or if you want to make
+        # a custom environment with for example Conda. For now,
+        # use the environment from Rocky 9:
+        # https://github.com/osg-htc/htc-images/blob/main/htc/rocky%3A9/Dockerfile
+        rfile.writelines(("printenv\n",))
+        rfile.writelines(("lscpu\n",))
+        rfname, interp, args = cmdline[0].split(" ", 2)
+        rfile.writelines(("time -p python3 %s %s" % (hocfile,args), "\n"))
 
     elif (tooltype == "tensorflow"):
 
-        rfile.writelines(("module purge\n",))
-        rfile.writelines(("module list\n",))
         rfile.writelines(("printenv\n",))
         rfile.writelines(("lscpu\n",))
         if (scheduler_info['gpus'] == 1):
@@ -320,16 +237,13 @@ def main(argv=None):
         rfile.writelines(('requirements = '
                           '(Arch == "X86_64") && '
                           '(OpSys == "LINUX") && '
-                          '(OSGVO_OS_STRING == "RHEL 7") && '
-                          '(HAS_MODULES =?= True) && '
-                          '(HAS_SINGULARITY == True) && '
-                          '(CUDACapability >= 3)', '\n'))
+                          '(HAS_SINGULARITY == True)', '\n'))
+        rfile.writelines(('require_gpus = '
+                          '(Capability >= 7.0), '\n'))'
     else:
         rfile.writelines(('requirements = '
                           '(Arch == "X86_64") && '
                           '(OpSys == "LINUX") && '
-                          '(OSGVO_OS_STRING == "RHEL 7") && '
-                          '(HAS_MODULES =?= True) && '
                           '(HAS_SINGULARITY == True)', '\n'))
     rfile.writelines(('input = %s' % (fname), '\n'))
     #rfile.writelines(('transfer_input_files = %s' % (if_there_were_other_input_files), '\n'))
@@ -343,10 +257,10 @@ def main(argv=None):
     rfile.writelines(('notification = Always\n',))
     if (tooltype == "freesurf"):
         rfile.writelines(('+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-freesurfer:latest"', '\n'))
-    elif ((tooltype == "tensorflow") and (scheduler_info['gpus'] == 0)):
-        rfile.writelines(('+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/tensorflow:latest"', '\n'))
-    elif ((tooltype == "tensorflow") and (scheduler_info['gpus'] == 1)):
-        rfile.writelines(('+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/tensorflow-gpu:latest"', '\n'))
+    elif (tooltype == "tensorflow"):
+        rfile.writelines(('+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/htc/tensorflow:2.15"', '\n'))
+    else:
+        rfile.writelines(('+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/htc/rocky:9"', '\n'))
     rfile.writelines(('+ProjectName = "%s"' % (account), '\n'))
     rfile.writelines(('queue 1\n',))
     rfile.close()
